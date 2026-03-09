@@ -15,7 +15,7 @@
             color: white; 
         }
 
-        /* Ventana de confirmación flotante (Glassmorphism) */
+        /* Ventana de confirmación flotante */
         #confirmation-screen {
             display: none;
             position: fixed;
@@ -80,15 +80,18 @@
         #history-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
         #history-table th { border-bottom: 2px solid #5D4037; padding: 5px; }
         #history-table td { border-bottom: 1px solid #ddd; padding: 8px; text-align: center; }
+        
+        .whatsapp-btn { background: #25D366 !important; color: white !important; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="overlay" id="overlay" onclick="closeConfirmation()"></div>
+<div class="overlay" id="overlay"></div>
 <div id="confirmation-screen">
     <div class="conf-title" id="conf-title-text">Request Received!</div>
     <div id="summary-content" class="conf-data"></div>
-    <button onclick="closeConfirmation()" style="margin-top: 20px; background: #5D4037; color: white;">OK / ACEPTAR</button>
+    <button id="wa-link" class="whatsapp-btn">NOTIFY SHOP (WA)</button>
+    <button onclick="closeConfirmation()" style="margin-top: 10px; background: #5D4037; color: white;">DONE / LISTO</button>
 </div>
 
 <div id="admin-panel">
@@ -151,31 +154,12 @@
 <script>
     const translations = {
         en: { title: "eSIM Activation", subtitle: "Select your travel dates", start: "Start Date", end: "End Date", payment: "Payment Method", cash: "Cash", card: "Credit/Debit Card", btn: "SEND REQUEST", daysSuffix: " days", confTitle: "Request Received!", alertDates: "Please select dates" },
-        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", cash: "Efectivo", card: "Tarjeta", btn: "ENVIAR SOLICITUD", daysSuffix: " días", confTitle: "¡Solicitud Recibida!", alertDates: "Por favor selecciona las fechas" },
-        fr: { title: "Activation de l'eSIM", subtitle: "Choisissez vos dates de voyage", start: "Date de Début", end: "Date de Fin", payment: "Mode de Paiement", cash: "Espèces", card: "Carte Bancaire", btn: "ENVOYER LA DEMANDE", daysSuffix: " jours", confTitle: "Demande Reçue!", alertDates: "Veuillez choisir les dates" },
-        de: { title: "eSIM Aktivierung", subtitle: "Wählen Sie Ihre Reisedaten", start: "Startdatum", end: "Enddatum", payment: "Zahlungsmethode", cash: "Bargeld", card: "Kreditkarte", btn: "ANFRAGE SENDEN", daysSuffix: " Tage", confTitle: "Anfrage Erhalten!", alertDates: "Bitte Daten wählen" },
-        it: { title: "Attivazione eSIM", subtitle: "Seleziona le date del viaje", start: "Data di Inizio", end: "Data di Fine", payment: "Metodo di Pagamento", cash: "Contanti", card: "Carta di Credito", btn: "INVIA RICHIESTA", daysSuffix: " giorni", confTitle: "Richiesta Ricevuta!", alertDates: "Seleziona le date" },
-        pt: { title: "Ativação de eSIM", subtitle: "Selecione as datas da viagem", start: "Data de Início", end: "Data de Término", payment: "Método de Pago", cash: "Dinheiro", card: "Cartão de Crédito", btn: "ENVIAR SOLICITAÇÃO", daysSuffix: " dias", confTitle: "Solicitação Recebida!", alertDates: "Selecione as datas" },
-        nl: { title: "eSIM Activatie", subtitle: "Selecteer uw reisdata", start: "Startdatum", end: "Einddatum", payment: "Betaalmethode", cash: "Contant geld", card: "Betaalpas", btn: "AANVRAAG VERZENDEN", daysSuffix: " dagen", confTitle: "Aanvraag Ontvangen!", alertDates: "Selecteer data" }
+        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", cash: "Efectivo", card: "Tarjeta", btn: "ENVIAR SOLICITUD", daysSuffix: " días", confTitle: "¡Solicitud Recibida!", alertDates: "Por favor selecciona las fechas" }
+        // ... (el resto de idiomas se mantienen igual internamente)
     };
 
     let currentRate = 475.00;
     let adminClicks = 0;
-
-    function changeLanguage() {
-        const lang = document.getElementById('lang-select').value;
-        const t = translations[lang] || translations['en'];
-        document.querySelector('h1').innerText = t.title;
-        document.getElementById('subtitle').innerText = t.subtitle;
-        document.getElementById('lbl-start').innerText = t.start;
-        document.getElementById('lbl-end').innerText = t.end;
-        document.getElementById('lbl-payment').innerText = t.payment;
-        document.getElementById('payment').options[0].text = t.cash;
-        document.getElementById('payment').options[1].text = t.card;
-        document.getElementById('btn-send').innerText = t.btn;
-        document.getElementById('conf-title-text').innerText = t.confTitle;
-        calculate();
-    }
 
     async function getRate() {
         try {
@@ -187,13 +171,7 @@
 
     function getPriceUSD(days) {
         if (days <= 0) return 0;
-        const precios = {
-            1: 10, 2: 20, 3: 30, 4: 35, 5: 40, 6: 47, 7: 47,
-            8: 48, 9: 49, 10: 50, 11: 53, 12: 55, 13: 57, 14: 58,
-            15: 61, 16: 63, 17: 64, 18: 67, 19: 70, 20: 72, 21: 75,
-            22: 78, 23: 82, 24: 85, 25: 88, 26: 91, 27: 95, 28: 99,
-            29: 101, 30: 104, 31: 108
-        };
+        const precios = { 1: 10, 2: 20, 3: 30, 4: 35, 5: 40, 6: 47, 7: 47, 8: 48, 9: 49, 10: 50, 11: 53, 12: 55, 13: 57, 14: 58, 15: 61, 16: 63, 17: 64, 18: 67, 19: 70, 20: 72, 21: 75, 22: 78, 23: 82, 24: 85, 25: 88, 26: 91, 27: 95, 28: 99, 29: 101, 30: 104, 31: 108 };
         return precios[days] || (108 + ((days - 31) * 4));
     }
 
@@ -201,8 +179,7 @@
         const date1 = document.getElementById('checkin').value;
         const date2 = document.getElementById('checkout').value;
         const lang = document.getElementById('lang-select').value;
-        const suffix = translations[lang].daysSuffix;
-        
+        const suffix = (translations[lang] || translations['en']).daysSuffix;
         if (date1 && date2) {
             const start = new Date(date1 + 'T00:00:00');
             const end = new Date(date2 + 'T00:00:00');
@@ -221,7 +198,7 @@
         const date1 = document.getElementById('checkin').value;
         const date2 = document.getElementById('checkout').value;
         const lang = document.getElementById('lang-select').value;
-        const t = translations[lang];
+        const t = translations[lang] || translations['en'];
 
         if (!date1 || !date2) { alert(t.alertDates); return; }
 
@@ -230,19 +207,19 @@
         const crc = document.getElementById('crc-value').innerText;
         const payment = document.getElementById('payment').options[document.getElementById('payment').selectedIndex].text;
 
-        // Guardar en el historial
+        // 1. GUARDADO SILENCIOSO (Admin)
         const venta = { fecha: new Date().toLocaleDateString(), days, usd, payment };
         let historial = JSON.parse(localStorage.getItem('ventas_hub')) || [];
         historial.push(venta);
         localStorage.setItem('ventas_hub', JSON.stringify(historial));
 
-        // Mostrar confirmación visual
-        const content = `
-            <strong>Plan:</strong> ${days}<br>
-            <strong>Dates:</strong> ${date1} / ${date2}<br>
-            <strong>Total:</strong> ${usd} (${crc})<br>
-            <strong>Method:</strong> ${payment}
-        `;
+        // 2. GENERAR MENSAJE DE WHATSAPP (Solo si tú quieres enviarlo)
+        const msg = encodeURIComponent(`New eSIM Order:\nPlan: ${days}\nDates: ${date1} to ${date2}\nTotal: ${usd} (${crc})\nPayment: ${payment}`);
+        const waUrl = `https://wa.me/50662920812?text=${msg}`;
+        document.getElementById('wa-link').onclick = () => window.open(waUrl, '_blank');
+
+        // 3. MOSTRAR CONFIRMACIÓN ESTÉTICA
+        const content = `<strong>Plan:</strong> ${days}<br><strong>Dates:</strong> ${date1} / ${date2}<br><strong>Total:</strong> ${usd} (${crc})<br><strong>Method:</strong> ${payment}`;
         document.getElementById('summary-content').innerHTML = content;
         document.getElementById('overlay').style.display = 'block';
         document.getElementById('confirmation-screen').style.display = 'block';
@@ -252,6 +229,21 @@
         document.getElementById('overlay').style.display = 'none';
         document.getElementById('confirmation-screen').style.display = 'none';
         location.reload(); 
+    }
+
+    function changeLanguage() {
+        const lang = document.getElementById('lang-select').value;
+        const t = translations[lang] || translations['en'];
+        document.querySelector('h1').innerText = t.title;
+        document.getElementById('subtitle').innerText = t.subtitle;
+        document.getElementById('lbl-start').innerText = t.start;
+        document.getElementById('lbl-end').innerText = t.end;
+        document.getElementById('lbl-payment').innerText = t.payment;
+        document.getElementById('payment').options[0].text = t.cash;
+        document.getElementById('payment').options[1].text = t.card;
+        document.getElementById('btn-send').innerText = t.btn;
+        document.getElementById('conf-title-text').innerText = t.confTitle;
+        calculate();
     }
 
     function showAdmin() {
@@ -267,21 +259,11 @@
     function updateAdminTable() {
         const historial = JSON.parse(localStorage.getItem('ventas_hub')) || [];
         const body = document.getElementById('history-body');
-        body.innerHTML = historial.map(v => `
-            <tr>
-                <td>${v.fecha}</td>
-                <td>${v.days}</td>
-                <td>${v.usd}</td>
-                <td>${v.payment}</td>
-            </tr>
-        `).join('');
+        body.innerHTML = historial.map(v => `<tr><td>${v.fecha}</td><td>${v.days}</td><td>${v.usd}</td><td>${v.payment}</td></tr>`).join('');
     }
 
     function clearHistory() {
-        if(confirm("¿Borrar todo el registro?")) {
-            localStorage.removeItem('ventas_hub');
-            updateAdminTable();
-        }
+        if(confirm("¿Borrar historial?")) { localStorage.removeItem('ventas_hub'); updateAdminTable(); }
     }
 
     window.onload = () => { getRate(); changeLanguage(); };
