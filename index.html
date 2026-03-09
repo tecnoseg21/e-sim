@@ -6,82 +6,29 @@
     <title>eSIM Global Hub - Reserva</title>
     <style>
         :root { --glass: rgba(255, 255, 255, 0.15); --accent: #00d4ff; }
-        
-        body { 
-            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; 
-            background: url('fondo.jpg') no-repeat center center fixed; 
-            background-size: cover; min-height: 100vh; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            color: white; 
-        }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: url('fondo.jpg') no-repeat center center fixed; background-size: cover; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; }
 
         /* Ventana de confirmación flotante */
-        #confirmation-screen {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.3);
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 99;
-        }
-
+        #confirmation-screen { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 400px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(20px); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(255,255,255,0.3); z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 99; }
         .conf-title { color: var(--accent); font-size: 1.5rem; margin-bottom: 15px; font-weight: bold; }
         .conf-data { font-size: 1.1rem; margin: 10px 0; color: white; line-height: 1.6; text-align: left; }
 
         .container { position: relative; z-index: 2; background: var(--glass); backdrop-filter: blur(15px); border-radius: 20px; padding: 30px; width: 90%; max-width: 500px; text-align: center; border: 1px solid rgba(255,255,255,0.2); margin: 20px; }
-        
         h1 { font-size: 1.8rem; margin-bottom: 5px; cursor: pointer; user-select: none; }
         .input-group { margin: 15px 0; text-align: left; }
-        
-        label { 
-            display: block; font-size: 1rem; margin-bottom: 8px; 
-            color: #5D4037; font-weight: bold; 
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.3); 
-        }
-
-        input, select { 
-            width: 100%; padding: 12px; border-radius: 8px; 
-            border: 2px solid #5D4037; background: rgba(0,0,0,0.4); 
-            color: white; font-size: 1rem; box-sizing: border-box; outline: none;
-        }
-
+        label { display: block; font-size: 1rem; margin-bottom: 8px; color: #5D4037; font-weight: bold; text-shadow: 1px 1px 0px rgba(255,255,255,0.3); }
+        input, select { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #5D4037; background: rgba(0,0,0,0.4); color: white; font-size: 1rem; box-sizing: border-box; outline: none; }
         .result-box { background: rgba(0,0,0,0.6); padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px dashed var(--accent); }
         .total-usd { font-size: 2rem; font-weight: bold; display: block; }
         .total-crc { font-size: 1.2rem; color: var(--accent); }
-        
         button { width: 100%; padding: 15px; border-radius: 10px; border: none; background: var(--accent); color: #000; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #008eb3; transform: scale(1.02); }
 
         .language-selector { position: absolute; top: 20px; right: 20px; z-index: 10; }
-        #lang-select { padding: 8px; border-radius: 5px; border: 1px solid #5D4037; background: rgba(255, 255, 255, 0.8); color: #5D4037; font-weight: bold; cursor: pointer; width: auto; }
+        #lang-select { padding: 8px; border-radius: 5px; border: 1px solid #5D4037; background: rgba(255, 255, 255, 0.8); color: #5D4037; font-weight: bold; cursor: pointer; }
 
-        #admin-panel { 
-            display: none; background: rgba(255, 255, 255, 0.9); color: #3E2723; 
-            padding: 20px; border-radius: 15px; width: 90%; max-width: 500px; 
-            margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        #history-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        #history-table th { border-bottom: 2px solid #5D4037; padding: 5px; }
-        #history-table td { border-bottom: 1px solid #ddd; padding: 8px; text-align: center; }
-        
-        .whatsapp-btn { background: #25D366 !important; color: white !important; margin-top: 10px; }
+        #admin-panel { display: none; background: rgba(255, 255, 255, 0.9); color: #3E2723; padding: 20px; border-radius: 15px; width: 90%; max-width: 500px; margin-bottom: 20px; }
+        #history-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -90,24 +37,16 @@
 <div id="confirmation-screen">
     <div class="conf-title" id="conf-title-text">Request Received!</div>
     <div id="summary-content" class="conf-data"></div>
-    <button id="wa-link" class="whatsapp-btn">NOTIFY SHOP (WA)</button>
-    <button onclick="closeConfirmation()" style="margin-top: 10px; background: #5D4037; color: white;">DONE / LISTO</button>
+    <button onclick="closeConfirmation()" style="margin-top: 20px; background: #5D4037; color: white;">DONE / OK</button>
 </div>
 
 <div id="admin-panel">
     <h3>Registro de Ventas (Admin)</h3>
     <table id="history-table">
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Días</th>
-                <th>USD</th>
-                <th>Pago</th>
-            </tr>
-        </thead>
+        <thead><tr><th>Fecha</th><th>Días</th><th>USD</th><th>Pago</th></tr></thead>
         <tbody id="history-body"></tbody>
     </table>
-    <button onclick="clearHistory()" style="background:#8d6e63; margin-top:10px; padding:8px; color:white;">Limpiar Historial</button>
+    <button onclick="clearHistory()" style="background:#8d6e63; margin-top:10px; color:white;">Borrar Todo</button>
 </div>
 
 <div class="language-selector">
@@ -116,78 +55,40 @@
         <option value="es">Español 🇨🇷</option>
         <option value="fr">Français 🇫🇷</option>
         <option value="de">Deutsch 🇩🇪</option>
-        <option value="it">Italiano 🇮🇹</option>
-        <option value="pt">Português 🇧🇷</option>
-        <option value="nl">Nederlands 🇳🇱</option>
     </select>
 </div>
 
 <div class="container">
     <h1 onclick="showAdmin()">eSIM Activation</h1>
     <p id="subtitle">Select your travel dates</p>
-
-    <div class="input-group">
-        <label id="lbl-start">Start Date</label>
-        <input type="date" id="checkin" onchange="calculate()">
-    </div>
-    <div class="input-group">
-        <label id="lbl-end">End Date</label>
-        <input type="date" id="checkout" onchange="calculate()">
-    </div>
-    <div class="input-group">
-        <label id="lbl-payment">Payment Method</label>
-        <select id="payment">
-            <option value="Cash">Cash</option>
-            <option value="Card">Credit/Debit Card</option>
-        </select>
-    </div>
-
-    <div class="result-box">
-        <span id="days-count">0 days</span>
-        <span class="total-usd" id="usd-value">$0.00</span>
-        <span class="total-crc" id="crc-value">₡0</span>
-    </div>
-
+    <div class="input-group"><label id="lbl-start">Start Date</label><input type="date" id="checkin" onchange="calculate()"></div>
+    <div class="input-group"><label id="lbl-end">End Date</label><input type="date" id="checkout" onchange="calculate()"></div>
+    <div class="input-group"><label id="lbl-payment">Payment Method</label><select id="payment"><option value="Cash">Cash</option><option value="Card">Credit/Debit Card</option></select></div>
+    <div class="result-box"><span id="days-count">0 days</span><span class="total-usd" id="usd-value">$0.00</span><span class="total-crc" id="crc-value">₡0</span></div>
     <button id="btn-send" onclick="sendOrder()">SEND REQUEST</button>
 </div>
 
 <script>
     const translations = {
-        en: { title: "eSIM Activation", subtitle: "Select your travel dates", start: "Start Date", end: "End Date", payment: "Payment Method", cash: "Cash", card: "Credit/Debit Card", btn: "SEND REQUEST", daysSuffix: " days", confTitle: "Request Received!", alertDates: "Please select dates" },
-        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", cash: "Efectivo", card: "Tarjeta", btn: "ENVIAR SOLICITUD", daysSuffix: " días", confTitle: "¡Solicitud Recibida!", alertDates: "Por favor selecciona las fechas" }
-        // ... (el resto de idiomas se mantienen igual internamente)
+        en: { title: "eSIM Activation", subtitle: "Select your travel dates", start: "Start Date", end: "End Date", payment: "Payment Method", cash: "Cash", card: "Card", btn: "SEND REQUEST", daysSuffix: " days", confTitle: "Request Received!" },
+        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", cash: "Efectivo", card: "Tarjeta", btn: "ENVIAR SOLICITUD", daysSuffix: " días", confTitle: "¡Solicitud Recibida!" }
     };
 
     let currentRate = 475.00;
     let adminClicks = 0;
 
-    async function getRate() {
-        try {
-            const res = await fetch('https://open.er-api.com/v6/latest/USD');
-            const data = await res.json();
-            if(data.rates.CRC) currentRate = data.rates.CRC;
-        } catch(e) { console.log("Usando tasa manual"); }
-    }
+    async function getRate() { try { const res = await fetch('https://open.er-api.com/v6/latest/USD'); const data = await res.json(); if(data.rates.CRC) currentRate = data.rates.CRC; } catch(e) { console.log("Manual rate used"); } }
 
-    function getPriceUSD(days) {
-        if (days <= 0) return 0;
-        const precios = { 1: 10, 2: 20, 3: 30, 4: 35, 5: 40, 6: 47, 7: 47, 8: 48, 9: 49, 10: 50, 11: 53, 12: 55, 13: 57, 14: 58, 15: 61, 16: 63, 17: 64, 18: 67, 19: 70, 20: 72, 21: 75, 22: 78, 23: 82, 24: 85, 25: 88, 26: 91, 27: 95, 28: 99, 29: 101, 30: 104, 31: 108 };
-        return precios[days] || (108 + ((days - 31) * 4));
-    }
+    function getPriceUSD(days) { if (days <= 0) return 0; const p = { 1:10, 2:20, 3:30, 4:35, 5:40, 6:47, 7:47, 31:108 }; return p[days] || (days > 31 ? 108 + (days-31)*4 : 47 + (days-7)*3); }
 
     function calculate() {
-        const date1 = document.getElementById('checkin').value;
-        const date2 = document.getElementById('checkout').value;
-        const lang = document.getElementById('lang-select').value;
-        const suffix = (translations[lang] || translations['en']).daysSuffix;
-        if (date1 && date2) {
-            const start = new Date(date1 + 'T00:00:00');
-            const end = new Date(date2 + 'T00:00:00');
+        const d1 = document.getElementById('checkin').value, d2 = document.getElementById('checkout').value, l = document.getElementById('lang-select').value;
+        if (d1 && d2) {
+            const start = new Date(d1+'T00:00:00'), end = new Date(d2+'T00:00:00');
             if (end >= start) {
-                const diffDays = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
-                const usd = getPriceUSD(diffDays);
-                const crc = Math.round(usd * currentRate);
-                document.getElementById('days-count').innerText = diffDays + suffix;
+                const diff = Math.round((end - start) / 86400000) + 1;
+                const usd = getPriceUSD(diff), crc = Math.round(usd * currentRate);
+                document.getElementById('days-count').innerText = diff + translations[l].daysSuffix;
                 document.getElementById('usd-value').innerText = "$" + usd.toFixed(2);
                 document.getElementById('crc-value').innerText = "₡" + crc.toLocaleString('es-CR');
             }
@@ -195,77 +96,34 @@
     }
 
     function sendOrder() {
-        const date1 = document.getElementById('checkin').value;
-        const date2 = document.getElementById('checkout').value;
-        const lang = document.getElementById('lang-select').value;
-        const t = translations[lang] || translations['en'];
+        const d1 = document.getElementById('checkin').value, d2 = document.getElementById('checkout').value;
+        if (!d1 || !d2) { alert("Select dates"); return; }
 
-        if (!date1 || !date2) { alert(t.alertDates); return; }
+        const days = document.getElementById('days-count').innerText, usd = document.getElementById('usd-value').innerText, crc = document.getElementById('crc-value').innerText, pay = document.getElementById('payment').value;
 
-        const days = document.getElementById('days-count').innerText;
-        const usd = document.getElementById('usd-value').innerText;
-        const crc = document.getElementById('crc-value').innerText;
-        const payment = document.getElementById('payment').options[document.getElementById('payment').selectedIndex].text;
+        // --- PROCESO INVISIBLE (Segundo plano) ---
+        fetch("https://formspree.io/f/TU_LINK_DE_FORMSPREE", {
+            method: "POST",
+            body: JSON.stringify({ Fecha: new Date().toLocaleString(), Plan: days, Total: usd, Moneda: crc, Pago: pay }),
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        });
 
-        // 1. GUARDADO SILENCIOSO (Admin)
-        const venta = { fecha: new Date().toLocaleDateString(), days, usd, payment };
-        let historial = JSON.parse(localStorage.getItem('ventas_hub')) || [];
-        historial.push(venta);
-        localStorage.setItem('ventas_hub', JSON.stringify(historial));
+        // Guardado local (Panel secreto)
+        let hist = JSON.parse(localStorage.getItem('ventas_hub')) || [];
+        hist.push({ fecha: new Date().toLocaleDateString(), days, usd, payment: pay });
+        localStorage.setItem('ventas_hub', JSON.stringify(hist));
 
-        // 2. GENERAR MENSAJE DE WHATSAPP (Solo si tú quieres enviarlo)
-        const msg = encodeURIComponent(`New eSIM Order:\nPlan: ${days}\nDates: ${date1} to ${date2}\nTotal: ${usd} (${crc})\nPayment: ${payment}`);
-        const waUrl = `https://wa.me/50662920812?text=${msg}`;
-        document.getElementById('wa-link').onclick = () => window.open(waUrl, '_blank');
-
-        // 3. MOSTRAR CONFIRMACIÓN ESTÉTICA
-        const content = `<strong>Plan:</strong> ${days}<br><strong>Dates:</strong> ${date1} / ${date2}<br><strong>Total:</strong> ${usd} (${crc})<br><strong>Method:</strong> ${payment}`;
-        document.getElementById('summary-content').innerHTML = content;
+        // Mostrar solo la confirmación estética
+        document.getElementById('summary-content').innerHTML = `<strong>Plan:</strong> ${days}<br><strong>Dates:</strong> ${d1} / ${d2}<br><strong>Total:</strong> ${usd} (${crc})<br><strong>Method:</strong> ${pay}`;
         document.getElementById('overlay').style.display = 'block';
         document.getElementById('confirmation-screen').style.display = 'block';
     }
 
-    function closeConfirmation() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('confirmation-screen').style.display = 'none';
-        location.reload(); 
-    }
-
-    function changeLanguage() {
-        const lang = document.getElementById('lang-select').value;
-        const t = translations[lang] || translations['en'];
-        document.querySelector('h1').innerText = t.title;
-        document.getElementById('subtitle').innerText = t.subtitle;
-        document.getElementById('lbl-start').innerText = t.start;
-        document.getElementById('lbl-end').innerText = t.end;
-        document.getElementById('lbl-payment').innerText = t.payment;
-        document.getElementById('payment').options[0].text = t.cash;
-        document.getElementById('payment').options[1].text = t.card;
-        document.getElementById('btn-send').innerText = t.btn;
-        document.getElementById('conf-title-text').innerText = t.confTitle;
-        calculate();
-    }
-
-    function showAdmin() {
-        adminClicks++;
-        if(adminClicks >= 5) {
-            const panel = document.getElementById('admin-panel');
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-            updateAdminTable();
-            adminClicks = 0;
-        }
-    }
-
-    function updateAdminTable() {
-        const historial = JSON.parse(localStorage.getItem('ventas_hub')) || [];
-        const body = document.getElementById('history-body');
-        body.innerHTML = historial.map(v => `<tr><td>${v.fecha}</td><td>${v.days}</td><td>${v.usd}</td><td>${v.payment}</td></tr>`).join('');
-    }
-
-    function clearHistory() {
-        if(confirm("¿Borrar historial?")) { localStorage.removeItem('ventas_hub'); updateAdminTable(); }
-    }
-
+    function closeConfirmation() { location.reload(); }
+    function showAdmin() { adminClicks++; if(adminClicks >= 5) { document.getElementById('admin-panel').style.display = 'block'; updateAdminTable(); adminClicks = 0; } }
+    function updateAdminTable() { const h = JSON.parse(localStorage.getItem('ventas_hub')) || []; document.getElementById('history-body').innerHTML = h.map(v => `<tr><td>${v.fecha}</td><td>${v.days}</td><td>${v.usd}</td><td>${v.payment}</td></tr>`).join(''); }
+    function clearHistory() { if(confirm("¿Borrar?")) { localStorage.removeItem('ventas_hub'); updateAdminTable(); } }
+    function changeLanguage() { const l = document.getElementById('lang-select').value; const t = translations[l] || translations['en']; document.querySelector('h1').innerText = t.title; document.getElementById('subtitle').innerText = t.subtitle; document.getElementById('lbl-start').innerText = t.start; document.getElementById('lbl-end').innerText = t.end; document.getElementById('btn-send').innerText = t.btn; calculate(); }
     window.onload = () => { getRate(); changeLanguage(); };
 </script>
 </body>
