@@ -2,6 +2,239 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>eSIM Global Hub - Monteverde</title>
+    <style>
+        :root { --glass: rgba(255, 255, 255, 0.12); --accent: #00d4ff; --dark: #1a1a1a; }
+        
+        body { 
+            margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; 
+            background: url('fondo.jpg') no-repeat center center fixed; 
+            background-size: cover; min-height: 100vh; 
+            display: flex; flex-direction: column; align-items: center; 
+            color: white; overflow-x: hidden;
+        }
+
+        .container { 
+            position: relative; z-index: 2; 
+            background: var(--glass); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px; 
+            padding: 25px; width: 92%; max-width: 450px; 
+            text-align: center; border: 1px solid rgba(255,255,255,0.2); 
+            margin: 20px auto; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-size: 1.6rem; margin-bottom: 5px; cursor: pointer; user-select: none; }
+        #subtitle { font-size: 0.9rem; margin-bottom: 20px; opacity: 0.9; }
+
+        .input-group { margin: 18px 0; text-align: left; }
+        label { display: block; font-size: 0.9rem; margin-bottom: 8px; font-weight: 600; color: #eee; }
+
+        input, select { 
+            width: 100%; height: 50px; 
+            padding: 0 15px; border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.6); 
+            color: white; font-size: 1rem; box-sizing: border-box; outline: none;
+            appearance: none; -webkit-appearance: none;
+        }
+
+        .result-box { 
+            background: rgba(0,0,0,0.7); padding: 15px; border-radius: 15px; 
+            margin: 25px 0; border: 1px solid var(--accent); 
+        }
+        #days-count { font-size: 0.9rem; color: var(--accent); display: block; margin-bottom: 5px; }
+        .total-usd { font-size: 2.4rem; font-weight: 800; display: block; }
+        .total-crc { font-size: 1.1rem; opacity: 0.8; }
+        
+        #btn-send { 
+            width: 100%; height: 60px; border-radius: 14px; border: none; 
+            background: var(--accent); color: #000; font-weight: bold; 
+            font-size: 1.2rem; cursor: pointer; transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,212,255,0.3);
+        }
+        #btn-send:active { transform: scale(0.96); }
+
+        #confirmation-screen {
+            display: none; position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 88%; max-width: 380px;
+            background: rgba(30, 30, 30, 0.95); backdrop-filter: blur(25px);
+            border-radius: 28px; padding: 30px; text-align: center;
+            border: 1px solid var(--accent); z-index: 1000;
+        }
+
+        .overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 999;
+        }
+
+        .language-selector { position: absolute; top: 15px; right: 15px; z-index: 10; }
+        #lang-select { 
+            height: 35px; width: auto; padding: 0 10px; font-size: 0.8rem; 
+            background: rgba(255,255,255,0.9); color: #333; border-radius: 8px;
+        }
+
+        #admin-panel { 
+            display: none; background: white; color: #333; 
+            padding: 20px; border-radius: 20px; width: 92%; max-width: 450px; 
+            margin: 10px; overflow-x: auto;
+        }
+        table { width: 100%; font-size: 0.8rem; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #eee; }
+
+        @media (max-height: 700px) {
+            .container { margin: 10px auto; padding: 15px; }
+            h1 { font-size: 1.3rem; }
+            .input-group { margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+<div id="confirmation-screen">
+    <div style="color: var(--accent); font-size: 1.4rem; font-weight: bold; margin-bottom: 20px;" id="conf-title">Request Received!</div>
+    <div id="summary-content" style="text-align: left; margin-bottom: 25px; font-size: 1rem; line-height: 1.8;"></div>
+    <button onclick="closeConfirmation()" style="background: white; color: black; height: 50px; width: 100%; border-radius: 12px; font-weight: bold; border: none;">OK / LISTO</button>
+</div>
+
+<div id="admin-panel">
+    <h3 style="margin: 0 0 15px 0;">Historial Local</h3>
+    <table>
+        <thead><tr><th>Fecha</th><th>Plan</th><th>USD</th><th>Pago</th></tr></thead>
+        <tbody id="history-body"></tbody>
+    </table>
+    <button onclick="clearHistory()" style="background:#ff4444; color:white; margin-top:15px; width: 100%; height: 40px; border-radius: 10px; border: none;">Borrar Datos</button>
+</div>
+
+<div class="language-selector">
+    <select id="lang-select" onchange="changeLanguage()">
+        <option value="en">English 🇺🇸</option>
+        <option value="es">Español 🇨🇷</option>
+        <option value="fr">Français 🇫🇷</option>
+        <option value="de">Deutsch 🇩🇪</option>
+        <option value="nl">Nederlands 🇳🇱</option>
+        <option value="pt">Português 🇧🇷</option>
+    </select>
+</div>
+
+<div class="container">
+    <h1 onclick="showAdmin()">eSIM Activation</h1>
+    <p id="subtitle">Select your travel dates</p>
+
+    <div class="input-group">
+        <label id="lbl-start">Start Date</label>
+        <input type="date" id="checkin" onchange="calculate()">
+    </div>
+    <div class="input-group">
+        <label id="lbl-end">End Date</label>
+        <input type="date" id="checkout" onchange="calculate()">
+    </div>
+    <div class="input-group">
+        <label id="lbl-payment">Payment Method</label>
+        <select id="payment">
+            <option value="Cash">Cash / Efectivo</option>
+            <option value="Card">Card / Tarjeta</option>
+        </select>
+    </div>
+
+    <div class="result-box">
+        <span id="days-count">0 days</span>
+        <span class="total-usd" id="usd-value">$0.00</span>
+        <span class="total-crc" id="crc-value">₡0</span>
+    </div>
+
+    <button id="btn-send" onclick="sendOrder()">SEND REQUEST</button>
+</div>
+
+<script>
+    const translations = {
+        en: { title: "eSIM Activation", subtitle: "Select your travel dates", start: "Start Date", end: "End Date", payment: "Payment Method", btn: "SEND REQUEST", daysSuffix: " days", confTitle: "Request Received!" },
+        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", btn: "ENVIAR SOLICITUD", daysSuffix: " días", confTitle: "¡Solicitud Recibida!" },
+        fr: { title: "Activation eSIM", subtitle: "Sélectionnez vos dates", start: "Date de début", end: "Date de fin", payment: "Mode de paiement", btn: "ENVOYER", daysSuffix: " jours", confTitle: "Demande Reçue!" },
+        de: { title: "eSIM Aktivierung", subtitle: "Reisedaten wählen", start: "Startdatum", end: "Enddatum", payment: "Zahlungsmethode", btn: "ANFRAGE SENDEN", daysSuffix: " Tage", confTitle: "Anfrage erhalten!" },
+        nl: { title: "eSIM Activering", subtitle: "Selecteer reisdata", start: "Startdatum", end: "Einddatum", payment: "Betalingsmethode", btn: "VERZOEK VERZENDEN", daysSuffix: " dagen", confTitle: "Aanvraag ontvangen!" },
+        pt: { title: "Ativação de eSIM", subtitle: "Selecione as datas", start: "Data de início", end: "Data de término", payment: "Método de pagamento", btn: "ENVIAR PEDIDO", daysSuffix: " dias", confTitle: "Pedido Recebido!" }
+    };
+
+    let currentRate = 510;
+    let adminClicks = 0;
+
+    async function getRate() {
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest/USD');
+            const data = await res.json();
+            if(data.rates.CRC) currentRate = data.rates.CRC;
+        } catch(e) { console.log("Rate error"); }
+    }
+
+    function getPriceUSD(days) {
+        if (days <= 0) return 0;
+        const p = { 1: 10, 2: 20, 3: 30, 4: 35, 5: 40, 6: 47, 7: 47, 15: 61, 30: 104 };
+        if (p[days]) return p[days];
+        if (days < 7) return 10 + (days-1)*10;
+        if (days < 31) return 47 + (days-7)*2.5;
+        return 104 + (days-30)*4;
+    }
+
+    function calculate() {
+        const d1 = document.getElementById('checkin').value, d2 = document.getElementById('checkout').value, l = document.getElementById('lang-select').value;
+        if (d1 && d2) {
+            const start = new Date(d1 + 'T00:00:00'), end = new Date(d2 + 'T00:00:00');
+            if (end >= start) {
+                const diff = Math.round((end - start) / 86400000) + 1;
+                const usd = getPriceUSD(diff), crc = Math.round(usd * currentRate);
+                document.getElementById('days-count').innerText = diff + translations[l].daysSuffix;
+                document.getElementById('usd-value').innerText = "$" + usd.toFixed(2);
+                document.getElementById('crc-value').innerText = "₡" + crc.toLocaleString('es-CR');
+            }
+        }
+    }
+
+    function sendOrder() {
+        const d1 = document.getElementById('checkin').value, d2 = document.getElementById('checkout').value;
+        if (!d1 || !d2) return;
+        const days = document.getElementById('days-count').innerText, usd = document.getElementById('usd-value').innerText, crc = document.getElementById('crc-value').innerText, pay = document.getElementById('payment').value;
+
+        fetch("https://formspree.io/f/mbdzdqrp", {
+            method: "POST",
+            body: JSON.stringify({ Tienda: "Monteverde", Plan: days, Total: usd, CRC: crc, Pago: pay, Inicio: d1, Fin: d2 }),
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        });
+
+        let hist = JSON.parse(localStorage.getItem('ventas_hub')) || [];
+        hist.push({ fecha: new Date().toLocaleDateString(), days, usd, payment: pay });
+        localStorage.setItem('ventas_hub', JSON.stringify(hist));
+
+        document.getElementById('summary-content').innerHTML = `<strong>Plan:</strong> ${days}<br><strong>Total:</strong> ${usd} (${crc})<br><strong>Payment:</strong> ${pay}<br><strong>Dates:</strong> ${d1} to ${d2}`;
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('confirmation-screen').style.display = 'block';
+    }
+
+    function closeConfirmation() { location.reload(); }
+    function showAdmin() { adminClicks++; if(adminClicks >= 5) { document.getElementById('admin-panel').style.display = 'block'; updateAdminTable(); adminClicks = 0; } }
+    function updateAdminTable() { const h = JSON.parse(localStorage.getItem('ventas_hub')) || []; document.getElementById('history-body').innerHTML = h.map(v => `<tr><td>${v.fecha}</td><td>${v.days}</td><td>${v.usd}</td><td>${v.payment}</td></tr>`).join(''); }
+    function clearHistory() { if(confirm("¿Borrar?")) { localStorage.removeItem('ventas_hub'); updateAdminTable(); } }
+    function changeLanguage() {
+        const l = document.getElementById('lang-select').value, t = translations[l] || translations['en'];
+        document.querySelector('h1').innerText = t.title;
+        document.getElementById('subtitle').innerText = t.subtitle;
+        document.getElementById('lbl-start').innerText = t.start;
+        document.getElementById('lbl-end').innerText = t.end;
+        document.getElementById('lbl-payment').innerText = t.payment;
+        document.getElementById('btn-send').innerText = t.btn;
+        document.getElementById('conf-title').innerText = t.confTitle;
+        calculate();
+    }
+    window.onload = () => { getRate(); changeLanguage(); };
+</script>
+</body>
+</html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>eSIM Global Hub - Monteverde</title>
     <style>
