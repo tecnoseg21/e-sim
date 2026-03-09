@@ -15,7 +15,6 @@
             color: white; overflow-x: hidden;
         }
 
-        /* Contenedor Principal Adaptable */
         .container { 
             position: relative; z-index: 2; 
             background: var(--glass); 
@@ -29,19 +28,17 @@
         h1 { font-size: 1.6rem; margin-bottom: 5px; cursor: pointer; user-select: none; }
         #subtitle { font-size: 0.9rem; margin-bottom: 20px; opacity: 0.9; }
 
-        /* Optimización de Inputs para Táctil */
         .input-group { margin: 18px 0; text-align: left; }
         label { display: block; font-size: 0.9rem; margin-bottom: 8px; font-weight: 600; color: #eee; }
 
         input, select { 
-            width: 100%; height: 50px; /* Altura ideal para dedos */
+            width: 100%; height: 50px; 
             padding: 0 15px; border-radius: 12px; 
             border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.6); 
             color: white; font-size: 1rem; box-sizing: border-box; outline: none;
-            appearance: none; -webkit-appearance: none; /* Quitar estilos nativos */
+            appearance: none; -webkit-appearance: none;
         }
 
-        /* Caja de Resultados */
         .result-box { 
             background: rgba(0,0,0,0.7); padding: 15px; border-radius: 15px; 
             margin: 25px 0; border: 1px solid var(--accent); 
@@ -50,7 +47,6 @@
         .total-usd { font-size: 2.4rem; font-weight: 800; display: block; }
         .total-crc { font-size: 1.1rem; opacity: 0.8; }
         
-        /* Botón Principal Grande */
         #btn-send { 
             width: 100%; height: 60px; border-radius: 14px; border: none; 
             background: var(--accent); color: #000; font-weight: bold; 
@@ -59,7 +55,6 @@
         }
         #btn-send:active { transform: scale(0.96); }
 
-        /* Pantalla de Confirmación Optimizada */
         #confirmation-screen {
             display: none; position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
@@ -74,14 +69,12 @@
             background: rgba(0,0,0,0.8); z-index: 999;
         }
 
-        /* Selector de idiomas flotante */
         .language-selector { position: absolute; top: 15px; right: 15px; z-index: 10; }
         #lang-select { 
             height: 35px; width: auto; padding: 0 10px; font-size: 0.8rem; 
             background: rgba(255,255,255,0.9); color: #333; border-radius: 8px;
         }
 
-        /* Panel Admin */
         #admin-panel { 
             display: none; background: white; color: #333; 
             padding: 20px; border-radius: 20px; width: 92%; max-width: 450px; 
@@ -120,6 +113,9 @@
         <option value="en">English 🇺🇸</option>
         <option value="es">Español 🇨🇷</option>
         <option value="fr">Français 🇫🇷</option>
+        <option value="de">Deutsch 🇩🇪</option>
+        <option value="nl">Nederlands 🇳🇱</option>
+        <option value="pt">Português 🇧🇷</option>
     </select>
 </div>
 
@@ -155,7 +151,11 @@
 <script>
     const translations = {
         en: { title: "eSIM Activation", subtitle: "Select your travel dates", start: "Start Date", end: "End Date", payment: "Payment Method", btn: "SEND REQUEST", daysSuffix: " days", confTitle: "Request Received!" },
-        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", btn: "ENVIAR SOLICITUD", daysSuffix: " días", confTitle: "¡Solicitud Recibida!" }
+        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", btn: "ENVIAR SOLICITUD", daysSuffix: " días", confTitle: "¡Solicitud Recibida!" },
+        fr: { title: "Activation eSIM", subtitle: "Sélectionnez vos dates", start: "Date de début", end: "Date de fin", payment: "Mode de paiement", btn: "ENVOYER", daysSuffix: " jours", confTitle: "Demande Reçue!" },
+        de: { title: "eSIM Aktivierung", subtitle: "Reisedaten wählen", start: "Startdatum", end: "Enddatum", payment: "Zahlungsmethode", btn: "ANFRAGE SENDEN", daysSuffix: " Tage", confTitle: "Anfrage erhalten!" },
+        nl: { title: "eSIM Activering", subtitle: "Selecteer reisdata", start: "Startdatum", end: "Einddatum", payment: "Betalingsmethode", btn: "VERZOEK VERZENDEN", daysSuffix: " dagen", confTitle: "Aanvraag ontvangen!" },
+        pt: { title: "Ativação de eSIM", subtitle: "Selecione as datas", start: "Data de início", end: "Data de término", payment: "Método de pagamento", btn: "ENVIAR PEDIDO", daysSuffix: " dias", confTitle: "Pedido Recebido!" }
     };
 
     let currentRate = 510;
