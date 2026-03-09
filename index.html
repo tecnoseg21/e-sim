@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSIM Global Hub - Reserva</title>
+    <style>
+        :root { --glass: rgba(255, 255, 255, 0.15); --accent: #00d4ff; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: url('fondo.jpg') no-repeat center center fixed; background-size: cover; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; }
+        
+        .container { position: relative; z-index: 2; background: var(--glass); backdrop-filter: blur(15px); border-radius: 20px; padding: 30px; width: 90%; max-width: 500px; text-align: center; border: 1px solid rgba(255,255,255,0.2); margin: 20px; }
+        
+        h1 { font-size: 1.8rem; margin-bottom: 5px; cursor: pointer; user-select: none; }
+        .input-group { margin: 15px 0; text-align: left; }
+        
+        label { 
+            display: block; 
+            font-size: 1rem; 
+            margin-bottom: 8px; 
+            color: #5D4037; /* Café tierra profundo */
+            font-weight: bold; 
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.3); 
+        }
+
+        input, select { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 8px; 
+            border: 2px solid #5D4037; /* Borde café combinado */
+            background: rgba(0,0,0,0.4); 
+            color: white; 
+            font-size: 1rem; 
+            box-sizing: border-box; 
+            outline: none;
+        }
+
+        .result-box { background: rgba(0,0,0,0.6); padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px dashed var(--accent); }
+        .total-usd { font-size: 2rem; font-weight: bold; display: block; }
+        .total-crc { font-size: 1.2rem; color: var(--accent); }
+        
+        button { width: 100%; padding: 15px; border-radius: 10px; border: none; background: var(--accent); color: #000; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #008eb3; transform: scale(1.02); }
+
+        .language-selector { position: absolute; top: 20px; right: 20px; z-index: 10; }
+        #lang-select { padding: 8px; border-radius: 5px; border: 1px solid #5D4037; background: rgba(255, 255, 255, 0.8); color: #5D4037; font-weight: bold; cursor: pointer; width: auto; }
+
+        /* Panel de Admin Oculto */
+        #admin-panel { 
+            display: none; 
+            background: rgba(255, 255, 255, 0.9); 
+            color: #3E2723; 
+            padding: 20px; 
+            border-radius: 15px; 
+            width: 90%; 
+            max-width: 500px; 
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #history-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        #history-table th { border-bottom: 2px solid #5D4037; padding: 5px; }
+        #history-table td { border-bottom: 1px solid #ddd; padding: 8px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div id="admin-panel">
+    <h3>Registro de Ventas (Admin)</h3>
+    <table id="history-table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Días</th>
+                <th>USD</th>
+                <th>Pago</th>
+            </tr>
+        </thead>
+        <tbody id="history-body"></tbody>
+    </table>
+    <button onclick="clearHistory()" style="background:#8d6e63; margin-top:10px; padding:8px; color:white;">Limpiar Historial</button>
+</div>
+
+<div class="language-selector">
+    <select id="lang-select" onchange="changeLanguage()">
+        <option value="en">English 🇺🇸</option>
+        <option value="es">Español 🇨🇷</option>
+        <option value="fr">Français 🇫🇷</option>
+        <option value="de">Deutsch 🇩🇪</option>
+        <option value="it">Italiano 🇮🇹</option>
+        <option value="pt">Português 🇧🇷</option>
+        <option value="nl">Nederlands 🇳🇱</option>
+    </select>
+</div>
+
+<div class="container">
+    <h1 onclick="showAdmin()">eSIM Activation</h1>
+    <p id="subtitle">Select your travel dates</p>
+
+    <div class="input-group">
+        <label id="lbl-start">Start Date</label>
+        <input type="date" id="checkin" onchange="calculate()">
+    </div>
+    <div class="input-group">
+        <label id="lbl-end">End Date</label>
+        <input type="date" id="checkout" onchange="calculate()">
+    </div>
+    <div class="input-group">
+        <label id="lbl-payment">Payment Method</label>
+        <select id="payment">
+            <option value="Efectivo">Cash</option>
+            <option value="Tarjeta">Credit/Debit Card</option>
+        </select>
+    </div>
+
+    <div class="result-box">
+        <span id="days-count">0 days</span>
+        <span class="total-usd" id="usd-value">$0.00</span>
+        <span class="total-crc" id="crc-value">₡0</span>
+    </div>
+
+    <button id="btn-send" onclick="sendOrder()">SEND REQUEST</button>
+</div>
+
+<script>
+    const translations = {
+        en: { title: "eSIM Activation", subtitle: "Select your travel dates", start: "Start Date", end: "End Date", payment: "Payment Method", cash: "Cash", card: "Credit/Debit Card", btn: "SEND REQUEST", daysSuffix: " days" },
+        es: { title: "Activación de eSIM", subtitle: "Selecciona tus fechas de viaje", start: "Fecha de Inicio", end: "Fecha de Fin", payment: "Método de Pago", cash: "Efectivo", card: "Tarjeta", btn: "ENVIAR SOLICITUD", daysSuffix: " días" },
+        fr: { title: "Activation de l'eSIM", subtitle: "Choisissez vos dates de voyage", start: "Date de Début", end: "Date de Fin", payment: "Mode de Paiement", cash: "Espèces", card: "Carte Bancaire", btn: "ENVOYER LA DEMANDE", daysSuffix: " jours" },
+        de: { title: "eSIM Aktivierung", subtitle: "Wählen Sie Ihre Reisedaten", start: "Startdatum", end: "Enddatum", payment: "Zahlungsmethode", cash: "Bargeld", card: "Kreditkarte", btn: "ANFRAGE SENDEN", daysSuffix: " Tage" },
+        it: { title: "Attivazione eSIM", subtitle: "Seleziona le date del viaje", start: "Data di Inizio", end: "Data di Fine", payment: "Metodo di Pagamento", cash: "Contanti", card: "Carta di Credito", btn: "INVIA RICHIESTA", daysSuffix: " giorni" },
+        pt: { title: "Ativação de eSIM", subtitle: "Selecione as datas da viagem", start: "Data de Início", end: "Data de Término", payment: "Método de Pagamento", cash: "Dinheiro", card: "Cartão de Crédito", btn: "ENVIAR SOLICITAÇÃO", daysSuffix: " dias" },
+        nl: { title: "eSIM Activatie", subtitle: "Selecteer uw reisdata", start: "Startdatum", end: "Einddatum", payment: "Betaalmethode", cash: "Contant geld", card: "Betaalpas", btn: "AANVRAAG VERZENDEN", daysSuffix: " dagen" }
+    };
+
+    let currentRate = 475.00;
+    let adminClicks = 0;
+
+    function changeLanguage() {
+        const lang = document.getElementById('lang-select').value;
+        const t = translations[lang] || translations['en'];
+
+        document.querySelector('h1').innerText = t.title;
+        document.getElementById('subtitle').innerText = t.subtitle;
+        document.getElementById('lbl-start').innerText = t.start;
+        document.getElementById('lbl-end').innerText = t.end;
+        document.getElementById('lbl-payment').innerText = t.payment;
+        document.getElementById('payment').options[0].text = t.cash;
+        document.getElementById('payment').options[1].text = t.card;
+        document.getElementById('btn-send').innerText = t.btn;
+        calculate(); // Recalcula para actualizar el sufijo de días
+    }
+
+    async function getRate() {
+        try {
+            const res = await fetch('https://open.er-api.com/v6/latest/USD');
+            const data = await res.json();
+            if(data.rates.CRC) currentRate = data.rates.CRC;
+        } catch(e) { console.log("Usando tasa manual"); }
+    }
+
+    function getPriceUSD(days) {
+        if (days <= 0) return 0;
+        const precios = {
+            1: 10,  2: 20,  3: 30,  4: 35,  5: 40,  6: 47,  7: 47,
+            8: 48,  9: 49,  10: 50, 11: 53, 12: 55, 13: 57, 14: 58,
+            15: 61, 16: 63, 17: 64, 18: 67, 19: 70, 20: 72, 21: 75,
+            22: 78, 23: 82, 24: 85, 25: 88, 26: 91, 27: 95, 28: 99,
+            29: 101, 30: 104, 31: 108
+        };
+        return precios[days] || (108 + ((days - 31) * 4));
+    }
+
+    function calculate() {
+        const date1 = document.getElementById('checkin').value;
+        const date2 = document.getElementById('checkout').value;
+        const lang = document.getElementById('lang-select').value;
+        const suffix = translations[lang].daysSuffix;
+        
+        if (date1 && date2) {
+            const start = new Date(date1 + 'T00:00:00');
+            const end = new Date(date2 + 'T00:00:00');
+            if (end >= start) {
+                const diffDays = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
+                const usd = getPriceUSD(diffDays);
+                const crc = Math.round(usd * currentRate);
+
+                document.getElementById('days-count').innerText = diffDays + suffix;
+                document.getElementById('usd-value').innerText = "$" + usd.toFixed(2);
+                document.getElementById('crc-value').innerText = "₡" + crc.toLocaleString('es-CR');
+            }
+        }
+    }
+
+    // FUNCIÓN DE ENVÍO Y GUARDADO AUTOMÁTICO
+    function sendOrder() {
+        const date1 = document.getElementById('checkin').value;
+        const date2 = document.getElementById('checkout').value;
+        if (!date1 || !date2) { alert("Please select dates"); return; }
+
+        const venta = {
+            fecha: new Date().toLocaleDateString(),
+            days: document.getElementById('days-count').innerText,
+            usd: document.getElementById('usd-value').innerText,
+            payment: document.getElementById('payment').value
+        };
+
+        // Guardar en la memoria de la tablet
+        let historial = JSON.parse(localStorage.getItem('ventas_hub')) || [];
+        historial.push(venta);
+        localStorage.setItem('ventas_hub', JSON.stringify(historial));
+
+        alert("Solicitud Enviada / Request Sent");
+        // Aquí podrías añadir el window.open de WhatsApp si lo necesitas
+    }
+
+    // PANEL ADMIN OCULTO (Tocar título 5 veces)
+    function showAdmin() {
+        adminClicks++;
+        if(adminClicks >= 5) {
+            const panel = document.getElementById('admin-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+            updateAdminTable();
+            adminClicks = 0;
+        }
+    }
+
+    function updateAdminTable() {
+        const historial = JSON.parse(localStorage.getItem('ventas_hub')) || [];
+        const body = document.getElementById('history-body');
+        body.innerHTML = historial.map(v => `
+            <tr>
+                <td>${v.fecha}</td>
+                <td>${v.days}</td>
+                <td>${v.usd}</td>
+                <td>${v.payment}</td>
+            </tr>
+        `).join('');
+    }
+
+    function clearHistory() {
+        if(confirm("¿Borrar todo el registro?")) {
+            localStorage.removeItem('ventas_hub');
+            updateAdminTable();
+        }
+    }
+
+    window.onload = () => {
+        getRate();
+        changeLanguage(); // Inicia en inglés por defecto
+    };
+</script>
+</body>
+</html>
