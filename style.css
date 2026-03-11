@@ -1,33 +1,24 @@
 /* =========================================
-   1. CONFIGURACIÓN DE COLORES Y VARIABLES
+   1. VARIABLES Y FONDO (AJUSTADAS)
    ========================================= */
 :root {
-    --verde-cr-solido: #2e7d32;
+    --verde-cr: #2e7d32;
     --cyan-e-sim: #00bcd4;
     --oscuro: #1a1a1a;
     --blanco: #ffffff;
-    
-    /* Efecto "Glassmorphism" perfeccionado */
-    --vidrio-fondo: rgba(255, 255, 255, 0.45); /* Fondo muy transparente */
-    --vidrio-borde: rgba(255, 255, 255, 0.2);
-    --vidrio-blur: blur(12px); /* El efecto borroso es clave */
-    
-    /* Sombra moderna y suave */
-    --sombra-suave: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    --vidrio-fondo: rgba(255, 255, 255, 0.5); /* Un poco más sólido para leer mejor */
+    --vidrio-borde: rgba(255, 255, 255, 0.3);
+    --vidrio-blur: blur(15px);
 }
 
-/* =========================================
-   2. ESTILO BASE Y FONDO (MOBILE FIRST)
-   ========================================= */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-    /* Fondo natural de Costa Rica LIMPIO Y COMPLETO */
     background-image: url('fondo.jpg');
     background-attachment: fixed;
     background-size: cover;
@@ -35,251 +26,167 @@ body {
     background-repeat: no-repeat;
     min-height: 100vh;
     color: var(--oscuro);
-    line-height: 1.4;
-}
-
-.container {
-    width: 100%;
-    max-width: 500px; /* Ancho ideal para celulares vertical */
-    margin: 0 auto;
-    padding: 15px;
+    font-size: 18px; /* Texto base más grande */
 }
 
 /* =========================================
-   3. HEADER TRANSPARENTE CON BIENVENIDA
+   2. HEADER Y BIENVENIDA (MÁS IMPACTO)
    ========================================= */
 header {
-    /* ELIMINADO EL FONDO VERDE SÓLIDO */
-    background: transparent; 
-    padding: 20px 0;
+    background: transparent;
+    padding: 30px 0 10px 0;
+    text-align: center;
     position: relative;
 }
 
-.header-content {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .logo {
-    width: 65px; /* Tamaño optimizado para no robar pantalla */
+    width: 90px; /* Logo más grande */
     height: auto;
-    margin-bottom: 5px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); /* Sombra para resaltar sobre el fondo */
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+    margin-bottom: 10px;
 }
 
 h1 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
+    font-size: 2.2rem; /* Título más grande */
+    color: white;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.7);
+    margin: 10px 0;
     font-weight: 800;
-    color: var(--blanco); /* Texto blanco para resaltar sobre el fondo natural */
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra de texto para legibilidad */
 }
 
-/* Estilo para la tarjeta de bienvenida */
 .welcome-text {
     background: var(--vidrio-fondo);
     backdrop-filter: var(--vidrio-blur);
     -webkit-backdrop-filter: var(--vidrio-blur);
-    border: 1px solid var(--vidrio-borde);
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: var(--sombra-suave);
-    margin-bottom: 10px;
-    width: 100%;
+    border: 2px solid var(--vidrio-borde);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px 15px 20px 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .welcome-text p {
-    font-size: 0.9rem;
-    color: var(--oscuro);
-    margin-bottom: 5px;
+    font-size: 1.1rem; /* Texto de bienvenida más grande */
+    line-height: 1.4;
     font-weight: 500;
 }
 
-.welcome-text p:last-child {
-    margin-bottom: 0;
-    font-weight: 400;
-    opacity: 0.9;
-}
-
-/* Selector de Idioma Flotante y Moderno */
-.lang-floating {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 12px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10;
-}
-
 /* =========================================
-   4. TARJETAS "GLASSMORPHISM" DE ACCIÓN
+   3. CONTENEDOR Y TARJETAS (MÁS ESPACIO)
    ========================================= */
+.container {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
 .card {
     background: var(--vidrio-fondo);
     backdrop-filter: var(--vidrio-blur);
     -webkit-backdrop-filter: var(--vidrio-blur);
-    border: 1px solid var(--vidrio-borde);
-    
-    margin: 10px 0; /* Menos margen para compactar en móvil */
-    padding: 18px;
-    border-radius: 20px;
-    box-shadow: var(--sombra-suave);
+    border: 2px solid var(--vidrio-borde);
+    margin-bottom: 25px; /* Más espacio entre bloques */
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
 }
 
 h2 {
-    font-size: 1rem;
-    margin-bottom: 12px;
-    color: var(--verde-cr-solido);
-    border-left: 4px solid var(--cyan-e-sim);
-    padding-left: 10px;
-    font-weight: 700;
+    font-size: 1.3rem; /* Títulos de sección más grandes */
+    color: var(--verde-cr);
+    border-left: 6px solid var(--cyan-e-sim);
+    padding-left: 15px;
+    margin-bottom: 20px;
 }
 
-.input-group { margin-bottom: 12px; }
-
+/* =========================================
+   4. INPUTS Y CALCULADORA (TOUCH-SIZE)
+   ========================================= */
 label {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
     display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-    font-size: 0.85rem;
-    color: var(--oscuro);
 }
 
-/* Inputs táctiles y legibles, con fondo ligero para escribir mejor */
 input[type="number"], 
 input[type="text"] {
     width: 100%;
-    height: 48px;
-    padding: 0 15px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 12px;
-    font-size: 18px; /* Mínimo 18px para evitar zoom en iPhone */
-    background: rgba(255, 255, 255, 0.8);
+    height: 65px; /* Altura generosa para dedos */
+    border-radius: 15px;
+    border: 2px solid rgba(0,0,0,0.1);
+    font-size: 22px; /* Números grandes y claros */
+    padding: 0 20px;
+    background: rgba(255,255,255,0.9);
+    font-weight: bold;
 }
 
-/* Bloque de precio con fondo verde claro pero sutil y transparente */
 .price-display {
     text-align: center;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--verde-cr-solido);
-    background: rgba(232, 245, 233, 0.6); /* Verde claro transparente */
-    padding: 10px;
-    border-radius: 12px;
-    margin-top: 5px;
-    border: 1px solid rgba(46, 125, 50, 0.15);
+    font-size: 2.8rem; /* ¡Precio que destaque! */
+    font-weight: 900;
+    color: var(--verde-cr);
+    background: rgba(255,255,255,0.6);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+    border: 1px solid rgba(46, 125, 50, 0.2);
 }
 
 /* =========================================
-   5. SELECTOR DE SERVICIO (OPTIMIZADO MÓVIL)
+   5. BOTONES Y SELECTORES
    ========================================= */
-.service-options {
-    display: flex;
-    flex-direction: column; /* Celular primero */
-    gap: 10px;
-}
-
-.option-card { cursor: pointer; }
-.option-card input { display: none; }
-
-/* El efecto esmerilado se aplica también aquí */
-.option-content {
-    border: 1px solid rgba(0,0,0,0.15);
-    padding: 12px;
-    border-radius: 12px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.5); /* Más transparente */
-    transition: all 0.2s ease;
+.lang-floating {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: 2px solid white;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
 }
 
-.option-card input:checked + .option-content {
-    border-color: var(--cyan-e-sim);
-    background-color: rgba(224, 247, 250, 0.75); /* Cyan transparente */
-    transform: scale(1.01);
-    box-shadow: 0 4px 10px rgba(0, 188, 212, 0.15);
-}
-
-.icon { font-size: 1.4rem; display: block; margin-bottom: 2px; }
-.option-content strong { font-size: 0.85rem; font-weight: 700; color: var(--oscuro); }
-.option-content p { font-size: 0.75rem; opacity: 0.8; color: var(--oscuro); }
-
-/* =========================================
-   6. BOTONES Y MODAL
-   ========================================= */
 .main-btn {
     width: 100%;
-    background-color: var(--cyan-e-sim);
+    height: 70px; /* Botón de acción muy grande */
+    background: var(--cyan-e-sim);
     color: white;
     border: none;
-    height: 52px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 15px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,188,212,0.25);
-    margin-top: 10px;
-}
-
-.modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8); /* Fondo modal oscuro para contraste */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-    padding: 20px;
-}
-
-.modal-content {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding: 20px;
     border-radius: 20px;
-    width: 100%;
-    max-width: 400px;
-    border: 1px solid var(--vidrio-borde);
-    text-align: center;
+    font-weight: 800;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    box-shadow: 0 6px 20px rgba(0,188,212,0.4);
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
-.modal-content h3 { color: var(--verde-cr-solido); margin-bottom: 10px; }
-.modal-summary p { margin-bottom: 5px; font-size: 0.95rem; }
-
-.modal-btns {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+.main-btn:active {
+    transform: scale(0.98); /* Efecto de click */
 }
 
-.btn-confirm { background: var(--verde-cr-solido); color: white; border: none; height: 48px; flex: 2; border-radius: 10px; font-weight: bold; cursor: pointer; }
-.btn-cancel { background: #eee; color: #333; border: none; height: 48px; flex: 1; border-radius: 10px; cursor: pointer; }
-
-/* =========================================
-   7. AJUSTES PARA TABLETS (768px+)
-   ========================================= */
-@media (min-width: 768px) {
-    .container { max-width: 700px; padding: 25px; }
-    .service-options { flex-direction: row; gap: 15px; }
-    h1 { font-size: 2rem; }
-    .logo { width: 80px; }
-    .welcome-text p { font-size: 1rem; }
-    .lang-floating { top: 25px; right: 25px; padding: 8px 15px; font-size: 13px; }
+/* Opciones de servicio más grandes */
+.option-content {
+    padding: 20px;
+    border-radius: 15px;
 }
 
-/* UTILIDADES */
+.icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+/* Utilidades */
 .hidden { display: none !important; }
+
+/* Ajuste para Tablet */
+@media (min-width: 768px) {
+    .container { max-width: 750px; }
+    h1 { font-size: 3rem; }
+}
