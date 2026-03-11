@@ -23,9 +23,44 @@ body {
 }
 
 /* --- HEADER COMPACTO --- */
+/* --- NUEVO BADGE DE IMPACTO --- */
+.unlimited-badge {
+    background: linear-gradient(135deg, var(--verde-cr), #2e7d32);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px; /* Forma de píldora */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    margin: 10px 0 15px 0;
+    animation: pulse-subtle 2s infinite; /* Un pequeño latido para llamar la atención */
+}
+
+.icon-bolt {
+    font-size: 1.1rem;
+    color: #ffd600; /* Amarillo eléctrico */
+}
+
+/* Animación sutil para que el cliente lo vea de primero */
+@keyframes pulse-subtle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Ajuste del Header para que el badge respire */
 header {
-    padding: 15px 10px;
-    text-align: center;
+    padding: 20px 10px 10px 10px;
+}
+
+.welcome-text {
+    margin-top: 5px;
+    background: rgba(255, 255, 255, 0.9); /* Más sólido para que el badge resalte arriba */
 }
 
 .logo {
