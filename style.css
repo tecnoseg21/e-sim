@@ -1,21 +1,22 @@
 /* =========================================
-   1. VARIABLES Y FONDO (AJUSTADAS)
+   1. VARIABLES Y FONDO (AJUSTADAS PARA CONTRASTE)
    ========================================= */
 :root {
-    --verde-cr: #2e7d32;
-    --cyan-e-sim: #00bcd4;
-    --oscuro: #1a1a1a;
+    --verde-cr: #1b5e20; /* Verde más oscuro para mayor contraste */
+    --cyan-e-sim: #00838f; /* Cyan más profundo */
+    --oscuro: #000000; /* Negro puro para texto sobre blanco */
     --blanco: #ffffff;
-    --vidrio-fondo: rgba(255, 255, 255, 0.5); /* Un poco más sólido para leer mejor */
-    --vidrio-borde: rgba(255, 255, 255, 0.3);
-    --vidrio-blur: blur(15px);
+    /* Fondo más sólido (70% opacidad) para que la letra no se pierda */
+    --vidrio-fondo: rgba(255, 255, 255, 0.7); 
+    --vidrio-borde: rgba(0, 0, 0, 0.2);
+    --vidrio-blur: blur(20px);
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Arial Black', 'Segoe UI Bold', sans-serif; /* Fuentes más gruesas */
 }
 
 body {
@@ -26,167 +27,159 @@ body {
     background-repeat: no-repeat;
     min-height: 100vh;
     color: var(--oscuro);
-    font-size: 18px; /* Texto base más grande */
 }
 
 /* =========================================
-   2. HEADER Y BIENVENIDA (MÁS IMPACTO)
+   2. HEADER (LETRAS GIGANTES Y RESALTADAS)
    ========================================= */
 header {
     background: transparent;
-    padding: 30px 0 10px 0;
+    padding: 40px 10px;
     text-align: center;
     position: relative;
 }
 
 .logo {
-    width: 90px; /* Logo más grande */
+    width: 110px; /* Logo más grande */
     height: auto;
-    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
-    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+    margin-bottom: 15px;
 }
 
 h1 {
-    font-size: 2.2rem; /* Título más grande */
+    font-size: 2.8rem; /* Título extra grande */
     color: white;
-    text-shadow: 0 3px 8px rgba(0,0,0,0.7);
-    margin: 10px 0;
-    font-weight: 800;
+    /* Sombra negra fuerte para que resalte sobre el cielo o nubes */
+    text-shadow: 3px 3px 10px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    margin: 15px 0;
+    letter-spacing: 1px;
 }
 
 .welcome-text {
     background: var(--vidrio-fondo);
     backdrop-filter: var(--vidrio-blur);
     -webkit-backdrop-filter: var(--vidrio-blur);
-    border: 2px solid var(--vidrio-borde);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 10px 15px 20px 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 3px solid var(--verde-cr); /* Borde verde fuerte */
+    border-radius: 25px;
+    padding: 25px;
+    margin: 10px 20px;
 }
 
 .welcome-text p {
-    font-size: 1.1rem; /* Texto de bienvenida más grande */
-    line-height: 1.4;
-    font-weight: 500;
+    font-size: 1.3rem; /* Texto de bienvenida muy legible */
+    line-height: 1.5;
+    font-weight: 900;
+    color: #000; /* Negro total */
 }
 
 /* =========================================
-   3. CONTENEDOR Y TARJETAS (MÁS ESPACIO)
+   3. TARJETAS Y CALCULADORA (CONTRASTE ALTO)
    ========================================= */
 .container {
     width: 100%;
-    max-width: 550px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 20px;
 }
 
 .card {
     background: var(--vidrio-fondo);
     backdrop-filter: var(--vidrio-blur);
     -webkit-backdrop-filter: var(--vidrio-blur);
-    border: 2px solid var(--vidrio-borde);
-    margin-bottom: 25px; /* Más espacio entre bloques */
-    padding: 25px;
-    border-radius: 25px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    border: 3px solid var(--vidrio-borde);
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
 }
 
 h2 {
-    font-size: 1.3rem; /* Títulos de sección más grandes */
+    font-size: 1.6rem; /* Títulos de sección grandes */
     color: var(--verde-cr);
-    border-left: 6px solid var(--cyan-e-sim);
-    padding-left: 15px;
-    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-bottom: 4px solid var(--cyan-e-sim);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
 }
 
-/* =========================================
-   4. INPUTS Y CALCULADORA (TOUCH-SIZE)
-   ========================================= */
 label {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 15px;
     display: block;
+    color: #000;
 }
 
 input[type="number"], 
 input[type="text"] {
     width: 100%;
-    height: 65px; /* Altura generosa para dedos */
-    border-radius: 15px;
-    border: 2px solid rgba(0,0,0,0.1);
-    font-size: 22px; /* Números grandes y claros */
-    padding: 0 20px;
-    background: rgba(255,255,255,0.9);
-    font-weight: bold;
+    height: 75px; /* Inputs muy altos para dedos grandes */
+    border-radius: 20px;
+    border: 4px solid var(--verde-cr); /* Borde bien marcado */
+    font-size: 28px; /* Números muy grandes */
+    padding: 0 25px;
+    background: #ffffff;
+    font-weight: 900;
+    color: #000;
 }
 
 .price-display {
     text-align: center;
-    font-size: 2.8rem; /* ¡Precio que destaque! */
+    font-size: 3.5rem; /* ¡PRECIO GIGANTE! */
     font-weight: 900;
     color: var(--verde-cr);
-    background: rgba(255,255,255,0.6);
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 15px;
-    border: 1px solid rgba(46, 125, 50, 0.2);
+    background: rgba(255,255,255,0.9);
+    padding: 25px;
+    border-radius: 20px;
+    margin-top: 20px;
+    border: 2px solid #000;
 }
 
 /* =========================================
-   5. BOTONES Y SELECTORES
+   4. BOTONES (MÁXIMA VISIBILIDAD)
    ========================================= */
 .lang-floating {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(0,0,0,0.5);
+    top: 25px;
+    right: 25px;
+    background: #000; /* Botón negro para que resalte */
     color: white;
-    border: 2px solid white;
-    padding: 8px 18px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
+    border: 3px solid white;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: 900;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .main-btn {
     width: 100%;
-    height: 70px; /* Botón de acción muy grande */
-    background: var(--cyan-e-sim);
+    height: 85px; /* Botón enorme */
+    background: var(--verde-cr); /* Cambiado a verde para más contraste */
     color: white;
-    border: none;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 1.4rem;
+    border: 4px solid #000;
+    border-radius: 25px;
+    font-weight: 900;
+    font-size: 1.8rem;
     text-transform: uppercase;
-    box-shadow: 0 6px 20px rgba(0,188,212,0.4);
-    cursor: pointer;
-    transition: transform 0.2s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 
-.main-btn:active {
-    transform: scale(0.98); /* Efecto de click */
-}
-
-/* Opciones de servicio más grandes */
+/* Opciones de servicio */
 .option-content {
-    padding: 20px;
-    border-radius: 15px;
+    padding: 25px;
+    border: 3px solid #ccc;
+    background: rgba(255,255,255,0.8);
+}
+
+.option-card input:checked + .option-content {
+    border: 5px solid var(--cyan-e-sim);
+    background: #e0f7fa;
 }
 
 .icon {
-    font-size: 2rem;
-    margin-bottom: 8px;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
-/* Utilidades */
 .hidden { display: none !important; }
-
-/* Ajuste para Tablet */
-@media (min-width: 768px) {
-    .container { max-width: 750px; }
-    h1 { font-size: 3rem; }
-}
