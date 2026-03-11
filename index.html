@@ -10,14 +10,23 @@
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <img src="logo-perezoso.png" alt="Logo Perezoso" class="logo">
-            <h1 id="main-title">eSIM Costa Rica</h1>
-            <p id="sub-title">Internet ilimitado en todo el país / Unlimited data nationwide</p>
-            <button onclick="toggleLanguage()" id="lang-btn">Switch to English</button>
+<header>
+    <div class="container header-content">
+        <button onclick="toggleLanguage()" id="lang-btn" class="lang-floating">EN</button>
+        
+        <img src="logo-perezoso.png" alt="Logo" class="logo">
+        <h1 id="main-title">eSIM Costa Rica</h1>
+        
+        <div class="unlimited-badge">
+            <span class="icon-bolt">⚡</span>
+            <span id="unlimited-text">INTERNET ILIMITADO EN TODO EL PAÍS</span>
         </div>
-    </header>
+
+        <div class="welcome-text">
+            <p id="welcome-intro">¡Bienvenido! Consigue tu conexión al instante.</p>
+        </div>
+    </div>
+</header>
 
     <main class="container">
         <section class="card">
