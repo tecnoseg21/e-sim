@@ -22,23 +22,69 @@ body {
     min-height: 100vh;
 }
 
-/* --- HEADER COMPACTO --- */
-/* --- NUEVO BADGE DE IMPACTO --- */
+/* --- BADGE PREMIUM CON DEGRADADO Y PROFUNDIDAD --- */
 .unlimited-badge {
-    background: linear-gradient(135deg, var(--verde-cr), #2e7d32);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 50px; /* Forma de píldora */
+    /* Degradado de tres puntos para dar efecto de volumen */
+    background: linear-gradient(145deg, #2e7d32, #1b5e20, #0d320f);
+    
+    color: #ffffff;
+    padding: 10px 25px;
+    border-radius: 50px;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.2);
-    margin: 10px 0 15px 0;
-    animation: pulse-subtle 2s infinite; /* Un pequeño latido para llamar la atención */
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    
+    /* Borde doble: uno oscuro y uno de brillo superior */
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    
+    /* Sombra externa para despegarlo del fondo y sombra interna para hundir el texto */
+    box-shadow: 
+        0 10px 20px rgba(0, 0, 0, 0.4),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.3);
+        
+    margin: 15px 0;
+    position: relative;
+    overflow: hidden; /* Para el efecto de brillo que pasa por encima */
+    animation: pulse-premium 2.5s infinite ease-in-out;
+}
+
+/* Efecto de brillo "Glass" que cruza el texto */
+.unlimited-badge::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(30deg);
+    animation: shine-sweep 4s infinite;
+}
+
+.icon-bolt {
+    font-size: 1.2rem;
+    color: #ffd600;
+    filter: drop-shadow(0 0 5px rgba(255, 214, 0, 0.6));
+}
+
+/* Animación de latido más elegante */
+@keyframes pulse-premium {
+    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+    50% { transform: scale(1.05); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+}
+
+/* Animación del brillo pasando de izquierda a derecha */
+@keyframes shine-sweep {
+    0% { left: -60%; }
+    20% { left: 120%; }
+    100% { left: 120%; }
 }
 
 .icon-bolt {
