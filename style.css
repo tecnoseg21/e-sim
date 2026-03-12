@@ -257,55 +257,98 @@ Este código CSS hará tres cosas críticas:
 2.  **Preparar el contenedor:** Le dice a la tarjeta blanca que sea el "ancla" para los perezosos.
 3.  **Posicionar con precisión:** Coloca a cada perezoso en su esquina **dentro** de la tarjeta.
 
-```css
-/* --- Limpiamos el Body (Ya no queremos fondo aquí) --- */
+/* --- Limpiamos el Body (asegúrate de que esté así) --- */
 body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background-color: #f0f2f5; /* Mantenemos el color de fondo */
-    /* 👇 IMPORTANTE: Asegúrate de QUITAR las líneas background-image antiguas 👇 */
+    background-color: #f0f2f5; 
 }
 
-/* --- Preparamos el Contenedor de la Tarjeta --- */
+/* --- Preparamos el Contenedor de la Tarjeta (asegúrate de que esté así) --- */
 .mobile-app-card {
-    position: relative; /* 👈 CRÍTICO: Esto "encierra" a los perezosos dentro */
-    overflow: hidden;    /* 👈 CRÍTICO: Corta a los perezosos si se asoman mucho */
-    /* ... (resto de tus estilos de .mobile-app-card igual: fondo blanco, sombras, etc.) ... */
-    
-    /* Ejemplo de estilos que ya podrías tener para tu tarjeta */
+    position: relative; /* 👈 Crítico para que floten dentro */
+    overflow: hidden;    /* 👈 Corta si se asoman mucho */
     background: #fff;
     max-width: 480px;
     margin: 20px auto;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    /* 👇 Para que en móviles respire un poco 👇 */
+    box-sizing: border-radius;
+    padding: 0px 0px 20px 0px; 
 }
 
-/* --- Estilos Generales para los Perezosos Internos --- */
+/* --- Estilos Generales para las Imágenes Decorativas (Perezosos y Tucán) --- */
 .perezoso-interno {
-    position: absolute; /* 👈 Se mueven respecto al contenedor .mobile-app-card */
-    z-index: 10;        /* 👈 Se aseguran de estar sobre el fondo, pero bajo los botones */
-    pointer-events: none; /* 👈 No interfieren si el usuario toca la pantalla ahí */
+    position: absolute; /* 👈 Se mueven respecto a .mobile-app-card */
+    z-index: 10;        /* 👈 Sobre el fondo, bajo los botones */
+    pointer-events: none; /* 👈 No interfieren si el usuario toca */
 }
 
-/* --- Posición: Abajo a la izquierda --- */
+/* ------------------------------------------------------------------------- */
+/* 👇 👇 👇 AJUSTES ESPECÍFICOS DE TAMAÑO Y POSICIÓN 👇 👇 👇 */
+/* ------------------------------------------------------------------------- */
+
+/* --- Posición: Abajo a la izquierda (Perezoso colgando) --- */
 .sl-izq {
-    left: -30px;        /* 👈 Se asoma sutilmente por la izquierda */
-    bottom: -15px;      /* 👈 Se asoma sutilmente por abajo */
-    width: 140px;       /* 👈 Tamaño ajustado para que no robe pantalla */
+    /* 👇 Más pequeño 👇 */
+    width: 80px;       
     height: auto;
+    /* 👇 Ajuste de posición: más a la esquina 👇 */
+    left: -15px;        
+    bottom: 5px;      
 }
 
-/* --- Posición: Arriba a la derecha --- */
+/* --- Posición: Arriba a la derecha (Tucán y Perezoso) --- */
 .sl-der {
-    right: -25px;       /* 👈 Se asoma sutilmente por la derecha */
-    top: 5px;           /* 👈 Se queda en la parte de arriba */
-    width: 160px;       /* 👈 Tamaño ajustado */
+    /* 👇 ¡Más pequeño y más abajo! 👇 */
+    width: 110px;       /* 👈 Reducido de 160px */
     height: auto;
+    /* 👇 Ajuste de posición 👇 */
+    right: 5px;        /* 👈 Más a la esquina */
+    top: 60px;          /* 👈 ¡Baja para no amontonarse con el switcher de idiomas! */
 }
 
-/* --- Ajuste opcional para móviles para que sean más discretos --- */
-@media (max-width: 480px) {
-    .sl-izq { width: 100px; left: -15px; bottom: -10px; }
-    .sl-der { width: 120px; right: -15px; top: 0px; }
+/* ------------------------------------------------------------------------- */
+/* 👆 👆 👆 FIN DE AJUSTES ESPECÍFICOS 👆 👆 👆 */
+/* ------------------------------------------------------------------------- */
+
+
+/* --- Estilos de header, form y botones (Se mantienen igual) --- */
+.header-paisa {
+    background-image: url('bosque.png');
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 20px;
+    position: relative;
+    /*👇 Espacio para el header 👇*/
+    min-height: 120px; 
+}
+
+.language-switcher {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.form-container {
+    padding: 20px;
+    /* 👇 Asegura espacio para los elementos inferiores 👇 */
+    padding-bottom: 40px; 
+}
+
+/* Asegura que el footer no se solape */
+.service-footer {
+    position: relative;
+    z-index: 15; /* Un z-index más alto que los perezosos */
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 20px;
 }
