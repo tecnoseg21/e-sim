@@ -398,37 +398,35 @@ body {
     font-size: 0.8rem;
 }
 
-/* SELECTOR DE IDIOMA */
+/* SELECTOR DE IDIOMAS MULTIPLE */
 .language-switcher {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 12px;
+    right: 15px;
     z-index: 10;
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.3); /* Fondo oscuro sutil */
-    padding: 5px 12px;
+    gap: 10px; /* Espacio entre siglas */
+    background: rgba(0, 0, 0, 0.4);
+    padding: 6px 14px;
     border-radius: 20px;
-    backdrop-filter: blur(4px); /* Un toque de desenfoque solo ahí */
+    backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .lang-opt {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
-    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    font-weight: 800;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
+    text-transform: uppercase;
 }
 
+/* El idioma por defecto brilla más */
 .lang-opt.active {
     color: #ffffff;
-}
-
-.lang-divider {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.8rem;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
 }
 
 .lang-opt:hover {
