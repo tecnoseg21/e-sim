@@ -93,10 +93,7 @@ h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
     position: absolute;
     z-index: 10;
     pointer-events: none;
-    position: absolute;
-    z-index: 0; /* 👇 Ponlos por DETRÁS de todo para que no estorben el foco 👇 */
-    pointer-events: none; /* 👈 Esto hace que sean "invisibles" para el scroll */
-    user-select: none;
+
 }
 
 /* Tucán: Bajado a la parte blanca */
