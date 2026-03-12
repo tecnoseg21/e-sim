@@ -96,7 +96,7 @@ h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
     width: 90px; 
     height: auto;
     right: 10px;
-    top: 100px; /* Bajado para que entre en el área blanca */
+    top: 150px; /* Bajado para que entre en el área blanca */
 }
 
 /* Perezoso: Esquina inferior izquierda */
