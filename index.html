@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSIM Costa Rica - Activación</title>
+    <title>eSIM Costa Rica - Diseño Visual</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
     <div class="mobile-app-card">
-        
         <header class="header-paisa">
             <div class="header-overlay">
                 <div class="flag-circle">
@@ -18,17 +17,55 @@
                 </div>
                 <h1>eSIM Costa Rica</h1>
                 <div class="badge-unlimited">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-bolt"></i>
                     <span>Internet ilimitado en todo el país</span>
                 </div>
             </div>
         </header>
 
         <main class="form-container">
-            <div class="input-group">
-                <label>Selecciona tus días</label>
+            <div class="section-group">
+                <label>Seleccione sus días</label>
                 <div class="input-box">
-                    <input type="number" id="days" value="7" placeholder="¿Cuántos días necesitas?">
+                    <input type="number" id="days" value="7">
+                </div>
+            </div>
+
+            <div class="section-group">
+                <label>¿Cómo desea configurar su eSIM?</label>
+                <div class="option-card">
+                    <input type="radio" name="config" id="auto" checked>
+                    <label for="auto" class="option-content">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <strong>Autoservicio 24/7</strong>
+                            <span>Lo hago yo mismo (Digital)</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="option-card">
+                    <input type="radio" name="config" id="tecnico">
+                    <label for="tecnico" class="option-content">
+                        <i class="fas fa-user-cog"></i>
+                        <div>
+                            <strong>Ayuda del Técnico</strong>
+                            <span>Configuración en tienda</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="section-group">
+                <label>Forma de Pago</label>
+                <div class="payment-grid">
+                    <div class="pay-method">
+                        <i class="fab fa-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="pay-method">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Tarjeta</span>
+                    </div>
                 </div>
             </div>
 
@@ -42,18 +79,12 @@
 
             <footer class="service-footer">
                 <div class="service-item">
-                    <i class="fas fa-headset"></i>
-                    <div>
-                        <strong>24/7</strong>
-                        <span>Autoservicio</span>
-                    </div>
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Conexión Segura</span>
                 </div>
                 <div class="service-item">
-                    <i class="fas fa-user-cog"></i>
-                    <div>
-                        <span>Ayuda del</span>
-                        <strong>Técnico</strong>
-                    </div>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Activación Instantánea</span>
                 </div>
             </footer>
         </main>
