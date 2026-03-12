@@ -214,3 +214,130 @@ label {
 .service-item i {
     color: #4caf50;
 }
+
+/* =========================================
+   CONFIGURACIÓN BASE (REPASO)
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px 0;
+}
+
+/* TARJETA PRINCIPAL - MODO RETRATO (VERTICAL) */
+.mobile-app-card {
+    width: 95%; 
+    max-width: 450px; 
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease; /* Transición suave al girar */
+}
+
+/* HEADER - ESPACIOS VERTICALES */
+.header-paisa {
+    background-image: url('fondo.webp');
+    background-size: cover;
+    background-position: center;
+    min-height: 200px; 
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.header-overlay {
+    width: 100%;
+    padding: 25px 20px;
+    background: transparent;
+    color: white;
+}
+
+/* FORMULARIO */
+.form-container {
+    padding: 25px 20px;
+    background-color: #ffffff;
+}
+
+.section-group { margin-bottom: 20px; }
+
+/* REJILLA DE PAGO (4 MÉTODOS) */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.pay-method {
+    border: 1px solid #ddd;
+    padding: 15px 10px;
+    border-radius: 10px;
+    text-align: center;
+    background: #f8f9fa;
+    cursor: pointer;
+}
+
+/* BOTONES PRINCIPALES */
+.price-tag {
+    background: #1976d2;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 20px 0 12px 0;
+}
+
+.btn-activar {
+    width: 100%;
+    background: white;
+    color: #1976d2;
+    border: 2px solid #1976d2;
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* ============================================================
+   ESTILOS PARA MODO HORIZONTAL (LANDSCAPE)
+   ============================================================ */
+@media (orientation: landscape) and (max-height: 500px) {
+    body {
+        align-items: flex-start; /* Permite scroll si la pantalla es bajita */
+        padding: 20px 0;
+    }
+
+    .mobile-app-card {
+        width: 95%;
+        max-width: 800px; /* Expandimos el ancho máximo en horizontal */
+    }
+
+    .header-paisa {
+        min-height: 150px; /* Reducimos un poco la altura del paisaje en horizontal */
+    }
+
+    /* Opcional: Podrías poner los métodos de pago en 4 columnas en vez de 2 
+       para aprovechar el ancho extra */
+    .payment-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    
+    .form-container {
+        padding: 20px 40px; /* Más espacio a los lados en horizontal */
+    }
+}
