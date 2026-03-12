@@ -1,6 +1,4 @@
-/* =========================================
-    1. RESET Y BASE
-   ========================================= */
+/* RESET TOTAL */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,36 +7,28 @@
 }
 
 body {
-    background-color: #f0f2f5;
+    background-color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px 0;
 }
 
-/* =========================================
-    2. TARJETA PRINCIPAL
-   ========================================= */
 .mobile-app-card {
     width: 95%;
     max-width: 450px;
     background-color: #ffffff;
-    border-radius: 15px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* =========================================
-    3. HEADER (PAISAJE)
-   ========================================= */
+/* HEADER - AQUÍ ESTABA EL ERROR */
 .header-paisa {
-    background-image: url('fondo.webp'); /* Tu paisaje de Monteverde */
+    background-image: url('fondo.webp'); /* Asegúrate que este sea tu paisaje */
     background-size: cover;
     background-position: center;
-    min-height: 180px;
+    height: 180px; /* Altura fija para evitar que se estire */
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -47,11 +37,22 @@ body {
 .header-overlay {
     width: 100%;
     padding: 20px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
     color: white;
 }
 
-/* Selector de Idiomas */
+/* TEXTURA DEL CUERPO */
+.form-container {
+    padding: 20px;
+    background-color: #ffffff;
+    /* Aplicamos la textura de forma segura */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96)), 
+        url('texture-subtle.webp'); 
+    background-size: cover;
+}
+
+/* ESTILO DE IDIOMAS */
 .language-switcher {
     position: absolute;
     top: 15px;
@@ -63,64 +64,19 @@ body {
     border-radius: 20px;
 }
 
-.lang-opt { color: #ccc; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
-.lang-opt.active { color: white; }
-
-/* =========================================
-    4. CUERPO CON TEXTURA (EL CAMBIO QUE QUERÍAS)
-   ========================================= */
-.form-container {
-    padding: 20px;
-    background-color: #ffffff;
-    /* La textura sutil que no rompe el diseño */
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96)), 
-        url('texture-subtle.webp'); 
-    background-size: cover;
+.lang-opt {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.7rem;
+    font-weight: bold;
 }
 
-/* =========================================
-    5. ELEMENTOS DEL FORMULARIO
-   ========================================= */
-.section-group { margin-bottom: 15px; }
+.lang-opt.active { color: white; }
 
-label { display: block; font-weight: 700; margin-bottom: 8px; color: #333; }
-
-/* Caja de compatibilidad amarilla */
+/* CAJA AMARILLA DE COMPATIBILIDAD */
 .compatibility-box {
     background: #fff9c4;
     border: 1px solid #fbc02d;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-}
-
-/* Rejilla de pago */
-.payment-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.pay-method {
-    border: 1px solid #eee;
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-    background: #f8f9fa;
-    font-weight: 600;
-}
-
-.pay-method i { display: block; font-size: 1.2rem; margin-bottom: 4px; color: #1976d2; }
-
-/* Botón de pago azul */
-.price-tag {
-    background: #0076df;
-    color: white;
-    text-align: center;
     padding: 15px;
     border-radius: 10px;
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin-top: 10px;
+    margin: 15px 0;
 }
