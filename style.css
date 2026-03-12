@@ -1,4 +1,3 @@
-/* Configuración General */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,51 +6,51 @@
 }
 
 body {
-    background-color: #f0f0f0; /* Color de fondo de la web */
+    background-color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 0; /* Eliminamos padding del body para máximo control */
 }
 
-/* Tarjeta Principal */
+/* TARJETA - Ahora al 95% de ancho */
 .mobile-app-card {
-    width: 100%;
-    max-width: 380px;
+    width: 95%; /* Ocupa casi todo el ancho */
+    max-width: 500px; /* Un límite para que en pantallas grandes no se deforme */
     background-color: #ffffff;
-    border-radius: 30px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
 }
 
-/* SECCIÓN DEL PAISAJE (HEADER) */
+/* HEADER - Imagen de fondo */
 .header-paisa {
-    /* Aquí usamos tu imagen fondo.webp */
     background-image: url('fondo.webp');
     background-size: cover;
     background-position: center;
-    min-height: 200px; /* Ajusta la altura para que se vea más paisaje */
+    min-height: 160px; /* Altura reducida para que sea más compacto */
     position: relative;
     display: flex;
     align-items: flex-end;
 }
 
-/* Capa totalmente transparente sin blur */
 .header-overlay {
     width: 100%;
-    padding: 25px 20px;
-    background: transparent; /* Totalmente transparente */
+    padding: 10px 15px; /* Espacio vertical mínimo */
+    background: transparent;
     color: white;
 }
 
 .flag-circle {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid white;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .flag-circle img {
@@ -61,43 +60,42 @@ body {
 }
 
 h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 800;
-    margin-bottom: 10px;
-    /* Sombra para que se lea bien sobre el paisaje */
-    text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
 .badge-unlimited {
     background: rgba(0, 0, 0, 0.4);
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    color: #a5d6a7;
+    margin-top: 3px;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-    color: #a5d6a7;
+    gap: 5px;
 }
 
-/* SECCIÓN DEL FORMULARIO */
+/* FORMULARIO - Espacios verticales reducidos */
 .form-container {
-    padding: 25px;
-    background-color: #ffffff; /* Sólido */
+    padding: 10px 15px; /* Padding vertical muy bajo */
+    background-color: #ffffff;
 }
 
 label {
     display: block;
     font-weight: 700;
-    color: #444;
-    margin-bottom: 8px;
-    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 3px;
+    font-size: 0.95rem;
 }
 
 .input-box {
-    background: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 15px;
+    background: #f1f3f5;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 8px 12px; /* Más compacto */
 }
 
 .input-box input {
@@ -108,61 +106,49 @@ label {
     outline: none;
 }
 
+/* Botón de Precio */
 .price-tag {
     background: #1976d2;
     color: white;
     text-align: center;
-    padding: 18px;
-    border-radius: 35px;
-    font-size: 1.5rem;
+    padding: 12px; /* Más bajo */
+    border-radius: 10px;
+    font-size: 1.3rem;
     font-weight: 800;
-    margin: 20px 0 12px 0;
+    margin: 10px 0 8px 0;
 }
 
+/* Botón Activar */
 .btn-activar {
     width: 100%;
     background: white;
     color: #1976d2;
     border: 2px solid #1976d2;
-    padding: 18px;
-    border-radius: 35px;
-    font-size: 1.2rem;
+    padding: 12px; /* Más bajo */
+    border-radius: 10px;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.btn-activar:hover {
-    background: #e3f2fd;
-}
-
-/* Footer de servicios */
+/* Footer Servicios */
 .service-footer {
     display: flex;
     justify-content: space-around;
-    margin-top: 25px;
-    padding-top: 15px;
+    margin-top: 15px;
+    padding: 10px 0; /* Padding reducido */
     border-top: 1px solid #eee;
 }
 
 .service-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
+    color: #555;
+    font-size: 0.75rem;
 }
 
 .service-item i {
-    font-size: 1.6rem;
     color: #1976d2;
-}
-
-.service-item div {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
-}
-
-.service-item strong {
-    font-size: 1rem;
-    color: #333;
+    font-size: 1.2rem;
 }
