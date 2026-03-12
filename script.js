@@ -4,10 +4,7 @@ let selectedPayment = "";
 
 const translations = {
     en: { total: "Total: $", errorContact: "Enter WhatsApp/Email", errorPay: "Select payment method", errorDates: "Please select valid dates", success: "Success! Sending to: " },
-    es: { total: "Total: $", errorContact: "Ingresa WhatsApp/Correo", errorPay: "Selecciona método de pago", errorDates: "Por favor selecciona fechas válidas", success: "¡Éxito! Enviando a: " },
-    fr: { total: "Total: $", errorContact: "Saisir WhatsApp/Email", errorPay: "Choisir le mode de paiement", errorDates: "Veuillez choisir des dates valides", success: "Succès! Envoi à: " },
-    de: { total: "Gesamt: $", errorContact: "WhatsApp/E-Mail eingeben", errorPay: "Zahlungsmethode wählen", errorDates: "Bitte wählen Sie gültige Daten", success: "Erfolg! Senden an: " },
-    nl: { total: "Totaal: $", errorContact: "Voer WhatsApp/E-mail in", errorPay: "Betaalmethode selecteren", errorDates: "Selecteer geldige datums", success: "Succes! Verzenden naar: " }
+    es: { total: "Total: $", errorContact: "Ingresa WhatsApp/Correo", errorPay: "Selecciona método de pago", errorDates: "Por favor selecciona fechas válidas", success: "¡Éxito! Enviando a: " }
 };
 
 function calcularPrecio() {
@@ -27,16 +24,13 @@ function calcularPrecio() {
             return precio;
         }
     }
-    displayPrecio.textContent = `${translations[currentLang].total}0.00`;
-    contadorDiasSpan.textContent = "0";
     return 0;
 }
 
-// Eventos para actualizar precio automáticamente
 document.querySelector('#fecha-inicio').addEventListener('change', calcularPrecio);
 document.querySelector('#fecha-fin').addEventListener('change', calcularPrecio);
 
-// Selección visual del método de pago
+// Selección de pago
 document.querySelectorAll('.pay-method').forEach(m => {
     m.addEventListener('click', () => {
         document.querySelectorAll('.pay-method').forEach(x => {
@@ -46,47 +40,32 @@ document.querySelectorAll('.pay-method').forEach(m => {
         m.style.borderColor = "#1976d2";
         m.style.background = "#e3f2fd";
         selectedPayment = m.getAttribute('data-method');
-        
-        // Si el contenedor de PayPal ya estaba abierto, lo actualizamos
-        if (document.querySelector('#paypal-button-container').style.display === 'block') {
-            initPayPal();
-        }
     });
 });
 
-// LÓGICA DEL BOTÓN CHECKOUT (El que no te funcionaba)
-document.querySelector('#btn-validar').addEventListener('click', () => {
+// EL BOTÓN QUE ESTABA FALLANDO
+document.querySelector('#btn-validar').addEventListener('click', function() {
     const monto = calcularPrecio();
     const contacto = document.querySelector('#contacto-cliente').value;
+    const paypalContainer = document.querySelector('#paypal-button-container');
 
-    // 1. Validaciones de seguridad
-    if (monto <= 0) {
-        alert(translations[currentLang].errorDates);
-        return;
-    }
-    if (!contacto || contacto.trim() === "") {
-        alert(translations[currentLang].errorContact);
-        document.querySelector('#contacto-cliente').focus();
-        return;
-    }
-    if (!selectedPayment) {
-        alert(translations[currentLang].errorPay);
-        return;
-    }
+    // Validaciones
+    if (monto <= 0) return alert(translations[currentLang].errorDates);
+    if (!contacto || contacto.trim() === "") return alert(translations[currentLang].errorContact);
+    if (!selectedPayment) return alert(translations[currentLang].errorPay);
 
-    // 2. Si todo está bien, ocultamos el botón de validación y mostramos PayPal
-    document.querySelector('#btn-validar').style.display = 'none';
-    document.querySelector('#paypal-button-container').style.display = 'block';
-    initPayPal();
+    // PASO CRÍTICO: Ocultamos el botón azul y MOSTRAMOS el contenedor de PayPal
+    this.style.display = 'none';
+    paypalContainer.style.display = 'block';
+    paypalContainer.innerHTML = '<p style="text-align:center; color:#1976d2;">Loading payment methods...</p>';
+
+    // Llamamos a la inicialización
+    initPayPal(monto, contacto);
 });
 
-function initPayPal() {
-    const monto = calcularPrecio();
-    const contacto = document.querySelector('#contacto-cliente').value;
-
-    // Limpiar contenedor para evitar que se dupliquen los botones
+function initPayPal(monto, contacto) {
     const container = document.querySelector('#paypal-button-container');
-    container.innerHTML = '';
+    container.innerHTML = ''; // Limpiamos el mensaje de "Loading"
 
     paypal.Buttons({
         style: { 
@@ -111,22 +90,9 @@ function initPayPal() {
             });
         },
         onError: function(err) {
-            console.error("PayPal Error:", err);
-            alert("Error al conectar con PayPal.");
-            // Si hay error, mostramos el botón de validar otra vez
+            alert("PayPal Error. Please try again.");
             document.querySelector('#btn-validar').style.display = 'block';
             container.style.display = 'none';
         }
     }).render('#paypal-button-container');
 }
-
-// Lógica de idiomas
-document.querySelectorAll('.lang-opt').forEach(opt => {
-    opt.addEventListener('click', () => {
-        document.querySelector('.lang-opt.active').classList.remove('active');
-        opt.classList.add('active');
-        currentLang = opt.textContent.toLowerCase();
-        // Aquí puedes disparar la función que traduce el resto de la UI
-        calcularPrecio(); 
-    });
-});
