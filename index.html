@@ -1,130 +1,116 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSIM Costa Rica - Diseño Visual</title>
-    <link rel="stylesheet" href="style.css">
+    <title>eSIM Costa Rica - Monteverde</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-   <div class="mobile-app-card">
-    <header class="header-paisa">
-        <div class="language-switcher">
-            <span class="lang-opt active">EN</span>
-            <span class="lang-opt">ES</span>
-            <span class="lang-opt">FR</span>
-            <span class="lang-opt">DE</span>
-            <span class="lang-opt">NL</span>
-        </div>
-
-        <div class="header-overlay">
-            <h1>eSIM Costa Rica</h1>
-            <div class="badge-unlimited">
-                <i class="fas fa-bolt"></i>
-                <span>Unlimited internet nationwide</span>
+    <div class="mobile-app-card">
+        
+        <header class="header-paisa">
+            <div class="language-switcher">
+                <span class="lang-opt active">EN</span>
+                <span class="lang-opt">ES</span>
+                <span class="lang-opt">FR</span>
+                <span class="lang-opt">DE</span>
+                <span class="lang-opt">NL</span>
             </div>
-        </div>
-    </header>
 
-    <div class="form-container">
-        </div>
-</div>
-
-        <main class="form-container">
-            <div class="section-group">
-                <label>Seleccione sus días</label>
-                <div class="input-box">
-                    <input type="number" id="days" value="7">
+            <div class="header-overlay">
+                <h1>eSIM Costa Rica</h1>
+                <div class="badge-unlimited">
+                    <i class="fas fa-bolt"></i>
+                    <span>Unlimited internet nationwide</span>
                 </div>
             </div>
-            <div class="section-group compatibility-box">
-    <div class="comp-header">
-        <i class="fas fa-info-circle"></i>
-        <label>¿Es compatible mi celular?</label>
-    </div>
-    <p>Marca <strong>*#06#</strong> en tu teléfono (como si fueras a llamar).</p>
-    <p class="comp-step">Si aparece un código llamado <strong>EID</strong>, tu equipo soporta eSIM.</p>
-    <div class="no-signal-badge">
-        <i class="fas fa-signal-slash"></i>
-        <span>No requiere señal ni internet para verificarlo.</span>
-    </div>
-</div>
+        </header>
+
+        <div class="form-container">
+            
+            <div class="section-group">
+                <label>Select your days</label>
+                <div class="input-box">
+                    <input type="number" value="7" min="1">
+                </div>
+            </div>
+
+            <div class="compatibility-box">
+                <div class="comp-header">
+                    <i class="fas fa-info-circle"></i>
+                    <label>Is my phone compatible?</label>
+                </div>
+                <p>Dial <strong>*#06#</strong> on your phone (as if making a call).</p>
+                <p class="comp-step">If an <strong>EID</strong> code appears, your device supports eSIM.</p>
+                <div class="no-signal-badge">
+                    <i class="fas fa-signal-slash"></i>
+                    <span>No signal or internet required to check.</span>
+                </div>
+            </div>
 
             <div class="section-group">
-                <label>¿Cómo desea configurar su eSIM?</label>
-                <div class="option-card">
-                    <input type="radio" name="config" id="auto" checked>
-                    <label for="auto" class="option-content">
+                <label>How do you want to set up your eSIM?</label>
+                
+                <label class="option-card">
+                    <input type="radio" name="setup" checked>
+                    <div class="option-content">
                         <i class="fas fa-mobile-alt"></i>
                         <div>
-                            <strong>Autoservicio 24/7</strong>
-                            <span>Lo hago yo mismo (Digital)</span>
+                            <strong>24/7 Self-Service</strong>
+                            <span>I'll do it myself (Digital)</span>
                         </div>
-                    </label>
-                </div>
-                <div class="option-card">
-                    <input type="radio" name="config" id="tecnico">
-                    <label for="tecnico" class="option-content">
-                        <i class="fas fa-user-cog"></i>
+                    </div>
+                </label>
+
+                <label class="option-card">
+                    <input type="radio" name="setup">
+                    <div class="option-content">
+                        <i class="fas fa-user-gear"></i>
                         <div>
-                            <strong>Ayuda del Técnico</strong>
-                            <span>Configuración en tienda</span>
+                            <strong>Technician Assistance</strong>
+                            <span>In-store setup</span>
                         </div>
-                    </label>
+                    </div>
+                </label>
+            </div>
+
+            <div class="section-group">
+                <label>Payment Method</label>
+                <div class="payment-grid">
+                    <div class="pay-method"><i class="fab fa-paypal"></i> PayPal</div>
+                    <div class="pay-method"><i class="fab fa-apple-pay"></i> Apple Pay</div>
+                    <div class="pay-method"><i class="fab fa-google-pay"></i> Google Pay</div>
+                    <div class="pay-method"><i class="fas fa-credit-card"></i> Card</div>
                 </div>
             </div>
 
             <div class="section-group">
-    <label>Forma de Pago</label>
-    <div class="payment-grid">
-        <div class="pay-method active">
-            <i class="fab fa-paypal"></i>
-            <span>PayPal</span>
-        </div>
-        <div class="pay-method">
-            <i class="fab fa-apple-pay"></i>
-            <span>Apple Pay</span>
-        </div>
-        <div class="pay-method">
-            <i class="fab fa-google-pay"></i>
-            <span>Google Pay</span>
-        </div>
-        <div class="pay-method">
-            <i class="fas fa-credit-card"></i>
-            <span>Tarjeta</span>
-        </div>
-    </div>
-</div>
-
-<div class="section-group">
-    <label>WhatsApp o Correo (para enviar código):</label>
-    <div class="input-box">
-        <input type="text" id="contact" placeholder="+506 ... o email@test.com">
-    </div>
-    <p class="input-note">El técnico procederá con la activación física en el local si así lo eliges.</p>
-</div>
+                <label>WhatsApp or Email (to send code):</label>
+                <div class="input-box">
+                    <input type="text" placeholder="+506 ... or email@test.com">
+                </div>
+            </div>
 
             <div class="price-tag">
                 Total: $49.00
             </div>
+            
+            <button class="btn-activar">ACTIVATE NOW</button>
 
-            <button class="btn-activar">
-                ACTIVAR eSIM
-            </button>
-
-            <footer class="service-footer">
-                <div class="service-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <span>Conexión Segura</span>
-                </div>
+            <div class="service-footer">
                 <div class="service-item">
                     <i class="fas fa-check-circle"></i>
-                    <span>Activación Instantánea</span>
+                    <span>Instant Delivery</span>
                 </div>
-            </footer>
-        </main>
+                <div class="service-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure Payment</span>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
