@@ -1,53 +1,69 @@
 /* =========================================
-   1. VARIABLES Y CONFIGURACIÓN BASE
+   1. VARIABLES Y CONFIGURACIÓN BASE (ACTUALIZADAS)
    ========================================= */
 :root {
-    --blue-btn: #1976D2; /* El azul exacto del botón Total y Activar */
-    --gray-bg: #F5F5F7; /* Fondo gris claro de la 'app' */
+    --blue-btn-solid: #1976D2; /* El azul original para texto y bordes */
+    /* NUEVAS VARIABLES PARA CRISTAL */
+    --glass-bg: rgba(255, 255, 255, 0.15); /* Fondo blanco muy transparente */
+    --glass-border: rgba(255, 255, 255, 0.25); /* Borde sutil de cristal */
     --white: #FFFFFF;
-    --dark-text: #333333;
-    --unlimited-color: #A5D6A7; /* El verde suave del texto ilimitado */
+    --dark-text: #1a1a1a;
+    --unlimited-color: #A5D6A7;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; /* Tipografía limpia tipo App */
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
 }
 
 body {
-    background-color: #E0E0E0; /* Fondo de la página para que resalte la tarjeta móvil */
+    /* FONDO DE PANTALLA COMPLETO (Sustituye 'fondo.jpg' por tu imagen) */
+    background-image: url('fondo.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Mantiene el fondo quieto al hacer scroll */
+    background-repeat: no-repeat;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    color: var(--dark-text);
 }
 
 /* =========================================
-   2. CONTENEDOR MÓVIL (LA TARJETA DE GPT)
+   2. CONTENEDOR MÓVIL (EFECTO CRISTAL PRINCIPAL)
    ========================================= */
 .mobile-container {
     width: 100%;
-    max-width: 380px; /* Ancho típico de un celular */
-    background-color: var(--white);
-    border-radius: 25px; /* Bordes muy redondeados como en la imagen */
-    overflow: hidden; /* Mantiene el header dentro de la curva */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Sombra elegante */
+    max-width: 380px;
+    
+    /* CAMBIO CLAVE: Fondo transparente con desenfoque */
+    background: var(--glass-bg); 
+    backdrop-filter: blur(15px); /* El efecto esmerilado */
+    -webkit-backdrop-filter: blur(15px); /* Soporte para Safari */
+    
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* Sombra más fuerte para flotar */
 }
 
 /* =========================================
-   3. HEADER (EL BOSQUE DE MONTEVERDE)
+   3. HEADER (LIGERO DEGRADADO PARA LETRAS)
    ========================================= */
 .card-header {
-    background-image: linear-gradient(to bottom, rgba(25,118,210,0.5), rgba(25,118,210,0.8)), 
-                      url('fondo.webp'); /* Asegúrate de tener tu imagen 'fondo.jpg' */
+    /* Mantenemos un degradado muy sutil solo para que la letra blanca se lea bien */
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
     background-size: cover;
     background-position: center;
     padding: 25px 20px;
     color: var(--white);
     position: relative;
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .flag-icon {
@@ -56,6 +72,7 @@ body {
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 10px;
+    border: 2px solid var(--white); /* Borde para que resalte la bandera */
 }
 
 .flag-icon img {
@@ -68,6 +85,7 @@ h1 {
     font-size: 1.6rem;
     font-weight: 800;
     margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra al texto para legibilidad */
 }
 
 .unlimited-badge {
@@ -77,26 +95,33 @@ h1 {
     display: flex;
     align-items: center;
     gap: 8px;
+    background: rgba(0,0,0,0.3); /* Fondo oscuro sutil solo para este texto */
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: inline-flex;
 }
 
 /* =========================================
-   4. FORMULARIO Y BOTONES
-   ========================================= */
+   4. FORMULARIO Y BOTONES (TRANSPARENTES)
+   ======================================== */
 .form-section {
     padding: 20px;
+    background: rgba(255,255,255, 0.1); /* Sutil fondo para la sección */
 }
 
 label {
     display: block;
-    color: var(--dark-text);
+    color: var(--white); /* Texto blanco sobre el fondo transparente */
     font-weight: 700;
     margin-bottom: 10px;
     font-size: 1.1rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .input-wrapper {
-    background-color: #F8F9FA;
-    border: 1px solid #E0E0E0;
+    /* CAMBIO: Input transparente estilo cristal */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
     border-radius: 12px;
     padding: 15px;
 }
@@ -106,66 +131,92 @@ input[type="number"] {
     border: none;
     background: transparent;
     font-size: 1rem;
-    color: #666;
+    color: var(--white); /* Texto blanco dentro del input */
+}
+
+input[type="number"]::placeholder {
+    color: rgba(255,255,255,0.7); /* Placeholder más claro */
 }
 
 input[type="number"]:focus {
     outline: none;
 }
 
+/* BOTÓN TOTAL (PRECIO) - CRISTAL AZUL */
 .price-display {
-    background-color: var(--blue-btn);
+    /* CAMBIO: Azul transparente con desenfoque */
+    background: rgba(25, 118, 210, 0.3);
+    backdrop-filter: blur(5px);
+    
     color: var(--white);
     text-align: center;
-    padding: 15px;
-    border-radius: 30px; /* Bordes tipo píldora */
-    font-size: 1.4rem;
+    padding: 18px;
+    border-radius: 30px;
+    font-size: 1.5rem;
     font-weight: 800;
     margin: 20px 0 10px 0;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
+/* BOTÓN ACTIVAR (ACCIÓN) - CRISTAL CON BORDE NEÓN AZUL */
 .main-btn {
     width: 100%;
-    background-color: var(--blue-btn);
+    /* CAMBIO: Fondo muy transparente con borde neón */
+    background: rgba(25, 118, 210, 0.15);
+    border: 2px solid var(--blue-btn-solid); /* Borde azul sólido neón */
+    
     color: var(--white);
-    border: none;
     padding: 18px;
     border-radius: 30px;
     font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(25,118,210,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    /* EFECTO NEÓN */
+    box-shadow: 0 0 15px rgba(25,118,210,0.5); 
+    transition: all 0.3s ease;
+}
+
+.main-btn:hover {
+    background: rgba(25, 118, 210, 0.3);
+    box-shadow: 0 0 25px rgba(25,118,210,0.8);
+    transform: translateY(-2px);
 }
 
 /* =========================================
-   5. FOOTER DE SERVICIO
+   5. FOOTER DE SERVICIO (TRANSPARENTE)
    ========================================= */
 .service-footer {
-    background-color: var(--white);
+    /* CAMBIO: Sin fondo blanco, solo cristal */
+    background: rgba(255,255,255, 0.05);
     padding: 20px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid #EEE;
+    border-top: 1px solid var(--glass-border);
 }
 
 .service-option {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--dark-text);
+    color: var(--white); /* Texto blanco para legibilidad */
 }
 
 .icon-service {
     font-size: 1.8rem;
-    color: var(--blue-btn);
+    color: var(--blue-btn-solid); /* Mantenemos los iconos azules */
+    filter: drop-shadow(0 0 5px rgba(25,118,210,0.5)); /* Brillo neón a los iconos */
 }
 
 .service-text strong {
     font-size: 1.1rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .service-text p {
     font-size: 0.9rem;
-    color: #666;
+    color: rgba(255,255,255,0.8);
 }
