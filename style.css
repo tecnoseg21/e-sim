@@ -248,3 +248,35 @@ label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
     border-radius: 20px;
     border: 1px dashed #1976d2;
 }
+
+
+body {
+    /* ... (resto de tus estilos de body, como color de fondo, márgenes, etc.) ... */
+    
+    /* Agregamos los perezosos como capas de fondo adicionales */
+    background-image: 
+        url('perezoso-izq.png'), /* Imagen para la izquierda */
+        url('perezoso-der.png'); /* Imagen para la derecha */
+    
+    /* Posiciones exactas: abajo a la izquierda, arriba a la derecha */
+    background-position: 
+        left bottom, 
+        right top;
+    
+    /* Para que NO se repitan las imágenes */
+    background-repeat: no-repeat;
+    
+    /* Ajustamos el tamaño: el primero es para la izq, el segundo para la der */
+    /* Puedes cambiar estos números (px) para que se asomen más o menos */
+    background-size: 200px, 250px;
+    
+    /* IMPORTANTE: Para que se queden fijos en las esquinas al hacer scroll */
+    background-attachment: fixed;
+}
+
+/* Pequeño ajuste opcional para que en móviles no tapen el contenido principal */
+@media (max-width: 768px) {
+    body {
+        background-size: 120px, 150px; /* Más pequeños en pantallas pequeñas */
+    }
+}
