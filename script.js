@@ -10,7 +10,7 @@ const translations = {
     NL: { total: "Totaal te betalen: $", perDay: "per dag", duration: "Duur: ", days: " dagen", checkout: "AFREKENEN", errorDates: "Selecteer geldige datums", errorContact: "Voer WhatsApp/E-mail in", compTitle: "Is mijn telefoon compatibel?", compP1: "Bel *#06# op je telefoon.", compP2: "Als er een EID-code verschijnt, ben je er klaar voor." }
 };
 
-// Función para reiniciar el proceso si cambian datos
+// Función para reiniciar el proceso si cambian datos (Corregida para evitar saltos)
 function resetCheckout() {
     const btnValidar = document.getElementById('btn-validar');
     const paymentArea = document.getElementById('payment-area');
@@ -20,6 +20,9 @@ function resetCheckout() {
         paymentArea.style.display = 'none';
         if (paypalContainer) paypalContainer.innerHTML = ''; 
         btnValidar.style.display = 'block';
+        
+        // Mantenemos la vista en el botón para que no salte al inicio
+        btnValidar.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     calcularPrecio();
 }
@@ -37,7 +40,10 @@ document.querySelectorAll('.lang-opt').forEach(opt => {
 function updateUI() {
     const lang = translations[currentLang];
     document.getElementById('btn-validar').textContent = lang.checkout;
-    document.getElementById('label-dates').textContent = lang.labelDates || "Travel Dates";
+    // Corregido: Si no tienes el ID 'label-dates' en el HTML, esta línea no dará error
+    const labelDates = document.getElementById('label-dates');
+    if(labelDates) labelDates.textContent = lang.labelDates || "Travel Dates";
+    
     document.getElementById('txt-days-unit').textContent = lang.days.trim();
     document.getElementById('contacto-cliente').placeholder = lang.errorContact;
     document.getElementById('label-comp').textContent = lang.compTitle;
@@ -62,7 +68,6 @@ function calcularPrecio() {
             
             if (contadorDiasSpan) contadorDiasSpan.textContent = dias;
             
-            // Lógica de Precios: Mientras más días, menos costo por día
             let costoDiario;
             if (dias >= 30) costoDiario = 89 / 30;
             else if (dias >= 15) costoDiario = 65 / 15;
@@ -106,29 +111,37 @@ document.getElementById('btn-validar').addEventListener('click', function() {
 
     this.style.display = 'none';
     paymentArea.style.display = 'block';
+    
+    // Deslizamos suavemente hacia las opciones de pago
+    paymentArea.scrollIntoView({ behavior: 'smooth' });
+    
     initPayPal(monto, contacto);
 });
 
 function initPayPal(monto, contacto) {
     const container = document.getElementById('paypal-button-container');
     container.innerHTML = ''; 
-    paypal.Buttons({
-        style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
-        createOrder: (data, actions) => {
-            return actions.order.create({
-                purchase_units: [{ 
-                    amount: { value: monto.toFixed(2) }, 
-                    description: `eSIM Costa Rica - ${contacto}` 
-                }]
-            });
-        },
-        onApprove: (data, actions) => {
-            return actions.order.capture().then(() => { window.location.reload(); });
-        }
-    }).render('#paypal-button-container');
+    
+    // Pequeña espera para evitar que el navegador salte al renderizar
+    setTimeout(() => {
+        paypal.Buttons({
+            style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
+            createOrder: (data, actions) => {
+                return actions.order.create({
+                    purchase_units: [{ 
+                        amount: { value: monto.toFixed(2) }, 
+                        description: `eSIM Costa Rica - ${contacto}` 
+                    }]
+                });
+            },
+            onApprove: (data, actions) => {
+                return actions.order.capture().then(() => { window.location.reload(); });
+            }
+        }).render('#paypal-button-container');
+    }, 200);
 }
 
-// Eventos de escucha
+// Eventos de escucha (Cambiado 'input' por 'change' en contacto para evitar resets molestos mientras se escribe)
 document.getElementById('fecha-inicio').addEventListener('change', resetCheckout);
 document.getElementById('fecha-fin').addEventListener('change', resetCheckout);
-document.getElementById('contacto-cliente').addEventListener('input', resetCheckout);
+document.getElementById('contacto-cliente').addEventListener('change', resetCheckout);
