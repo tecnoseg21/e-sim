@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #e9ecef;
+    background-color: #f0f2f5; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,10 +18,11 @@ body {
 }
 
 .mobile-app-card {
+    position: relative; /* Crítico para los perezosos/tucán */
     width: 95%;
     max-width: 450px;
     background-color: #ffffff;
-    border-radius: 16px;
+    border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     display: flex;
@@ -29,16 +30,18 @@ body {
 }
 
 /* =========================================
-    2. HEADER (IMAGEN DE MONTEVERDE)
+    2. HEADER (MONTEVERDE)
    ========================================= */
 .header-paisa {
-    background-image: url('fondo.webp');
+    background-image: url('fondo.webp'); /* Asegúrate de que el archivo se llame así */
     background-size: cover;
     background-position: center;
     min-height: 180px;
     position: relative;
     display: flex;
     align-items: flex-end;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .header-overlay {
@@ -46,6 +49,8 @@ body {
     padding: 20px;
     background: linear-gradient(transparent, rgba(0,0,0,0.7));
     color: white;
+    position: relative;
+    z-index: 2;
 }
 
 h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
@@ -71,23 +76,45 @@ h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
     border-radius: 20px;
     display: flex;
     gap: 8px;
+    z-index: 20;
 }
 
 .lang-opt { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: bold; cursor: pointer; }
 .lang-opt.active { color: white; }
 
 /* =========================================
-    3. CUERPO CON TEXTURA ORGANICA
+    3. DECORACIONES (TUCÁN Y PEREZOSO)
+   ========================================= */
+.perezoso-interno {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Tucán: Bajado a la parte blanca y más pequeño */
+.sl-der {
+    width: 75px; 
+    height: auto;
+    right: 10px;
+    top: 165px; /* Ajustado para que quede entre el bosque y el blanco */
+}
+
+/* Perezoso: Esquina inferior izquierda */
+.sl-izq {
+    width: 70px;
+    height: auto;
+    left: -10px;
+    bottom: 10px;
+}
+
+/* =========================================
+    4. CUERPO Y FORMULARIO
    ========================================= */
 .form-container {
     padding: 20px;
     background-color: #ffffff;
-    /* Textura sutil aplicada correctamente */
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
-        url('texture-subtle.webp'); 
-    background-size: cover;
-    background-position: center;
+    position: relative;
+    z-index: 1;
 }
 
 .section-group { margin-bottom: 20px; }
@@ -109,41 +136,36 @@ label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
     outline: none;
 }
 
-/* =========================================
-    4. TARJETAS DE OPCIÓN (AZULES)
-   ========================================= */
-.option-card {
-    display: block;
-    margin-bottom: 12px;
-    cursor: pointer;
+/* FECHAS */
+.date-range-container .input-box {
+    background: #f0f7ff;
+    border: 2px solid #1976d2;
+    border-radius: 10px;
+    padding: 8px 12px;
 }
 
-.option-card input { display: none; }
-
-.option-content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: #f8f9fa;
-    border: 2px solid #e9ecef;
-    border-radius: 12px;
-    transition: 0.2s;
+.date-range-container input[type="date"] {
+    border: none;
+    background: transparent;
+    color: #1976d2;
+    font-weight: 700;
+    width: 100%;
+    outline: none;
+    font-size: 0.9rem;
 }
 
-.option-content i { font-size: 1.5rem; color: #1976d2; }
-.option-content div strong { display: block; font-size: 1rem; color: #333; }
-.option-content div span { font-size: 0.85rem; color: #666; }
-
-/* Efecto cuando se selecciona */
-.option-card input:checked + .option-content {
-    border-color: #1976d2;
-    background-color: #e3f2fd;
+#resumen-dias {
+    margin-top: 10px;
+    background: #e3f2fd;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px dashed #1976d2;
+    color: #1976d2;
+    font-weight: bold;
 }
 
-/* =========================================
-    5. GRID DE PAGOS E INFO
-   ========================================= */
+/* COMPATIBILIDAD */
 .compatibility-box {
     background: #fff9c4;
     border: 1px solid #fbc02d;
@@ -152,35 +174,7 @@ label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
     margin-bottom: 20px;
 }
 
-.payment-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.pay-method {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.pay-method i { display: block; font-size: 1.5rem; margin-bottom: 5px; color: #1976d2; }
-
-.price-tag {
-    background: #1976d2;
-    color: white;
-    text-align: center;
-    padding: 18px;
-    border-radius: 12px;
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin: 20px 0 10px 0;
-}
-
+/* BOTÓN CHECKOUT */
 .btn-activar {
     width: 100%;
     background: transparent;
@@ -191,173 +185,24 @@ label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
+    transition: 0.3s;
 }
 
+.btn-activar:hover {
+    background: #1976d2;
+    color: white;
+}
+
+/* FOOTER */
 .service-footer {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid #eee;
+    position: relative;
+    z-index: 15;
 }
 
 .service-item { font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 5px; }
 .service-item i { color: #4caf50; }
-
-/* =========================================
-    ESTILO PARA EL ALMANAQUE (FECHAS)
-   ========================================= */
-.date-range-container .input-box {
-    background: #f0f7ff; /* Un azul muy claro de fondo */
-    border: 2px solid #1976d2; /* El azul del botón */
-    border-radius: 10px;
-    padding: 8px 12px;
-    transition: all 0.3s ease;
-}
-
-.date-range-container .input-box:focus-within {
-    background: #ffffff;
-    box-shadow: 0 0 8px rgba(25, 118, 210, 0.3);
-}
-
-.date-range-container input[type="date"] {
-    border: none;
-    background: transparent;
-    color: #1976d2; /* Texto en azul para combinar */
-    font-weight: 700;
-    width: 100%;
-    outline: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-}
-
-/* Estilo para los títulos pequeños (Start/End Date) */
-.date-range-container small {
-    color: #1976d2 !important;
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-    font-size: 0.65rem;
-}
-
-/* Ajuste del contador de días para que resalte */
-#resumen-dias {
-    background: #e3f2fd;
-    display: inline-block;
-    padding: 5px 15px;
-    border-radius: 20px;
-    border: 1px dashed #1976d2;
-}
-
-
-### 2. En tu archivo `style.css` (Copia y pega esto)
-
-Este código CSS hará tres cosas críticas:
-1.  **Limpiar el `body`:** Quita los perezosos del fondo del navegador.
-2.  **Preparar el contenedor:** Le dice a la tarjeta blanca que sea el "ancla" para los perezosos.
-3.  **Posicionar con precisión:** Coloca a cada perezoso en su esquina **dentro** de la tarjeta.
-
-/* --- Limpiamos el Body (asegúrate de que esté así) --- */
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background-color: #f0f2f5; 
-}
-
-/* --- Preparamos el Contenedor de la Tarjeta (asegúrate de que esté así) --- */
-.mobile-app-card {
-    position: relative; /* 👈 Crítico para que floten dentro */
-    overflow: hidden;    /* 👈 Corta si se asoman mucho */
-    background: #fff;
-    max-width: 480px;
-    margin: 20px auto;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    /* 👇 Para que en móviles respire un poco 👇 */
-    box-sizing: border-radius;
-    padding: 0px 0px 20px 0px; 
-}
-
-/* --- Estilos Generales para las Imágenes Decorativas (Perezosos y Tucán) --- */
-.perezoso-interno {
-    position: absolute; /* 👈 Se mueven respecto a .mobile-app-card */
-    z-index: 10;        /* 👈 Sobre el fondo, bajo los botones */
-    pointer-events: none; /* 👈 No interfieren si el usuario toca */
-}
-
-/* ------------------------------------------------------------------------- */
-/* 👇 👇 👇 AJUSTES ESPECÍFICOS DE TAMAÑO Y POSICIÓN 👇 👇 👇 */
-/* ------------------------------------------------------------------------- */
-
-/* --- Posición: Abajo a la izquierda (Perezoso colgando) --- */
-.sl-izq {
-    /* 👇 Más pequeño 👇 */
-    width: 80px;       
-    height: auto;
-    /* 👇 Ajuste de posición: más a la esquina 👇 */
-    left: -15px;        
-    bottom: 5px;      
-}
-
-/* --- Posición: Arriba a la derecha (Tucán y Perezoso) --- */
-.sl-der {
-    /* 👇 ¡Más pequeño y más abajo! 👇 */
-    width: 110px;       /* 👈 Reducido de 160px */
-    height: auto;
-    /* 👇 Ajuste de posición 👇 */
-    right: 5px;        /* 👈 Más a la esquina */
-    top: 60px;          /* 👈 ¡Baja para no amontonarse con el switcher de idiomas! */
-}
-
-/* ------------------------------------------------------------------------- */
-/* 👆 👆 👆 FIN DE AJUSTES ESPECÍFICOS 👆 👆 👆 */
-/* ------------------------------------------------------------------------- */
-
-
-/* --- Estilos de header, form y botones (Se mantienen igual) --- */
-/* --- Mantener el fondo del header --- */
-.header-paisa {
-    background-image: url('bosque.png'); /* Asegúrate de que el nombre del archivo sea correcto */
-    background-size: cover;
-    background-position: center;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    padding: 20px;
-    position: relative;
-    min-height: 120px; 
-    overflow: visible; /* Permitir que el tucán se asome si es necesario */
-}
-
-/* --- Ajuste del Tucán (Imagen Superior Derecha) --- */
-.sl-der {
-    width: 65px;        /* 👈 Mucho más pequeño para que sea un detalle sutil */
-    height: auto;
-    right: 10px;        /* 👈 Pegado a la derecha */
-    top: 55px;          /* 👈 Posicionado debajo del selector de idiomas */
-    opacity: 0.9;       /* 👈 Un toque de transparencia para que se integre con el bosque */
-    position: absolute;
-    z-index: 5;
-}
-
-/* --- Ajuste del Perezoso (Imagen Inferior Izquierda) --- */
-.sl-izq {
-    width: 70px;        /* 👈 Tamaño pequeño y balanceado */
-    height: auto;
-    left: -10px;        
-    bottom: 10px;       /* 👈 Separado del borde inferior */
-    position: absolute;
-    z-index: 5;
-}
-
-/* --- Asegurar que el selector de idiomas sea legible --- */
-.language-switcher {
-    position: relative;
-    z-index: 20;        /* 👈 Por encima de cualquier decoración */
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.3); /* Fondo semi-transparente para resaltar las letras */
-    padding: 5px 10px;
-    border-radius: 15px;
-}
