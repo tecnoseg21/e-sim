@@ -73,10 +73,27 @@ h1 {
     gap: 8px;
 }
 
+/* ... (Todo tu CSS anterior igual) ... */
+
+/* SECCIÓN DEL FORMULARIO - ACTUALIZADA CON FONDO */
 .form-container {
     padding: 25px 20px;
+    
+    /* FONDO SUTIL DE NATURALEZA */
+    /* Usaremos un degradado muy suave + una imagen de textura de hojas */
+    background-color: #ffffff; /* Color base */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.98)), /* Capa de opacidad blanca */
+        url('textura-hojas.png'); /* Asegúrate de tener esta imagen de textura muy suave */
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* El degradado blanco asegura que el texto sea 100% legible */
 }
 
+/* ... (Todo el resto del CSS igual) ... */
 .section-group {
     margin-bottom: 20px;
 }
