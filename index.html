@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSIM Costa Rica - Monteverde</title>
+    <title>eSIM Costa Rica - Checkout</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://www.paypal.com/sdk/js?client-id=Ad_S-Xv-u_v9-5_f-3_v-v-v-v-v-v-v-v-v-v-v-v&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID&currency=USD"></script>
 </head>
 <body>
 
@@ -29,20 +29,28 @@
         </header>
 
         <div class="form-container">
+            
             <div class="section-group">
                 <label>Select your travel dates</label>
                 <div class="date-range-container" style="display: flex; gap: 10px;">
                     <div class="input-box" style="flex: 1;">
-                        <small>Start Date</small>
+                        <small style="display:block; font-size: 0.7rem; color: #1976d2; font-weight: bold;">Start Date</small>
                         <input type="date" id="fecha-inicio">
                     </div>
                     <div class="input-box" style="flex: 1;">
-                        <small>End Date</small>
+                        <small style="display:block; font-size: 0.7rem; color: #1976d2; font-weight: bold;">End Date</small>
                         <input type="date" id="fecha-fin">
                     </div>
                 </div>
-                <div id="resumen-dias">
+                <div id="resumen-dias" style="margin-top: 10px; font-size: 0.9rem; font-weight: bold; color: #1976d2;">
                     Total: <span id="contador-dias">0</span> days
+                </div>
+            </div>
+
+            <div class="section-group">
+                <label id="label-contacto">WhatsApp or Email (for activation code):</label>
+                <div class="input-box">
+                    <input type="text" id="contacto-cliente" placeholder="+506 ... or email@test.com">
                 </div>
             </div>
 
@@ -56,47 +64,37 @@
             </div>
 
             <div class="section-group">
-                <label>Set up preference</label>
-                <label class="option-card">
-                    <input type="radio" name="setup" value="Self" checked>
-                    <div class="option-content">
-                        <i class="fas fa-mobile-alt"></i>
-                        <div><strong>24/7 Self-Service</strong><span>Digital delivery</span></div>
-                    </div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="setup" value="Tech">
-                    <div class="option-content">
-                        <i class="fas fa-user-gear"></i>
-                        <div><strong>Technician Help</strong><span>In-store setup</span></div>
-                    </div>
-                </label>
-            </div>
-
-            <div class="section-group">
                 <label>Payment Method</label>
                 <div class="payment-grid" id="payment-options">
-                    <div class="pay-method" data-method="PayPal"><i class="fab fa-paypal"></i><span>PayPal</span></div>
-                    <div class="pay-method" data-method="Card"><i class="fas fa-credit-card"></i><span>Card</span></div>
+                    <div class="pay-method" data-method="PayPal">
+                        <i class="fab fa-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="pay-method" data-method="Card">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Card</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="section-group">
-                <label id="label-contacto">WhatsApp or Email (for activation code):</label>
-                <div class="input-box">
-                    <input type="text" id="contacto-cliente" placeholder="+506... or email@test.com">
-                </div>
+            <div class="price-tag" id="display-precio">
+                Total: $0.00
             </div>
-
-            <div class="price-tag" id="display-precio">Total: $0.00</div>
             
-            <div id="paypal-button-container"></div>
-            
-            <button class="btn-activar" id="btn-validar">CHECKOUT</button>
+            <div id="action-area">
+                <button class="btn-activar" id="btn-validar">CHECKOUT</button>
+                <div id="paypal-button-container" style="display: none; margin-top: 15px;"></div>
+            </div>
 
             <div class="service-footer">
-                <div class="service-item"><i class="fas fa-check-circle"></i><span>Instant Delivery</span></div>
-                <div class="service-item"><i class="fas fa-shield-alt"></i><span>Secure Payment</span></div>
+                <div class="service-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Instant Delivery</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure Payment</span>
+                </div>
             </div>
         </div>
     </div>
