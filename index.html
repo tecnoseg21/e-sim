@@ -28,14 +28,22 @@
             </div>
         </header>
 
-        <div class="form-container">
-            
-            <div class="section-group">
-                <label>Select your days</label>
-                <div class="input-box">
-                    <input type="number" id="input-dias" value="7" min="1">
-                </div>
-            </div>
+        <div class="section-group">
+    <label>Select your travel dates</label>
+    <div class="date-range-container" style="display: flex; gap: 10px;">
+        <div class="input-box" style="flex: 1;">
+            <small style="display:block; font-size: 0.7rem; color: #666;">Start Date</small>
+            <input type="date" id="fecha-inicio" lang="es-CR">
+        </div>
+        <div class="input-box" style="flex: 1;">
+            <small style="display:block; font-size: 0.7rem; color: #666;">End Date</small>
+            <input type="date" id="fecha-fin" lang="es-CR">
+        </div>
+    </div>
+    <div id="resumen-dias" style="margin-top: 10px; font-size: 0.9rem; font-weight: bold; color: #1976d2;">
+        Total: <span id="contador-dias">0</span> days
+    </div>
+</div>
 
             <div class="compatibility-box">
                 <div class="comp-header">
