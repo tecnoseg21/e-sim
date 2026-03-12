@@ -1,37 +1,13 @@
+// Configuración de escala de precios (más días = menor costo diario)
 const preciosPorDia = { 1: 15, 3: 25, 7: 49, 15: 65, 30: 89 };
 let currentLang = 'EN';
 
 const translations = {
-    EN: { 
-        total: "Total to pay: $", errorContact: "Enter WhatsApp/Email", errorDates: "Please select valid dates", 
-        duration: "Duration: ", days: " days", checkout: "CHECKOUT", labelDates: "Select your travel dates",
-        labelContact: "WhatsApp or Email (for activation code):", footer1: "Instant Delivery", footer2: "Secure Payment",
-        compTitle: "Is my phone compatible?", compP1: "Dial *#06# on your phone.", compP2: "If an EID code appears, you're ready."
-    },
-    ES: { 
-        total: "Total a pagar: $", errorContact: "Ingresa WhatsApp/Correo", errorDates: "Por favor selecciona fechas válidas", 
-        duration: "Duración: ", days: " días", checkout: "FINALIZAR COMPRA", labelDates: "Selecciona las fechas de tu viaje",
-        labelContact: "WhatsApp o Correo (para código de activación):", footer1: "Entrega Instantánea", footer2: "Pago Seguro",
-        compTitle: "¿Es mi teléfono compatible?", compP1: "Marca *#06# en tu teléfono.", compP2: "Si aparece un código EID, estás listo."
-    },
-    FR: { 
-        total: "Total à payer: $", errorContact: "Entrez WhatsApp/Email", errorDates: "Veuillez choisir des dates valides", 
-        duration: "Durée: ", days: " jours", checkout: "PAYER", labelDates: "Choisissez vos dates de voyage",
-        labelContact: "WhatsApp ou Email (pour le code):", footer1: "Livraison instantanée", footer2: "Paiement sécurisé",
-        compTitle: "Mon téléphone est-il compatible?", compP1: "Composez *#06# sur votre téléphone.", compP2: "Si un code EID apparaît, vous êtes prêt."
-    },
-    DE: { 
-        total: "Gesamtbetrag: $", errorContact: "WhatsApp/E-Mail eingeben", errorDates: "Bitte gültige Daten wählen", 
-        duration: "Dauer: ", days: " Tage", checkout: "KASSE", labelDates: "Reisedaten auswählen",
-        labelContact: "WhatsApp oder E-Mail (für Code):", footer1: "Sofortige Lieferung", footer2: "Sichere Zahlung",
-        compTitle: "Ist mein Handy kompatibel?", compP1: "Wählen Sie *#06# auf Ihrem Handy.", compP2: "Wenn ein EID-Code erscheint, sind Sie bereit."
-    },
-    NL: { 
-        total: "Totaal te betalen: $", errorContact: "Voer WhatsApp/E-mail in", errorDates: "Selecteer geldige datums", 
-        duration: "Duur: ", days: " dagen", checkout: "AFREKENEN", labelDates: "Selecteer reisdata",
-        labelContact: "WhatsApp of e-mail (voor code):", footer1: "Directe levering", footer2: "Veilig betalen",
-        compTitle: "Is mijn telefoon compatibel?", compP1: "Bel *#06# op je telefoon.", compP2: "Als er een EID-code verschijnt, ben je er klaar voor."
-    }
+    EN: { total: "Total to pay: $", perDay: "per day", duration: "Duration: ", days: " days", checkout: "CHECKOUT", errorDates: "Please select valid dates", errorContact: "Enter WhatsApp/Email", compTitle: "Is my phone compatible?", compP1: "Dial *#06# on your phone.", compP2: "If an EID code appears, you're ready." },
+    ES: { total: "Total a pagar: $", perDay: "por día", duration: "Duración: ", days: " días", checkout: "FINALIZAR COMPRA", errorDates: "Por favor selecciona fechas válidas", errorContact: "Ingresa WhatsApp/Correo", compTitle: "¿Es mi teléfono compatible?", compP1: "Marca *#06# en tu teléfono.", compP2: "Si aparece un código EID, estás listo." },
+    FR: { total: "Total à payer: $", perDay: "par jour", duration: "Durée: ", days: " jours", checkout: "PAYER", errorDates: "Veuillez choisir des dates valides", errorContact: "Entrez WhatsApp/Email", compTitle: "Mon téléphone est-il compatible?", compP1: "Composez *#06# sur votre téléphone.", compP2: "Si un code EID apparaît, vous êtes prêt." },
+    DE: { total: "Gesamtbetrag: $", perDay: "pro Tag", duration: "Dauer: ", days: " Tage", checkout: "KASSE", errorDates: "Bitte gültige Daten wählen", errorContact: "WhatsApp/E-Mail eingeben", compTitle: "Ist mein Handy kompatibel?", compP1: "Wählen Sie *#06# auf Ihrem Handy.", compP2: "Wenn ein EID-Code erscheint, sind Sie bereit." },
+    NL: { total: "Totaal te betalen: $", perDay: "per dag", duration: "Duur: ", days: " dagen", checkout: "AFREKENEN", errorDates: "Selecteer geldige datums", errorContact: "Voer WhatsApp/E-mail in", compTitle: "Is mijn telefoon compatibel?", compP1: "Bel *#06# op je telefoon.", compP2: "Als er een EID-code verschijnt, ben je er klaar voor." }
 };
 
 function resetCheckout() {
@@ -59,18 +35,13 @@ document.querySelectorAll('.lang-opt').forEach(opt => {
 function updateUI() {
     const lang = translations[currentLang];
     document.getElementById('btn-validar').textContent = lang.checkout;
-    document.getElementById('label-dates').textContent = lang.labelDates;
-    document.getElementById('label-contacto').textContent = lang.labelContact;
-    document.getElementById('footer-1').textContent = lang.footer1;
-    document.getElementById('footer-2').textContent = lang.footer2;
+    document.getElementById('label-dates').textContent = lang.labelDates || "Travel Dates";
+    document.getElementById('label-contacto').textContent = lang.labelContact || "Contact";
     document.getElementById('txt-days-unit').textContent = lang.days.trim();
     document.getElementById('contacto-cliente').placeholder = lang.errorContact;
-    
-    // Traducción de compatibilidad
     document.getElementById('label-comp').textContent = lang.compTitle;
     document.getElementById('comp-p1').innerHTML = lang.compP1.replace('*#06#', '<strong>*#06#</strong>');
     document.getElementById('comp-p2').innerHTML = lang.compP2.replace('EID', '<strong>EID</strong>');
-    
     calcularPrecio();
 }
 
@@ -86,17 +57,30 @@ function calcularPrecio() {
         if (d2 >= d1) {
             const dias = Math.ceil(Math.abs(d2 - d1) / (1000 * 60 * 60 * 24)) + 1;
             if (contadorDiasSpan) contadorDiasSpan.textContent = dias;
-            let precio = preciosPorDia[dias] || (dias * 7);
+            
+            // Lógica de escala: si no está en la tabla, usa $7 base
+            let precioTotal = preciosPorDia[dias] || (dias * 7);
+            let costoDiario = (precioTotal / dias).toFixed(2);
+            
             const lang = translations[currentLang];
-            displayPrecio.innerHTML = `<small style="font-size:0.8rem; display:block; opacity:0.8;">${lang.duration}${dias}${lang.days}</small> ${lang.total}${precio.toFixed(2)}`;
-            return precio;
+            
+            displayPrecio.innerHTML = `
+                <div style="font-size: 0.9rem; opacity: 0.95; margin-bottom: 5px;">
+                    ${lang.duration} <strong>${dias} ${lang.days}</strong>
+                    <span style="margin-left:10px; font-weight:normal;">($${costoDiario} ${lang.perDay})</span>
+                </div>
+                <div style="font-size: 1.5rem; font-weight: 800; letter-spacing: 0.5px;">
+                    ${lang.total}${precioTotal.toFixed(2)}
+                </div>
+            `;
+            return precioTotal;
         }
     }
     if (contadorDiasSpan) contadorDiasSpan.textContent = "0";
     return 0;
 }
 
-document.getElementById('btn-validar').addEventListener('click', function(e) {
+document.getElementById('btn-validar').addEventListener('click', function() {
     const monto = calcularPrecio();
     const contacto = document.querySelector('#contacto-cliente').value;
     const paymentArea = document.getElementById('payment-area');
@@ -115,12 +99,12 @@ function initPayPal(monto, contacto) {
     container.innerHTML = ''; 
     paypal.Buttons({
         style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
-        createOrder: function(data, actions) {
+        createOrder: (data, actions) => {
             return actions.order.create({
                 purchase_units: [{ amount: { value: monto.toString() }, description: `eSIM Costa Rica - ${contacto}` }]
             });
         },
-        onApprove: function(data, actions) {
+        onApprove: (data, actions) => {
             return actions.order.capture().then(() => { window.location.reload(); });
         }
     }).render('#paypal-button-container');
