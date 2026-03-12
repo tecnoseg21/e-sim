@@ -1,5 +1,5 @@
 /* =========================================
-    CONFIGURACIÓN GLOBAL
+    1. RESET Y BASE
    ========================================= */
 * {
     box-sizing: border-box;
@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #e0e0e0; /* Fondo gris claro de la página */
+    background-color: #f0f2f5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,28 +18,27 @@ body {
 }
 
 /* =========================================
-    TARJETA PRINCIPAL (95% DE ANCHO)
+    2. TARJETA PRINCIPAL
    ========================================= */
 .mobile-app-card {
-    width: 95%; /* Ancho responsivo */
-    max-width: 450px; /* Ancho máximo en móvil */
+    width: 95%;
+    max-width: 450px;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    transition: all 0.3s ease;
 }
 
 /* =========================================
-    HEADER Y LENGUAJE (RECUPERADO EL PAISAJE)
+    3. HEADER (PAISAJE)
    ========================================= */
 .header-paisa {
-    background-image: url('fondo.webp'); /* Ruta de tu imagen del paisaje */
+    background-image: url('fondo.webp'); /* Tu paisaje de Monteverde */
     background-size: cover;
     background-position: center;
-    min-height: 200px;
+    min-height: 180px;
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -47,55 +46,81 @@ body {
 
 .header-overlay {
     width: 100%;
-    padding: 25px 20px;
-    background: transparent;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
     color: white;
 }
 
-/* Selector de idioma flotante */
+/* Selector de Idiomas */
 .language-switcher {
     position: absolute;
-    top: 12px;
+    top: 15px;
     right: 15px;
-    z-index: 10;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 6px 14px;
+    gap: 8px;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 12px;
     border-radius: 20px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.lang-opt {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    cursor: pointer;
-}
-
-.lang-opt.active { color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
+.lang-opt { color: #ccc; font-size: 0.7rem; font-weight: bold; cursor: pointer; }
+.lang-opt.active { color: white; }
 
 /* =========================================
-    CUERPO DE LA TARJETA (CON TEXTURA SUTIL)
+    4. CUERPO CON TEXTURA (EL CAMBIO QUE QUERÍAS)
    ========================================= */
 .form-container {
-    padding: 25px 20px;
+    padding: 20px;
     background-color: #ffffff;
-    
-    /* CAPA 1: Degradado blanco ultra-transparente (98% opacidad) */
-    /* CAPA 2: Tu imagen de textura sutil */
+    /* La textura sutil que no rompe el diseño */
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)), 
+        linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96)), 
         url('texture-subtle.webp'); 
-    
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    flex-grow: 1; /* Asegura que cubra hasta el final */
 }
 
-/* ... (Todo el resto de tu CSS anterior igual para section-group, label, botones, etc.) ... */
+/* =========================================
+    5. ELEMENTOS DEL FORMULARIO
+   ========================================= */
+.section-group { margin-bottom: 15px; }
+
+label { display: block; font-weight: 700; margin-bottom: 8px; color: #333; }
+
+/* Caja de compatibilidad amarilla */
+.compatibility-box {
+    background: #fff9c4;
+    border: 1px solid #fbc02d;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+/* Rejilla de pago */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.pay-method {
+    border: 1px solid #eee;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.pay-method i { display: block; font-size: 1.2rem; margin-bottom: 4px; color: #1976d2; }
+
+/* Botón de pago azul */
+.price-tag {
+    background: #0076df;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-top: 10px;
+}
