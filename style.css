@@ -1,34 +1,41 @@
-/* RESET TOTAL */
+/* =========================================
+    1. BASE Y ESTRUCTURA
+   ========================================= */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-    background-color: #e0e0e0;
+    background-color: #e9ecef;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 20px 0;
 }
 
 .mobile-app-card {
     width: 95%;
     max-width: 450px;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
 }
 
-/* HEADER - AQUÍ ESTABA EL ERROR */
+/* =========================================
+    2. HEADER (IMAGEN DE MONTEVERDE)
+   ========================================= */
 .header-paisa {
-    background-image: url('fondo.webp'); /* Asegúrate que este sea tu paisaje */
+    background-image: url('fondo.webp');
     background-size: cover;
     background-position: center;
-    height: 180px; /* Altura fija para evitar que se estire */
+    min-height: 180px;
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -41,42 +48,158 @@ body {
     color: white;
 }
 
-/* TEXTURA DEL CUERPO */
-.form-container {
-    padding: 20px;
-    background-color: #ffffff;
-    /* Aplicamos la textura de forma segura */
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96)), 
-        url('texture-subtle.webp'); 
-    background-size: cover;
+h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
+
+.badge-unlimited {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
-/* ESTILO DE IDIOMAS */
+/* Selector de Idiomas */
 .language-switcher {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    display: flex;
-    gap: 8px;
+    top: 12px;
+    right: 12px;
     background: rgba(0,0,0,0.5);
     padding: 5px 12px;
     border-radius: 20px;
+    display: flex;
+    gap: 8px;
 }
 
-.lang-opt {
-    color: rgba(255,255,255,0.6);
-    font-size: 0.7rem;
-    font-weight: bold;
-}
-
+.lang-opt { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: bold; cursor: pointer; }
 .lang-opt.active { color: white; }
 
-/* CAJA AMARILLA DE COMPATIBILIDAD */
+/* =========================================
+    3. CUERPO CON TEXTURA ORGANICA
+   ========================================= */
+.form-container {
+    padding: 20px;
+    background-color: #ffffff;
+    /* Textura sutil aplicada correctamente */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+        url('texture-subtle.webp'); 
+    background-size: cover;
+    background-position: center;
+}
+
+.section-group { margin-bottom: 20px; }
+
+label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
+
+.input-box {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.input-box input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* =========================================
+    4. TARJETAS DE OPCIÓN (AZULES)
+   ========================================= */
+.option-card {
+    display: block;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.option-card input { display: none; }
+
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+.option-content i { font-size: 1.5rem; color: #1976d2; }
+.option-content div strong { display: block; font-size: 1rem; color: #333; }
+.option-content div span { font-size: 0.85rem; color: #666; }
+
+/* Efecto cuando se selecciona */
+.option-card input:checked + .option-content {
+    border-color: #1976d2;
+    background-color: #e3f2fd;
+}
+
+/* =========================================
+    5. GRID DE PAGOS E INFO
+   ========================================= */
 .compatibility-box {
     background: #fff9c4;
     border: 1px solid #fbc02d;
     padding: 15px;
-    border-radius: 10px;
-    margin: 15px 0;
+    border-radius: 12px;
+    margin-bottom: 20px;
 }
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.pay-method {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.pay-method i { display: block; font-size: 1.5rem; margin-bottom: 5px; color: #1976d2; }
+
+.price-tag {
+    background: #1976d2;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 20px 0 10px 0;
+}
+
+.btn-activar {
+    width: 100%;
+    background: transparent;
+    color: #1976d2;
+    border: 2px solid #1976d2;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.service-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.service-item { font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 5px; }
+.service-item i { color: #4caf50; }
