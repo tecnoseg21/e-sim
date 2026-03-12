@@ -1,13 +1,6 @@
-// 1. CONFIGURACIÓN DE PRECIOS POR DÍA
-const preciosPorDia = {
-    1: 15.00,
-    3: 25.00,
-    7: 49.00,
-    15: 65.00,
-    30: 89.00
-};
+// 1. PRECIOS Y TRADUCCIONES
+const preciosPorDia = { 1: 15.0, 3: 25.0, 7: 49.0, 15: 65.0, 30: 89.0 };
 
-// 2. DICCIONARIO DE TRADUCCIONES
 const translations = {
     en: {
         title: "eSIM Costa Rica",
@@ -28,7 +21,9 @@ const translations = {
         activateBtn: "ACTIVATE NOW",
         instantDelivery: "Instant Delivery",
         securePayment: "Secure Payment",
-        daysCount: "Total:"
+        daysCount: "Total:",
+        errorContact: "Please enter your WhatsApp or Email.",
+        errorPay: "Please select a payment method."
     },
     es: {
         title: "eSIM Costa Rica",
@@ -49,7 +44,9 @@ const translations = {
         activateBtn: "ACTIVAR AHORA",
         instantDelivery: "Entrega Inmediata",
         securePayment: "Pago Seguro",
-        daysCount: "Total:"
+        daysCount: "Total:",
+        errorContact: "Por favor ingresa tu WhatsApp o Correo.",
+        errorPay: "Por favor selecciona un método de pago."
     },
     fr: {
         title: "eSIM Costa Rica",
@@ -70,7 +67,9 @@ const translations = {
         activateBtn: "ACTIVER MAINTENANT",
         instantDelivery: "Livraison instantanée",
         securePayment: "Paiement sécurisé",
-        daysCount: "Total:"
+        daysCount: "Total:",
+        errorContact: "Veuillez saisir votre WhatsApp ou votre e-mail.",
+        errorPay: "Veuillez sélectionner un mode de paiement."
     },
     de: {
         title: "eSIM Costa Rica",
@@ -91,7 +90,9 @@ const translations = {
         activateBtn: "JETZT AKTIVIEREN",
         instantDelivery: "Sofortige Lieferung",
         securePayment: "Sichere Zahlung",
-        daysCount: "Gesamt:"
+        daysCount: "Gesamt:",
+        errorContact: "Bitte geben Sie Ihre WhatsApp oder E-Mail ein.",
+        errorPay: "Bitte wählen Sie eine Zahlungsmethode."
     },
     nl: {
         title: "eSIM Costa Rica",
@@ -112,69 +113,79 @@ const translations = {
         activateBtn: "NU ACTIVEREN",
         instantDelivery: "Directe levering",
         securePayment: "Veilige betaling",
-        daysCount: "Totaal:"
+        daysCount: "Totaal:",
+        errorContact: "Voer uw WhatsApp of e-mailadres in.",
+        errorPay: "Selecteer een betaalmethode."
     }
 };
-let currentLang = 'en';
 
-// 3. ELEMENTOS DEL DOM
+let currentLang = 'en';
+let selectedPayment = "";
+
+// 2. ELEMENTOS
 const fechaInicio = document.querySelector('#fecha-inicio');
 const fechaFin = document.querySelector('#fecha-fin');
 const contadorDiasSpan = document.querySelector('#contador-dias');
 const displayPrecio = document.querySelector('#display-precio');
 
-// Establecer fecha mínima como "hoy" para evitar errores
+// Fecha mínima hoy
 const hoy = new Date().toISOString().split('T')[0];
 if(fechaInicio) fechaInicio.min = hoy;
-if(fechaFin) fechaFin.min = hoy;
 
-// 4. LÓGICA DE CÁLCULO
-function calcularPrecioFinal() {
-    const inicio = new Date(fechaInicio.value);
-    const fin = new Date(fechaFin.value);
-
-    if (fechaInicio.value && fechaFin.value && fin >= inicio) {
-        // Cálculo de diferencia de días
-        const diffTime = Math.abs(fin - inicio);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 para incluir ambos días
-        
-        contadorDiasSpan.textContent = diffDays;
-
-        // Buscar precio en la tabla o usar el fallback de $7 por día extra
-        let precio = preciosPorDia[diffDays] || (diffDays * 7);
-        
-        displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
-    } else {
-        contadorDiasSpan.textContent = "0";
-        displayPrecio.textContent = `${translations[currentLang].total}0.00`;
+// 3. LÓGICA DE PRECIO Y FECHAS
+function calcularPrecio() {
+    if (fechaInicio.value && fechaFin.value) {
+        const inicio = new Date(fechaInicio.value);
+        const fin = new Date(fechaFin.value);
+        if (fin >= inicio) {
+            const diffDays = Math.ceil(Math.abs(fin - inicio) / (1000 * 60 * 60 * 24)) + 1;
+            contadorDiasSpan.textContent = diffDays;
+            let precio = preciosPorDia[diffDays] || (diffDays * 7);
+            displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
+            return;
+        }
     }
+    contadorDiasSpan.textContent = "0";
+    displayPrecio.textContent = `${translations[currentLang].total}0.00`;
 }
+
+fechaInicio.addEventListener('change', () => { fechaFin.min = fechaInicio.value; calcularPrecio(); });
+fechaFin.addEventListener('change', calcularPrecio);
+
+// 4. MÉTODOS DE PAGO
+document.querySelectorAll('.pay-method').forEach(method => {
+    method.addEventListener('click', () => {
+        document.querySelectorAll('.pay-method').forEach(m => {
+            m.style.borderColor = "#e9ecef";
+            m.style.background = "#f8f9fa";
+        });
+        method.style.borderColor = "#1976d2";
+        method.style.background = "#e3f2fd";
+        selectedPayment = method.getAttribute('data-method');
+    });
+});
 
 // 5. CAMBIO DE IDIOMA
 document.querySelectorAll('.lang-opt').forEach(opt => {
     opt.addEventListener('click', () => {
         document.querySelector('.lang-opt.active').classList.remove('active');
         opt.classList.add('active');
-
         currentLang = opt.textContent.toLowerCase();
-        if (translations[currentLang]) {
-            updateLanguageUI(currentLang);
-            calcularPrecioFinal();
-        }
+        updateUI();
+        calcularPrecio();
     });
 });
 
-function updateLanguageUI(lang) {
-    const t = translations[lang];
-    
+function updateUI() {
+    const t = translations[currentLang];
     document.querySelector('h1').textContent = t.title;
     document.querySelector('.badge-unlimited span').textContent = t.subtitle;
-    document.querySelector('.section-group label').textContent = t.selectDays;
+    document.querySelectorAll('.section-group label')[0].textContent = t.selectDays;
     document.querySelector('.comp-header label').textContent = t.compatibilityTitle;
     document.querySelector('.compatibility-box p:nth-of-type(1)').innerHTML = t.compatibilityText;
     document.querySelector('.comp-step').innerHTML = t.compatibilityStep;
     document.querySelector('.no-signal-badge').textContent = t.noSignal;
-    document.querySelector('.section-group:nth-of-type(3) > label').textContent = t.setupQuestion;
+    document.querySelectorAll('.section-group label')[1].textContent = t.setupQuestion;
     
     const options = document.querySelectorAll('.option-content div');
     options[0].querySelector('strong').textContent = t.selfService;
@@ -182,24 +193,21 @@ function updateLanguageUI(lang) {
     options[1].querySelector('strong').textContent = t.techAssist;
     options[1].querySelector('span').textContent = t.techAssistSub;
 
-    document.querySelector('.section-group:nth-of-type(4) label').textContent = t.paymentMethod;
-    document.querySelector('.section-group:nth-of-type(5) label').textContent = t.contactLabel;
+    document.querySelectorAll('.section-group label')[2].textContent = t.paymentMethod;
+    document.querySelector('#label-contacto').textContent = t.contactLabel;
     document.querySelector('.btn-activar').textContent = t.activateBtn;
-    
-    // Texto del contador de días
     document.querySelector('#resumen-dias').firstChild.textContent = `${t.daysCount} `;
-
-    const footerItems = document.querySelectorAll('.service-item span');
-    footerItems[0].textContent = t.instantDelivery;
-    footerItems[1].textContent = t.securePayment;
+    
+    const footers = document.querySelectorAll('.service-item span');
+    footers[0].textContent = t.instantDelivery;
+    footers[1].textContent = t.securePayment;
 }
 
-// Eventos para detectar cambios en las fechas
-fechaInicio.addEventListener('change', () => {
-    fechaFin.min = fechaInicio.value; // El fin no puede ser antes del inicio
-    calcularPrecioFinal();
+// 6. BOTÓN ACTIVAR
+document.querySelector('.btn-activar').addEventListener('click', () => {
+    const contacto = document.querySelector('#contacto-cliente').value;
+    if (!contacto) return alert(translations[currentLang].errorContact);
+    if (!selectedPayment) return alert(translations[currentLang].errorPay);
+    
+    alert(`${currentLang === 'es' ? 'Redirigiendo a' : 'Redirecting to'} ${selectedPayment}...`);
 });
-fechaFin.addEventListener('change', calcularPrecioFinal);
-
-// Inicializar
-calcularPrecioFinal();
