@@ -3,11 +3,11 @@ let currentLang = 'en';
 let selectedPayment = "";
 
 const translations = {
-    en: { total: "Total: $", errorContact: "Enter WhatsApp/Email", errorPay: "Select payment method", success: "Success! Sending to: ", daysCount: "Total:" },
-    es: { total: "Total: $", errorContact: "Ingresa WhatsApp/Correo", errorPay: "Selecciona método de pago", success: "¡Éxito! Enviando a: ", daysCount: "Total:" },
-    fr: { total: "Total: $", errorContact: "Saisir WhatsApp/Email", errorPay: "Choisir le mode de paiement", success: "Succès! Envoi à: ", daysCount: "Total:" },
-    de: { total: "Gesamt: $", errorContact: "WhatsApp/E-Mail eingeben", errorPay: "Zahlungsmethode wählen", success: "Erfolg! Senden an: ", daysCount: "Gesamt:" },
-    nl: { total: "Totaal: $", errorContact: "Voer WhatsApp/E-mail in", errorPay: "Betaalmethode selecteren", success: "Succes! Verzenden naar: ", daysCount: "Totaal:" }
+    en: { total: "Total: $", errorContact: "Enter WhatsApp/Email", errorPay: "Select payment method", errorDates: "Please select valid dates", success: "Success! Sending to: " },
+    es: { total: "Total: $", errorContact: "Ingresa WhatsApp/Correo", errorPay: "Selecciona método de pago", errorDates: "Por favor selecciona fechas válidas", success: "¡Éxito! Enviando a: " },
+    fr: { total: "Total: $", errorContact: "Saisir WhatsApp/Email", errorPay: "Choisir le mode de paiement", errorDates: "Veuillez choisir des dates valides", success: "Succès! Envoi à: " },
+    de: { total: "Gesamt: $", errorContact: "WhatsApp/E-Mail eingeben", errorPay: "Zahlungsmethode wählen", errorDates: "Bitte wählen Sie gültige Daten", success: "Erfolg! Senden an: " },
+    nl: { total: "Totaal: $", errorContact: "Voer WhatsApp/E-mail in", errorPay: "Betaalmethode selecteren", errorDates: "Selecteer geldige datums", success: "Succes! Verzenden naar: " }
 };
 
 function calcularPrecio() {
@@ -24,24 +24,19 @@ function calcularPrecio() {
             contadorDiasSpan.textContent = dias;
             let precio = preciosPorDia[dias] || (dias * 7);
             displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
-            
-            // Si el botón de PayPal ya está visible, lo refrescamos con el nuevo precio
-            if (selectedPayment) initPayPal(); 
             return precio;
         }
     }
     displayPrecio.textContent = `${translations[currentLang].total}0.00`;
+    contadorDiasSpan.textContent = "0";
     return 0;
 }
 
-// Eventos para actualizar precio
+// Eventos para actualizar precio automáticamente
 document.querySelector('#fecha-inicio').addEventListener('change', calcularPrecio);
 document.querySelector('#fecha-fin').addEventListener('change', calcularPrecio);
-document.querySelector('#contacto-cliente').addEventListener('input', () => {
-    if (selectedPayment) initPayPal(); // Refresca el botón si cambian el correo
-});
 
-// Selección de pago y cambio de idioma
+// Selección visual del método de pago
 document.querySelectorAll('.pay-method').forEach(m => {
     m.addEventListener('click', () => {
         document.querySelectorAll('.pay-method').forEach(x => {
@@ -50,28 +45,55 @@ document.querySelectorAll('.pay-method').forEach(m => {
         });
         m.style.borderColor = "#1976d2";
         m.style.background = "#e3f2fd";
-        
         selectedPayment = m.getAttribute('data-method');
-        document.querySelector('#paypal-button-container').style.display = 'block';
-        document.querySelector('#btn-validar').style.display = 'none';
-        initPayPal();
+        
+        // Si el contenedor de PayPal ya estaba abierto, lo actualizamos
+        if (document.querySelector('#paypal-button-container').style.display === 'block') {
+            initPayPal();
+        }
     });
+});
+
+// LÓGICA DEL BOTÓN CHECKOUT (El que no te funcionaba)
+document.querySelector('#btn-validar').addEventListener('click', () => {
+    const monto = calcularPrecio();
+    const contacto = document.querySelector('#contacto-cliente').value;
+
+    // 1. Validaciones de seguridad
+    if (monto <= 0) {
+        alert(translations[currentLang].errorDates);
+        return;
+    }
+    if (!contacto || contacto.trim() === "") {
+        alert(translations[currentLang].errorContact);
+        document.querySelector('#contacto-cliente').focus();
+        return;
+    }
+    if (!selectedPayment) {
+        alert(translations[currentLang].errorPay);
+        return;
+    }
+
+    // 2. Si todo está bien, ocultamos el botón de validación y mostramos PayPal
+    document.querySelector('#btn-validar').style.display = 'none';
+    document.querySelector('#paypal-button-container').style.display = 'block';
+    initPayPal();
 });
 
 function initPayPal() {
     const monto = calcularPrecio();
     const contacto = document.querySelector('#contacto-cliente').value;
 
-    if (!contacto || monto <= 0) return;
-
-    document.querySelector('#paypal-button-container').innerHTML = '';
+    // Limpiar contenedor para evitar que se dupliquen los botones
+    const container = document.querySelector('#paypal-button-container');
+    container.innerHTML = '';
 
     paypal.Buttons({
         style: { 
             layout: 'vertical', 
             color: 'blue', 
             shape: 'rect', 
-            label: 'pay' // Esto activa la detección de Apple/Google Pay
+            label: 'pay' 
         },
         createOrder: function(data, actions) {
             return actions.order.create({
@@ -87,17 +109,24 @@ function initPayPal() {
                 alert(translations[currentLang].success + contacto);
                 window.location.reload();
             });
+        },
+        onError: function(err) {
+            console.error("PayPal Error:", err);
+            alert("Error al conectar con PayPal.");
+            // Si hay error, mostramos el botón de validar otra vez
+            document.querySelector('#btn-validar').style.display = 'block';
+            container.style.display = 'none';
         }
     }).render('#paypal-button-container');
 }
 
-// Lógica de cambio de idioma para los botones EN, ES, FR...
+// Lógica de idiomas
 document.querySelectorAll('.lang-opt').forEach(opt => {
     opt.addEventListener('click', () => {
         document.querySelector('.lang-opt.active').classList.remove('active');
         opt.classList.add('active');
         currentLang = opt.textContent.toLowerCase();
-        // Aquí llamarías a tu función updateLanguageUI(currentLang) que definimos antes
+        // Aquí puedes disparar la función que traduce el resto de la UI
         calcularPrecio(); 
     });
 });
