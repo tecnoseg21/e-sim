@@ -397,3 +397,40 @@ body {
 .no-signal-badge i {
     font-size: 0.8rem;
 }
+
+/* SELECTOR DE IDIOMA */
+.language-switcher {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.3); /* Fondo oscuro sutil */
+    padding: 5px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px); /* Un toque de desenfoque solo ahí */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.lang-opt {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.lang-opt.active {
+    color: #ffffff;
+}
+
+.lang-divider {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8rem;
+}
+
+.lang-opt:hover {
+    color: #ffffff;
+}
