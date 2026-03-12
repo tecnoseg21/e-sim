@@ -29,7 +29,6 @@
         </header>
 
         <div class="form-container">
-            
             <div class="section-group">
                 <label id="label-dates">Select your travel dates</label>
                 <div class="date-range-container" style="display: flex; gap: 10px;">
@@ -93,51 +92,57 @@
 
         const translations = {
             EN: { 
-                total: "Total to pay: $", 
-                errorContact: "Enter WhatsApp/Email", 
-                errorDates: "Please select valid dates", 
-                duration: "Duration: ", 
-                days: " days",
-                checkout: "CHECKOUT",
-                labelDates: "Select your travel dates",
-                labelContact: "WhatsApp or Email (for activation code):",
-                footer1: "Instant Delivery",
-                footer2: "Secure Payment"
+                total: "Total to pay: $", errorContact: "Enter WhatsApp/Email", errorDates: "Please select valid dates", 
+                duration: "Duration: ", days: " days", checkout: "CHECKOUT", labelDates: "Select your travel dates",
+                labelContact: "WhatsApp or Email (for activation code):", footer1: "Instant Delivery", footer2: "Secure Payment"
             },
             ES: { 
-                total: "Total a pagar: $", 
-                errorContact: "Ingresa WhatsApp/Correo", 
-                errorDates: "Por favor selecciona fechas válidas", 
-                duration: "Duración: ", 
-                days: " días",
-                checkout: "FINALIZAR COMPRA",
-                labelDates: "Selecciona las fechas de tu viaje",
-                labelContact: "WhatsApp o Correo (para código de activación):",
-                footer1: "Entrega Instantánea",
-                footer2: "Pago Seguro"
+                total: "Total a pagar: $", errorContact: "Ingresa WhatsApp/Correo", errorDates: "Por favor selecciona fechas válidas", 
+                duration: "Duración: ", days: " días", checkout: "FINALIZAR COMPRA", labelDates: "Selecciona las fechas de tu viaje",
+                labelContact: "WhatsApp o Correo (para código de activación):", footer1: "Entrega Instantánea", footer2: "Pago Seguro"
+            },
+            FR: { 
+                total: "Total à payer: $", errorContact: "Entrez WhatsApp/Email", errorDates: "Veuillez choisir des dates valides", 
+                duration: "Durée: ", days: " jours", checkout: "PAYER", labelDates: "Choisissez vos dates de voyage",
+                labelContact: "WhatsApp ou Email (pour le code):", footer1: "Livraison instantanée", footer2: "Paiement sécurisé"
+            },
+            DE: { 
+                total: "Gesamtbetrag: $", errorContact: "WhatsApp/E-Mail eingeben", errorDates: "Bitte gültige Daten wählen", 
+                duration: "Dauer: ", days: " Tage", checkout: "KASSE", labelDates: "Reisedaten auswählen",
+                labelContact: "WhatsApp oder E-Mail (für Code):", footer1: "Sofortige Lieferung", footer2: "Sichere Zahlung"
+            },
+            NL: { 
+                total: "Totaal te betalen: $", errorContact: "Voer WhatsApp/E-mail in", errorDates: "Selecteer geldige datums", 
+                duration: "Duur: ", days: " dagen", checkout: "AFREKENEN", labelDates: "Selecteer reisdata",
+                labelContact: "WhatsApp of e-mail (voor code):", footer1: "Directe levering", footer2: "Veilig betalen"
             }
         };
 
-        // 1. MANEJO DE IDIOMAS
+        // Escuchar clics en los idiomas
         document.querySelectorAll('.lang-opt').forEach(opt => {
             opt.addEventListener('click', function() {
                 document.querySelectorAll('.lang-opt').forEach(el => el.classList.remove('active'));
                 this.classList.add('active');
                 
-                currentLang = this.getAttribute('data-lang') || this.textContent.trim();
+                // Forzamos que lea el data-lang directamente
+                currentLang = this.getAttribute('data-lang');
+                console.log("Idioma detectado:", currentLang);
                 updateUI();
             });
         });
 
         function updateUI() {
-            const lang = translations[currentLang] || translations['EN'];
+            const lang = translations[currentLang];
+            if(!lang) return;
+
             document.getElementById('btn-validar').textContent = lang.checkout;
             document.getElementById('label-dates').textContent = lang.labelDates;
             document.getElementById('label-contacto').textContent = lang.labelContact;
             document.getElementById('footer-1').textContent = lang.footer1;
             document.getElementById('footer-2').textContent = lang.footer2;
-            document.getElementById('txt-total-days').textContent = "Total:";
             document.getElementById('txt-days-unit').textContent = lang.days.trim();
+            document.getElementById('contacto-cliente').placeholder = lang.errorContact;
+            
             calcularPrecio();
         }
 
@@ -155,8 +160,9 @@
                     if (contadorDiasSpan) contadorDiasSpan.textContent = dias;
                     
                     let precio = preciosPorDia[dias] || (dias * 7);
-                    const lang = translations[currentLang] || translations['EN'];
+                    const lang = translations[currentLang];
                     
+                    // Actualiza el cuadro del Total con el idioma correcto
                     displayPrecio.innerHTML = `<small style="font-size:0.8rem; display:block; opacity:0.8;">${lang.duration}${dias}${lang.days}</small> ${lang.total}${precio.toFixed(2)}`;
                     
                     return precio;
@@ -165,18 +171,15 @@
             return 0;
         }
 
-        // 2. LÓGICA DEL BOTÓN CHECKOUT
         document.getElementById('btn-validar').addEventListener('click', function(e) {
             const monto = calcularPrecio();
             const contacto = document.querySelector('#contacto-cliente').value;
             const paymentArea = document.getElementById('payment-area');
-
-            const lang = translations[currentLang] || translations['EN'];
+            const lang = translations[currentLang];
 
             if (monto <= 0) return alert(lang.errorDates);
             if (!contacto || contacto.trim() === "") return alert(lang.errorContact);
 
-            // Ocultar botón de validación y mostrar área de pago
             this.style.display = 'none';
             paymentArea.style.display = 'block';
             
@@ -199,15 +202,12 @@
                 },
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(details => {
-                        const lang = translations[currentLang] || translations['EN'];
-                        alert(currentLang === 'ES' ? "¡Pago exitoso! Revisa tu contacto." : "Payment successful! Check your contact.");
                         window.location.reload();
                     });
                 }
             }).render('#paypal-button-container');
         }
 
-        // Escuchar cambios en fechas para actualizar el contador de días pequeño
         document.getElementById('fecha-inicio').addEventListener('change', calcularPrecio);
         document.getElementById('fecha-fin').addEventListener('change', calcularPrecio);
     </script>
