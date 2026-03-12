@@ -20,7 +20,7 @@
 
 body {
     /* FONDO DE PANTALLA COMPLETO (Sustituye 'fondo.jpg' por tu imagen) */
-    background-image: url('fondo.jpg'); 
+    background-image: url('fondo.webp'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Mantiene el fondo quieto al hacer scroll */
