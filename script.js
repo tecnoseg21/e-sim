@@ -7,14 +7,25 @@ const translations = {
     es: { total: "Total: $", errorContact: "Ingresa WhatsApp/Correo", errorDates: "Por favor selecciona fechas válidas", success: "¡Éxito! Enviando a: " }
 };
 
-// --- FUNCIÓN PARA CAMBIAR IDIOMA ---
+// --- 1. FUNCIÓN MAESTRA DE IDIOMA ---
 function setLanguage(lang) {
     currentLang = lang;
+    
+    // Actualizamos los textos que ya están en pantalla
+    const contactoInput = document.querySelector('#contacto-cliente');
+    const btnValidar = document.getElementById('btn-validar');
+
+    if (contactoInput) {
+        contactoInput.placeholder = translations[currentLang].errorContact;
+    }
+    
+    // Recalculamos el precio para que el texto "Total: $" cambie de idioma
     calcularPrecio();
-    console.log("Idioma cambiado a:", lang);
+    
+    console.log("Idioma actualizado a:", currentLang);
 }
 
-// --- LÓGICA DE CÁLCULO ---
+// --- 2. LÓGICA DE CÁLCULO ---
 function calcularPrecio() {
     const inicio = document.querySelector('#fecha-inicio').value;
     const fin = document.querySelector('#fecha-fin').value;
@@ -30,6 +41,7 @@ function calcularPrecio() {
             
             let precio = preciosPorDia[dias] || (dias * 7);
             if (displayPrecio) {
+                // Aquí se usa la traducción actual
                 displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
             }
             return precio;
@@ -38,10 +50,20 @@ function calcularPrecio() {
     return 0;
 }
 
-// --- EVENTOS AL CARGAR EL DOM ---
+// --- 3. EVENTOS AL CARGAR EL DOM ---
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Lógica del Botón CHECKOUT (Botón de Validar/Total)
+    // Escuchar clics en los botones de idioma
+    // IMPORTANTE: Tus banderas deben tener la clase 'lang-switch'
+    document.querySelectorAll('.lang-switch').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('data-lang');
+            if (lang) setLanguage(lang);
+        });
+    });
+
+    // Lógica del Botón CHECKOUT
     const btnValidar = document.getElementById('btn-validar');
     if(btnValidar) {
         btnValidar.addEventListener('click', function(e) {
@@ -50,46 +72,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const contacto = document.querySelector('#contacto-cliente').value;
             const paypalContainer = document.getElementById('paypal-button-container');
 
-            // Validaciones básicas
             if (monto <= 0) return alert(translations[currentLang].errorDates);
             if (!contacto || contacto.trim() === "") return alert(translations[currentLang].errorContact);
 
-            // OCULTAMOS EL BOTÓN Y MOSTRAMOS LOS BOTONES DE PAGO DIRECTAMENTE
             this.style.display = 'none';
             paypalContainer.style.display = 'block';
             
-            // Cargamos PayPal con el monto calculado
             initPayPal(monto, contacto);
         });
     }
-
-    // 2. Manejo de clics en banderas de idioma
-    document.querySelectorAll('.lang-switch').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const lang = this.getAttribute('data-lang');
-            setLanguage(lang);
-        });
-    });
 });
 
-// --- INTEGRACIÓN DE PAYPAL / APPLE PAY ---
+// --- 4. INTEGRACIÓN DE PAYPAL ---
 function initPayPal(monto, contacto) {
     const container = document.getElementById('paypal-button-container');
     container.innerHTML = ''; 
 
     if (typeof paypal === 'undefined') {
         alert("PayPal SDK no cargó.");
-        document.getElementById('btn-validar').style.display = 'block';
         return;
     }
 
     paypal.Buttons({
-        style: { 
-            layout: 'vertical', 
-            color: 'gold', 
-            shape: 'rect', 
-            label: 'pay' 
-        },
+        style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{
@@ -104,11 +109,6 @@ function initPayPal(monto, contacto) {
                 alert(translations[currentLang].success + contacto);
                 window.location.reload();
             });
-        },
-        onError: function(err) {
-            console.error("Error PayPal:", err);
-            document.getElementById('btn-validar').style.display = 'block';
-            container.style.display = 'none';
         }
     }).render('#paypal-button-container');
 }
