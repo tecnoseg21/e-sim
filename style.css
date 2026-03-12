@@ -11,25 +11,23 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px 0; /* Espacio arriba y abajo en la pantalla */
+    padding: 20px 0;
 }
 
-/* TARJETA - ANCHO AL 95% */
 .mobile-app-card {
-    width: 95%; /* Lo que pediste: casi todo el ancho */
-    max-width: 450px; /* Para que no se estire demasiado en tablets */
+    width: 95%;
+    max-width: 450px;
     background-color: #ffffff;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* HEADER - ESPACIO VERTICAL RESTAURADO */
 .header-paisa {
     background-image: url('fondo.webp');
     background-size: cover;
     background-position: center;
-    min-height: 200px; /* Altura original restaurada */
+    min-height: 180px;
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -37,7 +35,7 @@ body {
 
 .header-overlay {
     width: 100%;
-    padding: 25px 20px; /* Padding original restaurado */
+    padding: 25px 20px;
     background: transparent;
     color: white;
 }
@@ -58,7 +56,7 @@ body {
 }
 
 h1 {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 800;
     text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
@@ -67,7 +65,7 @@ h1 {
     background: rgba(0, 0, 0, 0.4);
     padding: 6px 12px;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #a5d6a7;
     margin-top: 5px;
     display: inline-flex;
@@ -75,10 +73,12 @@ h1 {
     gap: 8px;
 }
 
-/* CONTENEDOR - ESPACIO VERTICAL RESTAURADO */
 .form-container {
-    padding: 25px 20px; /* Padding vertical generoso como antes */
-    background-color: #ffffff;
+    padding: 25px 20px;
+}
+
+.section-group {
+    margin-bottom: 20px;
 }
 
 label {
@@ -86,14 +86,14 @@ label {
     font-weight: 700;
     color: #333;
     margin-bottom: 10px;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .input-box {
     background: #f1f3f5;
     border: 1px solid #dee2e6;
     border-radius: 8px;
-    padding: 15px; /* Input espacioso */
+    padding: 12px;
 }
 
 .input-box input {
@@ -104,32 +104,97 @@ label {
     outline: none;
 }
 
-/* BOTÓN TOTAL */
+/* ESTILO OPCIONES (Autoservicio/Técnico) */
+.option-card {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.option-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.option-content {
+    display: flex !important;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option-card input[type="radio"]:checked + .option-content {
+    border-color: #1976d2;
+    background: #e3f2fd;
+}
+
+.option-content i {
+    font-size: 1.5rem;
+    color: #1976d2;
+}
+
+.option-content div strong {
+    display: block;
+    font-size: 1rem;
+}
+
+.option-content div span {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* MÉTODOS DE PAGO */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.pay-method {
+    border: 1px solid #eee;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    background: #f8f9fa;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.pay-method i {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    color: #1976d2;
+}
+
 .price-tag {
     background: #1976d2;
     color: white;
     text-align: center;
-    padding: 18px; /* Padding original */
+    padding: 18px;
     border-radius: 10px;
     font-size: 1.5rem;
     font-weight: 800;
     margin: 20px 0 12px 0;
 }
 
-/* BOTÓN ACTIVAR */
 .btn-activar {
     width: 100%;
     background: white;
     color: #1976d2;
     border: 2px solid #1976d2;
-    padding: 18px; /* Padding original */
+    padding: 18px;
     border-radius: 10px;
     font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
 }
 
-/* FOOTER */
 .service-footer {
     display: flex;
     justify-content: space-around;
@@ -141,11 +206,11 @@ label {
 .service-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #555;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #777;
 }
 
 .service-item i {
-    color: #1976d2;
-    font-size: 1.5rem;
+    color: #4caf50;
 }
