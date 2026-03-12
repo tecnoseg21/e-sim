@@ -10,19 +10,22 @@ const translations = {
     NL: { total: "Totaal te betalen: $", perDay: "per dag", duration: "Duur: ", days: " dagen", checkout: "AFREKENEN", errorDates: "Selecteer geldige datums", errorContact: "Voer WhatsApp/E-mail in", compTitle: "Is mijn telefoon compatibel?", compP1: "Bel *#06# op je telefoon.", compP2: "Als er een EID-code verschijnt, ben je er klaar voor." }
 };
 
-// Función para reiniciar el proceso si cambian datos (Corregida para evitar saltos)
+// Función corregida para evitar el "latigazo" hacia arriba
 function resetCheckout() {
     const btnValidar = document.getElementById('btn-validar');
     const paymentArea = document.getElementById('payment-area');
     const paypalContainer = document.getElementById('paypal-button-container');
 
     if (paymentArea && paymentArea.style.display === 'block') {
+        // Guardamos la posición actual del scroll
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+        
         paymentArea.style.display = 'none';
         if (paypalContainer) paypalContainer.innerHTML = ''; 
         btnValidar.style.display = 'block';
         
-        // Mantenemos la vista en el botón para que no salte al inicio
-        btnValidar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Forzamos al navegador a quedarse donde estaba
+        window.scrollTo(0, scrollPos);
     }
     calcularPrecio();
 }
@@ -40,7 +43,6 @@ document.querySelectorAll('.lang-opt').forEach(opt => {
 function updateUI() {
     const lang = translations[currentLang];
     document.getElementById('btn-validar').textContent = lang.checkout;
-    // Corregido: Si no tienes el ID 'label-dates' en el HTML, esta línea no dará error
     const labelDates = document.getElementById('label-dates');
     if(labelDates) labelDates.textContent = lang.labelDates || "Travel Dates";
     
@@ -109,11 +111,14 @@ document.getElementById('btn-validar').addEventListener('click', function() {
         return;
     }
 
+    // Guardamos la posición antes de mostrar PayPal
+    const currentPos = window.pageYOffset;
+
     this.style.display = 'none';
     paymentArea.style.display = 'block';
     
-    // Deslizamos suavemente hacia las opciones de pago
-    paymentArea.scrollIntoView({ behavior: 'smooth' });
+    // Bloqueamos el scroll automático por un segundo
+    window.scrollTo(0, currentPos);
     
     initPayPal(monto, contacto);
 });
@@ -122,7 +127,7 @@ function initPayPal(monto, contacto) {
     const container = document.getElementById('paypal-button-container');
     container.innerHTML = ''; 
     
-    // Pequeña espera para evitar que el navegador salte al renderizar
+    // Usamos un observer para detectar cuando PayPal intenta mover el scroll
     setTimeout(() => {
         paypal.Buttons({
             style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
@@ -137,11 +142,14 @@ function initPayPal(monto, contacto) {
             onApprove: (data, actions) => {
                 return actions.order.capture().then(() => { window.location.reload(); });
             }
-        }).render('#paypal-button-container');
-    }, 200);
+        }).render('#paypal-button-container').then(() => {
+            // Una vez renderizado, deslizamos suavemente pero SOLO al contenedor de PayPal
+            document.getElementById('payment-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    }, 100);
 }
 
-// Eventos de escucha (Cambiado 'input' por 'change' en contacto para evitar resets molestos mientras se escribe)
+// Eventos de escucha
 document.getElementById('fecha-inicio').addEventListener('change', resetCheckout);
 document.getElementById('fecha-fin').addEventListener('change', resetCheckout);
 document.getElementById('contacto-cliente').addEventListener('change', resetCheckout);
