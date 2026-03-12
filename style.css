@@ -1,14 +1,13 @@
 /* =========================================
-   1. VARIABLES Y CONFIGURACIÓN BASE (ACTUALIZADAS)
+   1. VARIABLES Y CONFIGURACIÓN BASE
    ========================================= */
 :root {
-    --blue-btn-solid: #1976D2; /* El azul original para texto y bordes */
-    /* NUEVAS VARIABLES PARA CRISTAL */
-    --glass-bg: rgba(255, 255, 255, 0.15); /* Fondo blanco muy transparente */
-    --glass-border: rgba(255, 255, 255, 0.25); /* Borde sutil de cristal */
+    --blue-app: #1976D2; /* Azul para botones y texto */
+    --light-bg: #F5F5F7; /* Fondo gris claro de la sección sólida */
     --white: #FFFFFF;
-    --dark-text: #1a1a1a;
-    --unlimited-color: #A5D6A7;
+    --dark-text: #333333;
+    --glass-background: rgba(255, 255, 255, 0.2); /* Base transparente del cristal */
+    --glass-border: rgba(255, 255, 255, 0.3); /* Borde sutil del cristal */
 }
 
 * {
@@ -19,60 +18,58 @@
 }
 
 body {
-    /* FONDO DE PANTALLA COMPLETO (Sustituye 'fondo.jpg' por tu imagen) */
-    background-image: url('fondo.webp'); 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Mantiene el fondo quieto al hacer scroll */
-    background-repeat: no-repeat;
-    
+    background-color: #E0E0E0; /* Fondo de la página para que resalte la tarjeta app */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    color: var(--dark-text);
 }
 
 /* =========================================
-   2. CONTENEDOR MÓVIL (EFECTO CRISTAL PRINCIPAL)
+   2. CONTENEDOR PRINCIPAL (LA TARJETA APP)
    ========================================= */
-.mobile-container {
+.mobile-app-card {
     width: 100%;
     max-width: 380px;
-    
-    /* CAMBIO CLAVE: Fondo transparente con desenfoque */
-    background: var(--glass-bg); 
-    backdrop-filter: blur(15px); /* El efecto esmerilado */
-    -webkit-backdrop-filter: blur(15px); /* Soporte para Safari */
-    
-    border: 1px solid var(--glass-border);
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* Sombra más fuerte para flotar */
+    background-color: var(--light-bg); /* Fondo sólido por defecto */
+    border-radius: 30px; /* Bordes muy redondeados tipo app premium */
+    overflow: hidden; /* Mantiene el header transparente dentro de la curva */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 /* =========================================
-   3. HEADER (LIGERO DEGRADADO PARA LETRAS)
+   3. SECCIÓN TRANSPARENTE (EL ENCABEZADO)
    ========================================= */
-.card-header {
-    /* Mantenemos un degradado muy sutil solo para que la letra blanca se lea bien */
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+.glass-header {
+    /* CAMBIO CLAVE: Usamos 'fondo.webp' SOLO AQUÍ */
+    background-image: url('fondo.webp');
     background-size: cover;
     background-position: center;
-    padding: 25px 20px;
-    color: var(--white);
+    
     position: relative;
+    color: var(--white);
+    
+    /* El efecto Glassmorphism se aplica solo a este elemento */
     border-bottom: 1px solid var(--glass-border);
 }
 
+/* Capa interior para el desenfoque y el tinte de cristal */
+.header-content-wrapper {
+    background: var(--glass-background); /* Tinte blanco transparente */
+    backdrop-filter: blur(15px); /* Efecto esmerilado */
+    -webkit-backdrop-filter: blur(15px); /* Soporte para Safari */
+    padding: 25px 20px; /* Espaciado interno */
+}
+
+/* Estilos de los elementos del header (igual que antes) */
 .flag-icon {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 10px;
-    border: 2px solid var(--white); /* Borde para que resalte la bandera */
+    border: 2px solid var(--white);
 }
 
 .flag-icon img {
@@ -84,44 +81,42 @@ body {
 h1 {
     font-size: 1.6rem;
     font-weight: 800;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra al texto para legibilidad */
+    margin-bottom: 12px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra para legibilidad */
 }
 
 .unlimited-badge {
-    color: var(--unlimited-color);
+    color: #A5D6A7; /* Verde suave para ilimitado */
     font-size: 0.9rem;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(0,0,0,0.3); /* Fondo oscuro sutil solo para este texto */
-    padding: 5px 10px;
+    background: rgba(0,0,0,0.3); /* Fondo oscuro sutil para el texto */
+    padding: 5px 12px;
     border-radius: 15px;
     display: inline-flex;
 }
 
 /* =========================================
-   4. FORMULARIO Y BOTONES (TRANSPARENTES)
-   ======================================== */
-.form-section {
-    padding: 20px;
-    background: rgba(255,255,255, 0.1); /* Sutil fondo para la sección */
+   4. SECCIÓN SÓLIDA (EL FORMULARIO)
+   ========================================= */
+.form-content-solid {
+    padding: 20px 25px;
+    background-color: var(--light-bg); /* Fondo gris claro sólido */
 }
 
 label {
     display: block;
-    color: var(--white); /* Texto blanco sobre el fondo transparente */
+    color: var(--dark-text);
     font-weight: 700;
     margin-bottom: 10px;
     font-size: 1.1rem;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .input-wrapper {
-    /* CAMBIO: Input transparente estilo cristal */
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--glass-border);
+    background-color: var(--white);
+    border: 1px solid #E0E0E0;
     border-radius: 12px;
     padding: 15px;
 }
@@ -131,92 +126,76 @@ input[type="number"] {
     border: none;
     background: transparent;
     font-size: 1rem;
-    color: var(--white); /* Texto blanco dentro del input */
-}
-
-input[type="number"]::placeholder {
-    color: rgba(255,255,255,0.7); /* Placeholder más claro */
+    color: #666;
 }
 
 input[type="number"]:focus {
     outline: none;
 }
 
-/* BOTÓN TOTAL (PRECIO) - CRISTAL AZUL */
-.price-display {
-    /* CAMBIO: Azul transparente con desenfoque */
-    background: rgba(25, 118, 210, 0.3);
-    backdrop-filter: blur(5px);
-    
+/* Botón de precio Total */
+.price-btn-display {
+    background-color: var(--blue-app);
     color: var(--white);
     text-align: center;
-    padding: 18px;
+    padding: 15px;
     border-radius: 30px;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 800;
     margin: 20px 0 10px 0;
-    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* BOTÓN ACTIVAR (ACCIÓN) - CRISTAL CON BORDE NEÓN AZUL */
-.main-btn {
+/* Botón de acción principal */
+.main-action-btn {
     width: 100%;
-    /* CAMBIO: Fondo muy transparente con borde neón */
-    background: rgba(25, 118, 210, 0.15);
-    border: 2px solid var(--blue-btn-solid); /* Borde azul sólido neón */
-    
-    color: var(--white);
+    background-color: var(--white); /* Botón blanco como en la imagen */
+    color: var(--blue-app);
+    border: 2px solid var(--blue-app);
     padding: 18px;
     border-radius: 30px;
     font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    
-    /* EFECTO NEÓN */
-    box-shadow: 0 0 15px rgba(25,118,210,0.5); 
     transition: all 0.3s ease;
 }
 
-.main-btn:hover {
-    background: rgba(25, 118, 210, 0.3);
-    box-shadow: 0 0 25px rgba(25,118,210,0.8);
+.main-action-btn:hover {
+    background-color: #E3F2FD;
     transform: translateY(-2px);
 }
 
 /* =========================================
-   5. FOOTER DE SERVICIO (TRANSPARENTE)
+   5. FOOTER DE SERVICIO (SÓLIDO)
    ========================================= */
-.service-footer {
-    /* CAMBIO: Sin fondo blanco, solo cristal */
-    background: rgba(255,255,255, 0.05);
-    padding: 20px;
+.service-footer-options {
+    background-color: var(--light-bg);
+    padding: 20px 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid var(--glass-border);
+    border-top: 1px solid #EEE;
+    margin-top: 20px;
 }
 
 .service-option {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--white); /* Texto blanco para legibilidad */
+    color: var(--dark-text);
 }
 
-.icon-service {
+.icon-service-blue {
     font-size: 1.8rem;
-    color: var(--blue-btn-solid); /* Mantenemos los iconos azules */
-    filter: drop-shadow(0 0 5px rgba(25,118,210,0.5)); /* Brillo neón a los iconos */
+    color: var(--blue-app);
 }
 
 .service-text strong {
     font-size: 1.1rem;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
 .service-text p {
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
+    color: #666;
 }
