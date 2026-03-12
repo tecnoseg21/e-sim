@@ -81,6 +81,44 @@ function initPayPal(monto, contacto) {
     }
 
     paypal.Buttons({
+        // Cambié el color a 'gold' (amarillo) que es el que mejor convierte, 
+        // y mantenemos el layout vertical para que se desplieguen los botones.
+        style: { 
+            layout: 'vertical', 
+            color: 'gold', 
+            shape: 'rect', 
+            label: 'pay' 
+        },
+
+        // Aquí es donde sucede la magia:
+        // PayPal mostrará automáticamente el botón de PayPal y el de "Tarjeta" 
+        // (y Apple Pay si el cliente usa iPhone) sin mostrar el botón negro 'card'.
+        
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: { value: monto.toString() },
+                    description: `eSIM Costa Rica - Contacto: ${contacto}`,
+                    custom_id: contacto
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(details => {
+                alert(translations[currentLang].success + contacto);
+                window.location.reload();
+            });
+        },
+        onError: function(err) {
+            console.error("Error PayPal:", err);
+            alert("Error en el pago. Reintente.");
+            document.getElementById('btn-validar').style.display = 'block';
+            container.style.display = 'none';
+        }
+    }).render('#paypal-button-container');
+}
+
+    paypal.Buttons({
         style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
         createOrder: function(data, actions) {
             return actions.order.create({
