@@ -9,51 +9,58 @@
 </head>
 <body>
 
-    <div class="mobile-container">
-        <header class="card-header">
-            <div class="flag-icon">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Flag_of_Costa_Rica.svg" alt="Bandera CR">
-            </div>
-            <h1>eSIM Costa Rica</h1>
-            <div class="unlimited-badge">
-                <i class="fas fa-signal"></i>
-                <span>Internet ilimitado en todo el país</span>
+    <div class="main-page-background">
+        </div>
+
+    <div class="mobile-app-card">
+        
+        <header class="glass-header">
+            <div class="header-content-wrapper">
+                <div class="flag-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Flag_of_Costa_Rica.svg" alt="Bandera CR">
+                </div>
+                <h1>eSIM Costa Rica</h1>
+                <div class="unlimited-badge">
+                    <i class="fas fa-signal"></i>
+                    <span>Internet ilimitado en todo el país</span>
+                </div>
             </div>
         </header>
 
-        <div class="form-section">
+        <div class="form-content-solid">
             <div class="input-group">
                 <label for="days">Selecciona tus días</label>
                 <div class="input-wrapper">
-                    <input type="number" id="days" placeholder="¿Cuántos días necesitas?" value="7">
+                    <input type="number" id="days" placeholder="7" value="7">
                 </div>
             </div>
 
-            <div class="price-display">
+            <div class="price-btn-display">
                 Total: $49.00
             </div>
 
-            <button class="main-btn" onclick="iniciarActivacion()">
+            <button class="main-action-btn" onclick="iniciarActivacion()">
                 Activar eSIM
-            </button>
+            </div>
+            
+            <footer class="service-footer-options">
+                <div class="service-option">
+                    <i class="fas fa-headset icon-service-blue"></i>
+                    <div class="service-text">
+                        <strong>24/7</strong>
+                        <p>Autoservicio</p>
+                    </div>
+                </div>
+                <div class="service-option">
+                    <i class="fas fa-user-gear icon-service-blue"></i>
+                    <div class="service-text">
+                        <p>Ayuda del</p>
+                        <strong>Técnico</strong>
+                    </div>
+                </div>
+            </footer>
         </div>
 
-        <footer class="service-footer">
-            <div class="service-option">
-                <i class="fas fa-headset icon-service"></i>
-                <div class="service-text">
-                    <strong>24/7</strong>
-                    <p>Autoservicio</p>
-                </div>
-            </div>
-            <div class="service-option">
-                <i class="fas fa-user-gear icon-service"></i>
-                <div class="service-text">
-                    <p>Ayuda del</p>
-                    <strong>Técnico</strong>
-                </div>
-            </div>
-        </footer>
     </div>
 
 </body>
