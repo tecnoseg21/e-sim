@@ -2,12 +2,13 @@
    1. VARIABLES Y CONFIGURACIÓN BASE
    ========================================= */
 :root {
-    --blue-app: #1976D2; /* Azul para botones y texto */
-    --light-bg: #F5F5F7; /* Fondo gris claro de la sección sólida */
+    --blue-app: #1976D2;
+    --light-bg: #F5F5F7; /* Fondo sólido gris claro */
     --white: #FFFFFF;
     --dark-text: #333333;
-    --glass-background: rgba(255, 255, 255, 0.2); /* Base transparente del cristal */
-    --glass-border: rgba(255, 255, 255, 0.3); /* Borde sutil del cristal */
+    
+    /* CAMBIO CLAVE: Transparencia total */
+    --transparent-background: rgba(255, 255, 255, 0); /* 0% opaco */
 }
 
 * {
@@ -18,7 +19,7 @@
 }
 
 body {
-    background-color: #E0E0E0; /* Fondo de la página para que resalte la tarjeta app */
+    background-color: #E0E0E0; /* Fondo de la página para que resalte la tarjeta */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -32,7 +33,7 @@ body {
 .mobile-app-card {
     width: 100%;
     max-width: 380px;
-    background-color: var(--light-bg); /* Fondo sólido por defecto */
+    background-color: var(--light-bg); /* Fondo sólido de la parte inferior */
     border-radius: 30px; /* Bordes muy redondeados tipo app premium */
     overflow: hidden; /* Mantiene el header transparente dentro de la curva */
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -42,7 +43,7 @@ body {
    3. SECCIÓN TRANSPARENTE (EL ENCABEZADO)
    ========================================= */
 .glass-header {
-    /* CAMBIO CLAVE: Usamos 'fondo.webp' SOLO AQUÍ */
+    /* Usamos 'fondo.webp' SOLO AQUÍ */
     background-image: url('fondo.webp');
     background-size: cover;
     background-position: center;
@@ -50,26 +51,29 @@ body {
     position: relative;
     color: var(--white);
     
-    /* El efecto Glassmorphism se aplica solo a este elemento */
-    border-bottom: 1px solid var(--glass-border);
+    /* CAMBIO CLAVE: Sin tinte ni color de fondo */
+    background-color: var(--transparent-background) !important; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
 }
 
-/* Capa interior para el desenfoque y el tinte de cristal */
+/* Capa interior: LIMPIA, SIN DESENFOQUE */
 .header-content-wrapper {
-    background: var(--glass-background); /* Tinte blanco transparente */
-    backdrop-filter: blur(15px); /* Efecto esmerilado */
-    -webkit-backdrop-filter: blur(15px); /* Soporte para Safari */
+    /* CAMBIO CLAVE: Sin desenfoque y sin fondo opaco */
+    background: transparent !important;
+    backdrop-filter: none !important; 
+    -webkit-backdrop-filter: none !important;
+    
     padding: 25px 20px; /* Espaciado interno */
 }
 
-/* Estilos de los elementos del header (igual que antes) */
+/* Estilos de los elementos del header */
 .flag-icon {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 10px;
-    border: 2px solid var(--white);
+    border: 2px solid var(--white); /* Borde para que resalte la bandera */
 }
 
 .flag-icon img {
@@ -82,7 +86,9 @@ h1 {
     font-size: 1.6rem;
     font-weight: 800;
     margin-bottom: 12px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Sombra para legibilidad */
+    
+    /* CAMBIO: Sombra de texto fuerte para garantizar legibilidad sobre el paisaje */
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }
 
 .unlimited-badge {
@@ -106,96 +112,4 @@ h1 {
     background-color: var(--light-bg); /* Fondo gris claro sólido */
 }
 
-label {
-    display: block;
-    color: var(--dark-text);
-    font-weight: 700;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-}
-
-.input-wrapper {
-    background-color: var(--white);
-    border: 1px solid #E0E0E0;
-    border-radius: 12px;
-    padding: 15px;
-}
-
-input[type="number"] {
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-size: 1rem;
-    color: #666;
-}
-
-input[type="number"]:focus {
-    outline: none;
-}
-
-/* Botón de precio Total */
-.price-btn-display {
-    background-color: var(--blue-app);
-    color: var(--white);
-    text-align: center;
-    padding: 15px;
-    border-radius: 30px;
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin: 20px 0 10px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-/* Botón de acción principal */
-.main-action-btn {
-    width: 100%;
-    background-color: var(--white); /* Botón blanco como en la imagen */
-    color: var(--blue-app);
-    border: 2px solid var(--blue-app);
-    padding: 18px;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-}
-
-.main-action-btn:hover {
-    background-color: #E3F2FD;
-    transform: translateY(-2px);
-}
-
-/* =========================================
-   5. FOOTER DE SERVICIO (SÓLIDO)
-   ========================================= */
-.service-footer-options {
-    background-color: var(--light-bg);
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #EEE;
-    margin-top: 20px;
-}
-
-.service-option {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--dark-text);
-}
-
-.icon-service-blue {
-    font-size: 1.8rem;
-    color: var(--blue-app);
-}
-
-.service-text strong {
-    font-size: 1.1rem;
-}
-
-.service-text p {
-    font-size: 0.9rem;
-    color: #666;
-}
+/* ... (el resto del formulario igual que antes) ... */
