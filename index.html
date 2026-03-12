@@ -3,104 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>eSIM Costa Rica</title>
-    
+    <title>eSIM Costa Rica - Activación</title>
     <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<header>
-    <div class="container header-content">
-        <button onclick="toggleLanguage()" id="lang-btn" class="lang-floating">EN</button>
-        
-        <img src="logo2.jpg" alt="Logo" class="logo">
-        <h1 id="main-title">eSIM Costa Rica</h1>
-        
-        <div class="unlimited-badge">
-            <span class="icon-bolt">⚡</span>
-            <span id="unlimited-text">INTERNET ILIMITADO EN TODO EL PAÍS</span>
-        </div>
+    <div class="mobile-container">
+        <header class="card-header">
+            <div class="flag-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Flag_of_Costa_Rica.svg" alt="Bandera CR">
+            </div>
+            <h1>eSIM Costa Rica</h1>
+            <div class="unlimited-badge">
+                <i class="fas fa-signal"></i>
+                <span>Internet ilimitado en todo el país</span>
+            </div>
+        </header>
 
-        <div class="welcome-text">
-            <p id="welcome-intro">¡Bienvenido! Consigue tu conexión al instante.</p>
-        </div>
-    </div>
-</header>
-
-    <main class="container">
-        <section class="card">
-            <h2 id="calc-title">Seleccione sus días / Select your days</h2>
+        <div class="form-section">
             <div class="input-group">
-                <label for="days" id="label-days">¿Cuántos días necesita? / How many days?</label>
-                <input type="number" id="days" value="7" min="1" oninput="calculatePrice()">
+                <label for="days">Selecciona tus días</label>
+                <div class="input-wrapper">
+                    <input type="number" id="days" placeholder="¿Cuántos días necesitas?" value="7">
+                </div>
             </div>
+
             <div class="price-display">
-                <span id="price-text">Total:</span> <span id="total-display">$49.00</span>
+                Total: $49.00
             </div>
-        </section>
 
-        <section class="card">
-            <h2 id="service-title">¿Cómo desea configurar su eSIM? / How to set up?</h2>
-            <div class="service-options">
-                <label class="option-card">
-                    <input type="radio" name="service-type" value="self" checked onclick="toggleServiceMode()">
-                    <div class="option-content">
-                        <span class="icon">📱</span>
-                        <strong id="opt-self-title">Autoservicio 24/7</strong>
-                        <p id="opt-self-desc">Lo hago yo mismo (Pago Digital)</p>
-                    </div>
-                </label>
-                <label class="option-card">
-                    <input type="radio" name="service-type" value="tech" onclick="toggleServiceMode()">
-                    <div class="option-content">
-                        <span class="icon">👨‍🔧</span>
-                        <strong id="opt-tech-title">Ayuda del Técnico</strong>
-                        <p id="opt-tech-desc">Configuración en tienda (Pago Físico)</p>
-                    </div>
-                </label>
-            </div>
-        </section>
-
-        <section class="card" id="form-section">
-            <form id="esim-form" action="https://formspree.io/f/tu_id_formspree" method="POST">
-                <input type="hidden" name="_subject" value="Nueva orden de eSIM Costa Rica">
-                <input type="hidden" name="total_pagado" id="hidden-total">
-                <input type="hidden" name="tipo_servicio" id="hidden-service">
-
-                <div id="self-service-fields">
-                    <div class="input-group">
-                        <label for="contact" id="label-contact">WhatsApp o Correo (para enviar código):</label>
-                        <input type="text" id="contact" name="contacto_cliente" placeholder="+506 ... o email@test.com">
-                    </div>
-                </div>
-
-                <div id="tech-service-fields" class="hidden">
-                    <div class="input-group">
-                        <label id="label-tech-info">El técnico procederá con la activación física en el local.</label>
-                    </div>
-                </div>
-
-                <button type="button" id="confirm-btn" class="main-btn" onclick="showConfirmation()">Continuar / Continue</button>
-                
-                <div id="paypal-area" class="hidden">
-                    <div id="paypal-button-container"></div>
-                </div>
-            </form>
-        </section>
-    </main>
-
-    <div id="confirmation-modal" class="modal hidden">
-        <div class="modal-content">
-            <h3 id="modal-title">Confirmar Datos</h3>
-            <div id="modal-summary"></div>
-            <div class="modal-btns">
-                <button class="btn-cancel" onclick="closeModal()" id="modal-cancel">Editar</button>
-                <button class="btn-confirm" onclick="processSelection()" id="modal-ok">Todo Correcto</button>
-            </div>
+            <button class="main-btn" onclick="iniciarActivacion()">
+                Activar eSIM
+            </button>
         </div>
+
+        <footer class="service-footer">
+            <div class="service-option">
+                <i class="fas fa-headset icon-service"></i>
+                <div class="service-text">
+                    <strong>24/7</strong>
+                    <p>Autoservicio</p>
+                </div>
+            </div>
+            <div class="service-option">
+                <i class="fas fa-user-gear icon-service"></i>
+                <div class="service-text">
+                    <p>Ayuda del</p>
+                    <strong>Técnico</strong>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
