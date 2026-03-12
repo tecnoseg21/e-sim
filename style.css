@@ -93,10 +93,10 @@ h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
 
 /* Tucán: Bajado a la parte blanca */
 .sl-der {
-    width: 90px; 
+    width: 95px; 
     height: auto;
     right: 10px;
-    top: 150px; /* Bajado para que entre en el área blanca */
+    top: 185px; /* Bajado para que entre en el área blanca */
 }
 
 /* Perezoso: Esquina inferior izquierda */
