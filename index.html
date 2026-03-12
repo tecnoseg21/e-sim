@@ -28,22 +28,24 @@
             </div>
         </header>
 
-        <div class="section-group">
-    <label>Select your travel dates</label>
-    <div class="date-range-container" style="display: flex; gap: 10px;">
-        <div class="input-box" style="flex: 1;">
-            <small style="display:block; font-size: 0.7rem; color: #666;">Start Date</small>
-            <input type="date" id="fecha-inicio" lang="es-CR">
-        </div>
-        <div class="input-box" style="flex: 1;">
-            <small style="display:block; font-size: 0.7rem; color: #666;">End Date</small>
-            <input type="date" id="fecha-fin" lang="es-CR">
-        </div>
-    </div>
-    <div id="resumen-dias" style="margin-top: 10px; font-size: 0.9rem; font-weight: bold; color: #1976d2;">
-        Total: <span id="contador-dias">0</span> days
-    </div>
-</div>
+        <div class="form-container">
+            
+            <div class="section-group">
+                <label>Select your travel dates</label>
+                <div class="date-range-container" style="display: flex; gap: 10px;">
+                    <div class="input-box" style="flex: 1;">
+                        <small style="display:block; font-size: 0.7rem; color: #1976d2; font-weight: bold;">Start Date</small>
+                        <input type="date" id="fecha-inicio" lang="es-CR">
+                    </div>
+                    <div class="input-box" style="flex: 1;">
+                        <small style="display:block; font-size: 0.7rem; color: #1976d2; font-weight: bold;">End Date</small>
+                        <input type="date" id="fecha-fin" lang="es-CR">
+                    </div>
+                </div>
+                <div id="resumen-dias" style="margin-top: 10px; font-size: 0.9rem; font-weight: bold; color: #1976d2;">
+                    Total: <span id="contador-dias">0</span> days
+                </div>
+            </div>
 
             <div class="compatibility-box">
                 <div class="comp-header">
@@ -85,32 +87,32 @@
 
             <div class="section-group">
                 <label>Payment Method</label>
-                <div class="payment-grid">
-                    <div class="pay-method">
+                <div class="payment-grid" id="payment-options">
+                    <div class="pay-method" data-method="PayPal">
                         <i class="fab fa-paypal"></i>
                         <span>PayPal</span>
                     </div>
-                    <div class="pay-method">
+                    <div class="pay-method" data-method="Apple Pay">
                         <i class="fab fa-apple-pay"></i>
                         <span>Apple Pay</span>
                     </div>
-                    <div class="pay-method">
+                    <div class="pay-method" data-method="Google Pay">
                         <i class="fab fa-google-pay"></i>
                         <span>Google Pay</span>
                     </div>
-                    <div class="pay-method">
+                    <div class="pay-method" data-method="Card">
                         <i class="fas fa-credit-card"></i>
                         <span>Card</span>
                     </div>
                 </div>
             </div>
 
-           <div class="section-group">
-    <label id="label-contacto">WhatsApp or Email (to send activation code):</label>
-    <div class="input-box">
-        <input type="text" placeholder="+506 ... or email@test.com">
-    </div>
-</div>
+            <div class="section-group">
+                <label id="label-contacto">WhatsApp or Email (to send activation code):</label>
+                <div class="input-box">
+                    <input type="text" id="contacto-cliente" placeholder="+506 ... or email@test.com">
+                </div>
+            </div>
 
             <div class="price-tag" id="display-precio">
                 Total: $49.00
@@ -128,8 +130,7 @@
                     <span>Secure Payment</span>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> </div>
 
     <script src="script.js"></script>
 </body>
