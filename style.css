@@ -42,7 +42,7 @@ body {
    ========================================= */
 .card-header {
     background-image: linear-gradient(to bottom, rgba(25,118,210,0.5), rgba(25,118,210,0.8)), 
-                      url('fondo.jpg'); /* Asegúrate de tener tu imagen 'fondo.jpg' */
+                      url('fondo.webp'); /* Asegúrate de tener tu imagen 'fondo.jpg' */
     background-size: cover;
     background-position: center;
     padding: 25px 20px;
