@@ -1,205 +1,115 @@
-/* =========================================
-    1. BASE Y ESTRUCTURA
-   ========================================= */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+// 1. CONFIGURACIÓN DE PRECIOS POR DÍA
+const preciosPorDia = {
+    1: 15.00,
+    3: 25.00,
+    7: 49.00,
+    15: 65.00,
+    30: 89.00
+};
+
+// 2. DICCIONARIO DE TRADUCCIONES
+const translations = {
+    en: {
+        title: "eSIM Costa Rica",
+        subtitle: "Unlimited internet nationwide",
+        selectDays: "Select your days",
+        compatibilityTitle: "Is my phone compatible?",
+        compatibilityText: "Dial <strong>*#06#</strong> on your phone (as if making a call).",
+        compatibilityStep: "If an <strong>EID</strong> code appears, your device supports eSIM.",
+        noSignal: "No signal or internet required to check.",
+        setupQuestion: "How do you want to set up your eSIM?",
+        selfService: "24/7 Self-Service",
+        selfServiceSub: "I'll do it myself (Digital)",
+        techAssist: "Technician Assistance",
+        techAssistSub: "In-store setup",
+        paymentMethod: "Payment Method",
+        contactLabel: "WhatsApp or Email (to send code):",
+        total: "Total: $",
+        activateBtn: "ACTIVATE NOW",
+        instantDelivery: "Instant Delivery",
+        securePayment: "Secure Payment"
+    },
+    es: {
+        title: "eSIM Costa Rica",
+        subtitle: "Internet ilimitado en todo el país",
+        selectDays: "Seleccione sus días",
+        compatibilityTitle: "¿Es compatible mi celular?",
+        compatibilityText: "Marca <strong>*#06#</strong> en tu teléfono (como si fueras a llamar).",
+        compatibilityStep: "Si aparece un código llamado <strong>EID</strong>, tu equipo soporta eSIM.",
+        noSignal: "No requiere señal ni internet para verificarlo.",
+        setupQuestion: "¿Cómo desea configurar su eSIM?",
+        selfService: "Autoservicio 24/7",
+        selfServiceSub: "Lo hago yo mismo (Digital)",
+        techAssist: "Ayuda del Técnico",
+        techAssistSub: "Configuración en tienda",
+        paymentMethod: "Método de Pago",
+        contactLabel: "WhatsApp o Correo (para enviar código):",
+        total: "Total: $",
+        activateBtn: "ACTIVAR AHORA",
+        instantDelivery: "Entrega Inmediata",
+        securePayment: "Pago Seguro"
+    }
+};
+
+// Variable para el idioma actual (por defecto Inglés)
+let currentLang = 'en';
+
+// 3. LÓGICA DE ACTUALIZACIÓN DE PRECIOS
+const inputDias = document.querySelector('input[type="number"]');
+const displayPrecio = document.querySelector('.price-tag');
+
+function actualizarPrecio() {
+    const dias = parseInt(inputDias.value);
+    // Buscamos el precio. Si el día exacto no existe, podrías poner una lógica de cálculo base
+    // Aquí usamos los precios que definiste
+    let precio = preciosPorDia[dias] || (dias * 7); // Fallback: $7 por día si no está en la lista
+    
+    displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
 }
 
-body {
-    background-color: #e9ecef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px 0;
+// 4. LÓGICA DE CAMBIO DE IDIOMA
+document.querySelectorAll('.lang-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+        document.querySelector('.lang-opt.active').classList.remove('active');
+        opt.classList.add('active');
+
+        currentLang = opt.textContent.toLowerCase();
+        if (translations[currentLang]) {
+            updateLanguageUI(currentLang);
+            actualizarPrecio(); // Refresca el texto del precio con el nuevo idioma
+        }
+    });
+});
+
+function updateLanguageUI(lang) {
+    const t = translations[lang];
+    
+    document.querySelector('h1').textContent = t.title;
+    document.querySelector('.badge-unlimited span').textContent = t.subtitle;
+    document.querySelector('.section-group label').textContent = t.selectDays;
+    document.querySelector('.comp-header label').textContent = t.compatibilityTitle;
+    document.querySelector('.compatibility-box p:nth-of-type(1)').innerHTML = t.compatibilityText;
+    document.querySelector('.comp-step').innerHTML = t.compatibilityStep;
+    document.querySelector('.no-signal-badge').textContent = t.noSignal;
+    document.querySelector('.section-group:nth-of-type(3) > label').textContent = t.setupQuestion;
+    
+    const options = document.querySelectorAll('.option-content div');
+    options[0].querySelector('strong').textContent = t.selfService;
+    options[0].querySelector('span').textContent = t.selfServiceSub;
+    options[1].querySelector('strong').textContent = t.techAssist;
+    options[1].querySelector('span').textContent = t.techAssistSub;
+
+    document.querySelector('.section-group:nth-of-type(4) label').textContent = t.paymentMethod;
+    document.querySelector('.section-group:nth-of-type(5) label').textContent = t.contactLabel;
+    document.querySelector('.btn-activar').textContent = t.activateBtn;
+    
+    const footerItems = document.querySelectorAll('.service-item span');
+    footerItems[0].textContent = t.instantDelivery;
+    footerItems[1].textContent = t.securePayment;
 }
 
-.mobile-app-card {
-    width: 95%;
-    max-width: 450px;
-    background-color: #ffffff;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-}
+// Escuchar cambios en el input de días
+inputDias.addEventListener('input', actualizarPrecio);
 
-/* =========================================
-    2. HEADER (IMAGEN DE MONTEVERDE)
-   ========================================= */
-.header-paisa {
-    background-image: url('fondo.webp');
-    background-size: cover;
-    background-position: center;
-    min-height: 180px;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-}
-
-.header-overlay {
-    width: 100%;
-    padding: 20px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.7));
-    color: white;
-}
-
-h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
-
-.badge-unlimited {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
-/* Selector de Idiomas */
-.language-switcher {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(0,0,0,0.5);
-    padding: 5px 12px;
-    border-radius: 20px;
-    display: flex;
-    gap: 8px;
-}
-
-.lang-opt { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: bold; cursor: pointer; }
-.lang-opt.active { color: white; }
-
-/* =========================================
-    3. CUERPO CON TEXTURA ORGANICA
-   ========================================= */
-.form-container {
-    padding: 20px;
-    background-color: #ffffff;
-    /* Textura sutil aplicada correctamente */
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
-        url('texture-subtle.webp'); 
-    background-size: cover;
-    background-position: center;
-}
-
-.section-group { margin-bottom: 20px; }
-
-label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
-
-.input-box {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
-    padding: 12px;
-}
-
-.input-box input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    font-size: 1rem;
-    outline: none;
-}
-
-/* =========================================
-    4. TARJETAS DE OPCIÓN (AZULES)
-   ========================================= */
-.option-card {
-    display: block;
-    margin-bottom: 12px;
-    cursor: pointer;
-}
-
-.option-card input { display: none; }
-
-.option-content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: #f8f9fa;
-    border: 2px solid #e9ecef;
-    border-radius: 12px;
-    transition: 0.2s;
-}
-
-.option-content i { font-size: 1.5rem; color: #1976d2; }
-.option-content div strong { display: block; font-size: 1rem; color: #333; }
-.option-content div span { font-size: 0.85rem; color: #666; }
-
-/* Efecto cuando se selecciona */
-.option-card input:checked + .option-content {
-    border-color: #1976d2;
-    background-color: #e3f2fd;
-}
-
-/* =========================================
-    5. GRID DE PAGOS E INFO
-   ========================================= */
-.compatibility-box {
-    background: #fff9c4;
-    border: 1px solid #fbc02d;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-}
-
-.payment-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.pay-method {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.pay-method i { display: block; font-size: 1.5rem; margin-bottom: 5px; color: #1976d2; }
-
-.price-tag {
-    background: #1976d2;
-    color: white;
-    text-align: center;
-    padding: 18px;
-    border-radius: 12px;
-    font-size: 1.4rem;
-    font-weight: 800;
-    margin: 20px 0 10px 0;
-}
-
-.btn-activar {
-    width: 100%;
-    background: transparent;
-    color: #1976d2;
-    border: 2px solid #1976d2;
-    padding: 15px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.service-footer {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-}
-
-.service-item { font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 5px; }
-.service-item i { color: #4caf50; }
+// Inicializar al cargar
+actualizarPrecio();
