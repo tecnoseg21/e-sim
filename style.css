@@ -250,33 +250,62 @@ label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
 }
 
 
+### 2. En tu archivo `style.css` (Copia y pega esto)
+
+Este código CSS hará tres cosas críticas:
+1.  **Limpiar el `body`:** Quita los perezosos del fondo del navegador.
+2.  **Preparar el contenedor:** Le dice a la tarjeta blanca que sea el "ancla" para los perezosos.
+3.  **Posicionar con precisión:** Coloca a cada perezoso en su esquina **dentro** de la tarjeta.
+
+```css
+/* --- Limpiamos el Body (Ya no queremos fondo aquí) --- */
 body {
-    /* ... (resto de tus estilos de body, como color de fondo, márgenes, etc.) ... */
-    
-    /* Agregamos los perezosos como capas de fondo adicionales */
-    background-image: 
-        url('perezoso-izq.png'), /* Imagen para la izquierda */
-        url('perezoso-der.png'); /* Imagen para la derecha */
-    
-    /* Posiciones exactas: abajo a la izquierda, arriba a la derecha */
-    background-position: 
-        left bottom, 
-        right top;
-    
-    /* Para que NO se repitan las imágenes */
-    background-repeat: no-repeat;
-    
-    /* Ajustamos el tamaño: el primero es para la izq, el segundo para la der */
-    /* Puedes cambiar estos números (px) para que se asomen más o menos */
-    background-size: 200px, 250px;
-    
-    /* IMPORTANTE: Para que se queden fijos en las esquinas al hacer scroll */
-    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Mantenemos el color de fondo */
+    /* 👇 IMPORTANTE: Asegúrate de QUITAR las líneas background-image antiguas 👇 */
 }
 
-/* Pequeño ajuste opcional para que en móviles no tapen el contenido principal */
-@media (max-width: 768px) {
-    body {
-        background-size: 120px, 150px; /* Más pequeños en pantallas pequeñas */
-    }
+/* --- Preparamos el Contenedor de la Tarjeta --- */
+.mobile-app-card {
+    position: relative; /* 👈 CRÍTICO: Esto "encierra" a los perezosos dentro */
+    overflow: hidden;    /* 👈 CRÍTICO: Corta a los perezosos si se asoman mucho */
+    /* ... (resto de tus estilos de .mobile-app-card igual: fondo blanco, sombras, etc.) ... */
+    
+    /* Ejemplo de estilos que ya podrías tener para tu tarjeta */
+    background: #fff;
+    max-width: 480px;
+    margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* --- Estilos Generales para los Perezosos Internos --- */
+.perezoso-interno {
+    position: absolute; /* 👈 Se mueven respecto al contenedor .mobile-app-card */
+    z-index: 10;        /* 👈 Se aseguran de estar sobre el fondo, pero bajo los botones */
+    pointer-events: none; /* 👈 No interfieren si el usuario toca la pantalla ahí */
+}
+
+/* --- Posición: Abajo a la izquierda --- */
+.sl-izq {
+    left: -30px;        /* 👈 Se asoma sutilmente por la izquierda */
+    bottom: -15px;      /* 👈 Se asoma sutilmente por abajo */
+    width: 140px;       /* 👈 Tamaño ajustado para que no robe pantalla */
+    height: auto;
+}
+
+/* --- Posición: Arriba a la derecha --- */
+.sl-der {
+    right: -25px;       /* 👈 Se asoma sutilmente por la derecha */
+    top: 5px;           /* 👈 Se queda en la parte de arriba */
+    width: 160px;       /* 👈 Tamaño ajustado */
+    height: auto;
+}
+
+/* --- Ajuste opcional para móviles para que sean más discretos --- */
+@media (max-width: 480px) {
+    .sl-izq { width: 100px; left: -15px; bottom: -10px; }
+    .sl-der { width: 120px; right: -15px; top: 0px; }
 }
