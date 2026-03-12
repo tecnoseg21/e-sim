@@ -9,58 +9,54 @@
 </head>
 <body>
 
-    <div class="main-page-background">
-        </div>
-
     <div class="mobile-app-card">
         
-        <header class="glass-header">
-            <div class="header-content-wrapper">
-                <div class="flag-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Flag_of_Costa_Rica.svg" alt="Bandera CR">
+        <header class="header-paisa">
+            <div class="header-overlay">
+                <div class="flag-circle">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Flag_of_Costa_Rica.svg" alt="CR Flag">
                 </div>
                 <h1>eSIM Costa Rica</h1>
-                <div class="unlimited-badge">
-                    <i class="fas fa-signal"></i>
+                <div class="badge-unlimited">
+                    <i class="fas fa-chart-line"></i>
                     <span>Internet ilimitado en todo el país</span>
                 </div>
             </div>
         </header>
 
-        <div class="form-content-solid">
+        <main class="form-container">
             <div class="input-group">
-                <label for="days">Selecciona tus días</label>
-                <div class="input-wrapper">
-                    <input type="number" id="days" placeholder="7" value="7">
+                <label>Selecciona tus días</label>
+                <div class="input-box">
+                    <input type="number" id="days" value="7" placeholder="¿Cuántos días necesitas?">
                 </div>
             </div>
 
-            <div class="price-btn-display">
+            <div class="price-tag">
                 Total: $49.00
             </div>
 
-            <button class="main-action-btn" onclick="iniciarActivacion()">
-                Activar eSIM
-            </div>
-            
-            <footer class="service-footer-options">
-                <div class="service-option">
-                    <i class="fas fa-headset icon-service-blue"></i>
-                    <div class="service-text">
+            <button class="btn-activar">
+                ACTIVAR eSIM
+            </button>
+
+            <footer class="service-footer">
+                <div class="service-item">
+                    <i class="fas fa-headset"></i>
+                    <div>
                         <strong>24/7</strong>
-                        <p>Autoservicio</p>
+                        <span>Autoservicio</span>
                     </div>
                 </div>
-                <div class="service-option">
-                    <i class="fas fa-user-gear icon-service-blue"></i>
-                    <div class="service-text">
-                        <p>Ayuda del</p>
+                <div class="service-item">
+                    <i class="fas fa-user-cog"></i>
+                    <div>
+                        <span>Ayuda del</span>
                         <strong>Técnico</strong>
                     </div>
                 </div>
             </footer>
-        </div>
-
+        </main>
     </div>
 
 </body>
