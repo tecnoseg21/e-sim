@@ -341,3 +341,59 @@ body {
         padding: 20px 40px; /* Más espacio a los lados en horizontal */
     }
 }
+
+/* ESTILO DE LA CAJA DE COMPATIBILIDAD */
+.compatibility-box {
+    background: #fff9c4; /* Un amarillo muy suave tipo nota/alerta */
+    border: 1px solid #fbc02d;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.comp-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.comp-header i {
+    color: #f57f17;
+    font-size: 1.2rem;
+}
+
+.comp-header label {
+    margin-bottom: 0; /* Alineado con el icono */
+    color: #5d4037;
+}
+
+.compatibility-box p {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+.comp-step {
+    font-weight: 600;
+    color: #1976d2; /* Resaltamos el resultado esperado */
+}
+
+.no-signal-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: #777;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 4px 8px;
+    border-radius: 5px;
+    display: inline-flex;
+}
+
+.no-signal-badge i {
+    font-size: 0.8rem;
+}
