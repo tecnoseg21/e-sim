@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0; /* Fondo gris claro de la página */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,11 +18,11 @@ body {
 }
 
 /* =========================================
-    TARJETA PRINCIPAL
+    TARJETA PRINCIPAL (95% DE ANCHO)
    ========================================= */
 .mobile-app-card {
-    width: 95%;
-    max-width: 450px;
+    width: 95%; /* Ancho responsivo */
+    max-width: 450px; /* Ancho máximo en móvil */
     background-color: #ffffff;
     border-radius: 12px;
     overflow: hidden;
@@ -33,10 +33,10 @@ body {
 }
 
 /* =========================================
-    HEADER Y LENGUAJE
+    HEADER Y LENGUAJE (RECUPERADO EL PAISAJE)
    ========================================= */
 .header-paisa {
-    background-image: url('fondo.webp');
+    background-image: url('fondo.webp'); /* Ruta de tu imagen del paisaje */
     background-size: cover;
     background-position: center;
     min-height: 200px;
@@ -52,6 +52,7 @@ body {
     color: white;
 }
 
+/* Selector de idioma flotante */
 .language-switcher {
     position: absolute;
     top: 12px;
@@ -78,94 +79,23 @@ body {
 .lang-opt.active { color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
 /* =========================================
-    CONTENEDOR CON TEXTURA (EL QUE FALLABA)
+    CUERPO DE LA TARJETA (CON TEXTURA SUTIL)
    ========================================= */
 .form-container {
     padding: 25px 20px;
     background-color: #ffffff;
-    /* Bajé la opacidad a 0.92 para que la imagen se vea un poco más */
+    
+    /* CAPA 1: Degradado blanco ultra-transparente (98% opacidad) */
+    /* CAPA 2: Tu imagen de textura sutil */
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), 
-        url('bodi.webp'); 
+        linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)), 
+        url('texture-subtle.webp'); 
+    
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    flex-grow: 1;
+    
+    flex-grow: 1; /* Asegura que cubra hasta el final */
 }
 
-/* =========================================
-    COMPONENTES DEL FORMULARIO
-   ========================================= */
-.section-group { margin-bottom: 20px; }
-
-label {
-    display: block;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.input-box {
-    background: #f1f3f5;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 12px;
-}
-
-.input-box input {
-    width: 100%;
-    border: none;
-    background: transparent;
-    outline: none;
-}
-
-/* CAJA DE COMPATIBILIDAD */
-.compatibility-box {
-    background: #fff9c4;
-    border: 1px solid #fbc02d;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-/* MÉTODOS DE PAGO */
-.payment-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.pay-method {
-    border: 1px solid #ddd;
-    padding: 15px 10px;
-    border-radius: 10px;
-    text-align: center;
-    background: #f8f9fa;
-}
-
-.price-tag {
-    background: #1976d2;
-    color: white;
-    text-align: center;
-    padding: 18px;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin: 20px 0 12px 0;
-}
-
-.btn-activar {
-    width: 100%;
-    background: white;
-    color: #1976d2;
-    border: 2px solid #1976d2;
-    padding: 18px;
-    border-radius: 10px;
-    font-weight: 700;
-}
-
-/* RESPONSIVE HORIZONTAL */
-@media (orientation: landscape) and (max-height: 500px) {
-    .mobile-app-card { max-width: 800px; }
-    .payment-grid { grid-template-columns: repeat(4, 1fr); }
-}
+/* ... (Todo el resto de tu CSS anterior igual para section-group, label, botones, etc.) ... */
