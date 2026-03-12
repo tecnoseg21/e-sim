@@ -95,7 +95,7 @@ h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
 .sl-der {
     width: 98px; 
     height: auto;
-    right: 2px;
+    right: 0.5px;
     top: 170px; /* Bajado para que entre en el área blanca */
 }
 
