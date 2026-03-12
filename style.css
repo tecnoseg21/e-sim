@@ -1,3 +1,6 @@
+/* =========================================
+    CONFIGURACIÓN GLOBAL
+   ========================================= */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,6 +17,9 @@ body {
     padding: 20px 0;
 }
 
+/* =========================================
+    TARJETA PRINCIPAL
+   ========================================= */
 .mobile-app-card {
     width: 95%;
     max-width: 450px;
@@ -21,13 +27,19 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
 }
 
+/* =========================================
+    HEADER Y LENGUAJE
+   ========================================= */
 .header-paisa {
     background-image: url('fondo.webp');
     background-size: cover;
     background-position: center;
-    min-height: 180px;
+    min-height: 200px;
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -40,80 +52,57 @@ body {
     color: white;
 }
 
-.flag-circle {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid white;
-    margin-bottom: 10px;
-}
-
-.flag-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-h1 {
-    font-size: 1.7rem;
-    font-weight: 800;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-
-.badge-unlimited {
-    background: rgba(0, 0, 0, 0.4);
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    color: #a5d6a7;
-    margin-top: 5px;
-    display: inline-flex;
+.language-switcher {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    z-index: 10;
+    display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 6px 14px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* ... (Todo tu CSS anterior igual) ... */
+.lang-opt {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.lang-opt.active { color: #ffffff; text-shadow: 0 0 8px rgba(255,255,255,0.5); }
 
 /* =========================================
-   FORMA-CONTAINER: TEXTURA DE FONDO AÑADIDA
+    CONTENEDOR CON TEXTURA (EL QUE FALLABA)
    ========================================= */
 .form-container {
     padding: 25px 20px;
-    background-color: #ffffff; /* Color de respaldo */
-
-    /* CAPA 1: Degradado blanco ultra-transparente (98% opacidad) */
-    /* CAPA 2: Tu imagen de textura sutil */
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)), 
-        url('bodi.webp.webp'); 
-    
+    background-color: #ffffff;
+    /* Bajé la opacidad a 0.92 para que la imagen se vea un poco más */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), 
+        url('bodi.webp'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
-    /* Efecto "Glassmorphism" suave */
-    backdrop-filter: blur(1px); 
-    
-    /* El degradado asegura que el texto sea 100% legible */
+    flex-grow: 1;
 }
 
-/* ... (Todo el resto de tu CSS anterior igual) ... */
-    
-    /* El degradado blanco asegura que el texto sea 100% legible */
-}
-
-/* ... (Todo el resto del CSS igual) ... */
-.section-group {
-    margin-bottom: 20px;
-}
+/* =========================================
+    COMPONENTES DEL FORMULARIO
+   ========================================= */
+.section-group { margin-bottom: 20px; }
 
 label {
     display: block;
     font-weight: 700;
     color: #333;
     margin-bottom: 10px;
-    font-size: 1rem;
 }
 
 .input-box {
@@ -127,180 +116,19 @@ label {
     width: 100%;
     border: none;
     background: transparent;
-    font-size: 1rem;
     outline: none;
 }
 
-/* ESTILO OPCIONES (Autoservicio/Técnico) */
-.option-card {
-    margin-bottom: 10px;
-    position: relative;
-}
-
-.option-card input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-}
-
-.option-content {
-    display: flex !important;
-    align-items: center;
-    gap: 15px;
+/* CAJA DE COMPATIBILIDAD */
+.compatibility-box {
+    background: #fff9c4;
+    border: 1px solid #fbc02d;
     padding: 15px;
-    background: #f8f9fa;
-    border: 1px solid #eee;
     border-radius: 10px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.option-card input[type="radio"]:checked + .option-content {
-    border-color: #1976d2;
-    background: #e3f2fd;
-}
-
-.option-content i {
-    font-size: 1.5rem;
-    color: #1976d2;
-}
-
-.option-content div strong {
-    display: block;
-    font-size: 1rem;
-}
-
-.option-content div span {
-    font-size: 0.8rem;
-    color: #666;
+    margin-bottom: 20px;
 }
 
 /* MÉTODOS DE PAGO */
-.payment-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-}
-
-.pay-method {
-    border: 1px solid #eee;
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    background: #f8f9fa;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #555;
-}
-
-.pay-method i {
-    display: block;
-    font-size: 1.4rem;
-    margin-bottom: 5px;
-    color: #1976d2;
-}
-
-.price-tag {
-    background: #1976d2;
-    color: white;
-    text-align: center;
-    padding: 18px;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin: 20px 0 12px 0;
-}
-
-.btn-activar {
-    width: 100%;
-    background: white;
-    color: #1976d2;
-    border: 2px solid #1976d2;
-    padding: 18px;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.service-footer {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.service-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: #777;
-}
-
-.service-item i {
-    color: #4caf50;
-}
-
-/* =========================================
-   CONFIGURACIÓN BASE (REPASO)
-   ========================================= */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-    background-color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 10px 0;
-}
-
-/* TARJETA PRINCIPAL - MODO RETRATO (VERTICAL) */
-.mobile-app-card {
-    width: 95%; 
-    max-width: 450px; 
-    background-color: #ffffff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease; /* Transición suave al girar */
-}
-
-/* HEADER - ESPACIOS VERTICALES */
-.header-paisa {
-    background-image: url('fondo.webp');
-    background-size: cover;
-    background-position: center;
-    min-height: 200px; 
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-}
-
-.header-overlay {
-    width: 100%;
-    padding: 25px 20px;
-    background: transparent;
-    color: white;
-}
-
-/* FORMULARIO */
-.form-container {
-    padding: 25px 20px;
-    background-color: #ffffff;
-}
-
-.section-group { margin-bottom: 20px; }
-
-/* REJILLA DE PAGO (4 MÉTODOS) */
 .payment-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -313,10 +141,8 @@ body {
     border-radius: 10px;
     text-align: center;
     background: #f8f9fa;
-    cursor: pointer;
 }
 
-/* BOTONES PRINCIPALES */
 .price-tag {
     background: #1976d2;
     color: white;
@@ -335,127 +161,11 @@ body {
     border: 2px solid #1976d2;
     padding: 18px;
     border-radius: 10px;
-    font-size: 1.2rem;
     font-weight: 700;
-    cursor: pointer;
 }
 
-/* ============================================================
-   ESTILOS PARA MODO HORIZONTAL (LANDSCAPE)
-   ============================================================ */
+/* RESPONSIVE HORIZONTAL */
 @media (orientation: landscape) and (max-height: 500px) {
-    body {
-        align-items: flex-start; /* Permite scroll si la pantalla es bajita */
-        padding: 20px 0;
-    }
-
-    .mobile-app-card {
-        width: 95%;
-        max-width: 800px; /* Expandimos el ancho máximo en horizontal */
-    }
-
-    .header-paisa {
-        min-height: 150px; /* Reducimos un poco la altura del paisaje en horizontal */
-    }
-
-    /* Opcional: Podrías poner los métodos de pago en 4 columnas en vez de 2 
-       para aprovechar el ancho extra */
-    .payment-grid {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-    
-    .form-container {
-        padding: 20px 40px; /* Más espacio a los lados en horizontal */
-    }
-}
-
-/* ESTILO DE LA CAJA DE COMPATIBILIDAD */
-.compatibility-box {
-    background: #fff9c4; /* Un amarillo muy suave tipo nota/alerta */
-    border: 1px solid #fbc02d;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.comp-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-}
-
-.comp-header i {
-    color: #f57f17;
-    font-size: 1.2rem;
-}
-
-.comp-header label {
-    margin-bottom: 0; /* Alineado con el icono */
-    color: #5d4037;
-}
-
-.compatibility-box p {
-    font-size: 0.9rem;
-    color: #444;
-    line-height: 1.4;
-    margin-bottom: 5px;
-}
-
-.comp-step {
-    font-weight: 600;
-    color: #1976d2; /* Resaltamos el resultado esperado */
-}
-
-.no-signal-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    font-size: 0.75rem;
-    color: #777;
-    font-style: italic;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 4px 8px;
-    border-radius: 5px;
-    display: inline-flex;
-}
-
-.no-signal-badge i {
-    font-size: 0.8rem;
-}
-
-/* SELECTOR DE IDIOMAS MULTIPLE */
-.language-switcher {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Espacio entre siglas */
-    background: rgba(0, 0, 0, 0.4);
-    padding: 6px 14px;
-    border-radius: 20px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.lang-opt {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.75rem;
-    font-weight: 800;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: uppercase;
-}
-
-/* El idioma por defecto brilla más */
-.lang-opt.active {
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255,255,255,0.5);
-}
-
-.lang-opt:hover {
-    color: #ffffff;
+    .mobile-app-card { max-width: 800px; }
+    .payment-grid { grid-template-columns: repeat(4, 1fr); }
 }
