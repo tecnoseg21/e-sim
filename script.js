@@ -1,3 +1,13 @@
+// 1. CONFIGURACIÓN DE PRECIOS POR DÍA
+const preciosPorDia = {
+    1: 15.00,
+    3: 25.00,
+    7: 49.00,
+    15: 65.00,
+    30: 89.00
+};
+
+// 2. DICCIONARIO DE TRADUCCIONES
 const translations = {
     en: {
         title: "eSIM Costa Rica",
@@ -14,6 +24,7 @@ const translations = {
         techAssistSub: "In-store setup",
         paymentMethod: "Payment Method",
         contactLabel: "WhatsApp or Email (to send code):",
+        total: "Total: $",
         activateBtn: "ACTIVATE NOW",
         instantDelivery: "Instant Delivery",
         securePayment: "Secure Payment"
@@ -33,30 +44,46 @@ const translations = {
         techAssistSub: "Configuración en tienda",
         paymentMethod: "Método de Pago",
         contactLabel: "WhatsApp o Correo (para enviar código):",
+        total: "Total: $",
         activateBtn: "ACTIVAR AHORA",
         instantDelivery: "Entrega Inmediata",
         securePayment: "Pago Seguro"
     }
-    // Puedes agregar fr, de, nl siguiendo el mismo formato
 };
 
+// Variable para el idioma actual (por defecto Inglés)
+let currentLang = 'en';
+
+// 3. LÓGICA DE ACTUALIZACIÓN DE PRECIOS
+const inputDias = document.querySelector('input[type="number"]');
+const displayPrecio = document.querySelector('.price-tag');
+
+function actualizarPrecio() {
+    const dias = parseInt(inputDias.value);
+    // Buscamos el precio. Si el día exacto no existe, podrías poner una lógica de cálculo base
+    // Aquí usamos los precios que definiste
+    let precio = preciosPorDia[dias] || (dias * 7); // Fallback: $7 por día si no está en la lista
+    
+    displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
+}
+
+// 4. LÓGICA DE CAMBIO DE IDIOMA
 document.querySelectorAll('.lang-opt').forEach(opt => {
     opt.addEventListener('click', () => {
-        // Cambiar clase activa visualmente
         document.querySelector('.lang-opt.active').classList.remove('active');
         opt.classList.add('active');
 
-        const lang = opt.textContent.toLowerCase();
-        if (translations[lang]) {
-            updateLanguage(lang);
+        currentLang = opt.textContent.toLowerCase();
+        if (translations[currentLang]) {
+            updateLanguageUI(currentLang);
+            actualizarPrecio(); // Refresca el texto del precio con el nuevo idioma
         }
     });
 });
 
-function updateLanguage(lang) {
+function updateLanguageUI(lang) {
     const t = translations[lang];
     
-    // Actualizar textos por clase o tag
     document.querySelector('h1').textContent = t.title;
     document.querySelector('.badge-unlimited span').textContent = t.subtitle;
     document.querySelector('.section-group label').textContent = t.selectDays;
@@ -66,7 +93,6 @@ function updateLanguage(lang) {
     document.querySelector('.no-signal-badge').textContent = t.noSignal;
     document.querySelector('.section-group:nth-of-type(3) > label').textContent = t.setupQuestion;
     
-    // Tarjetas de opción
     const options = document.querySelectorAll('.option-content div');
     options[0].querySelector('strong').textContent = t.selfService;
     options[0].querySelector('span').textContent = t.selfServiceSub;
@@ -81,3 +107,9 @@ function updateLanguage(lang) {
     footerItems[0].textContent = t.instantDelivery;
     footerItems[1].textContent = t.securePayment;
 }
+
+// Escuchar cambios en el input de días
+inputDias.addEventListener('input', actualizarPrecio);
+
+// Inicializar al cargar
+actualizarPrecio();
