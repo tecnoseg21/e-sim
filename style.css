@@ -316,39 +316,48 @@ body {
 
 
 /* --- Estilos de header, form y botones (Se mantienen igual) --- */
+/* --- Mantener el fondo del header --- */
 .header-paisa {
-    background-image: url('bosque.png');
+    background-image: url('bosque.png'); /* Asegúrate de que el nombre del archivo sea correcto */
     background-size: cover;
     background-position: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     padding: 20px;
     position: relative;
-    /*👇 Espacio para el header 👇*/
     min-height: 120px; 
+    overflow: visible; /* Permitir que el tucán se asome si es necesario */
 }
 
+/* --- Ajuste del Tucán (Imagen Superior Derecha) --- */
+.sl-der {
+    width: 65px;        /* 👈 Mucho más pequeño para que sea un detalle sutil */
+    height: auto;
+    right: 10px;        /* 👈 Pegado a la derecha */
+    top: 55px;          /* 👈 Posicionado debajo del selector de idiomas */
+    opacity: 0.9;       /* 👈 Un toque de transparencia para que se integre con el bosque */
+    position: absolute;
+    z-index: 5;
+}
+
+/* --- Ajuste del Perezoso (Imagen Inferior Izquierda) --- */
+.sl-izq {
+    width: 70px;        /* 👈 Tamaño pequeño y balanceado */
+    height: auto;
+    left: -10px;        
+    bottom: 10px;       /* 👈 Separado del borde inferior */
+    position: absolute;
+    z-index: 5;
+}
+
+/* --- Asegurar que el selector de idiomas sea legible --- */
 .language-switcher {
+    position: relative;
+    z-index: 20;        /* 👈 Por encima de cualquier decoración */
     display: flex;
     justify-content: flex-end;
-    gap: 10px;
-    font-size: 0.8rem;
-    color: white;
-}
-
-.form-container {
-    padding: 20px;
-    /* 👇 Asegura espacio para los elementos inferiores 👇 */
-    padding-bottom: 40px; 
-}
-
-/* Asegura que el footer no se solape */
-.service-footer {
-    position: relative;
-    z-index: 15; /* Un z-index más alto que los perezosos */
-    display: flex;
-    justify-content: space-around;
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: 20px;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.3); /* Fondo semi-transparente para resaltar las letras */
+    padding: 5px 10px;
+    border-radius: 15px;
 }
