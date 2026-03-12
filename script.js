@@ -27,58 +27,66 @@ function calcularPrecio() {
     return 0;
 }
 
-document.querySelector('#fecha-inicio').addEventListener('change', calcularPrecio);
-document.querySelector('#fecha-fin').addEventListener('change', calcularPrecio);
-
-// Selección de pago
+// 1. Manejo de Selección de Pago (Cambio visual de color)
 document.querySelectorAll('.pay-method').forEach(m => {
-    m.addEventListener('click', () => {
+    m.addEventListener('click', function(e) {
+        e.preventDefault(); // EVITA EL SCROLL HACIA ARRIBA
         document.querySelectorAll('.pay-method').forEach(x => {
-            x.style.borderColor = "#e9ecef";
+            x.style.border = "1px solid #e9ecef";
             x.style.background = "#f8f9fa";
         });
-        m.style.borderColor = "#1976d2";
-        m.style.background = "#e3f2fd";
-        selectedPayment = m.getAttribute('data-method');
+        this.style.border = "2px solid #1976d2";
+        this.style.background = "#e3f2fd";
+        selectedPayment = this.getAttribute('data-method');
+        console.log("Método seleccionado:", selectedPayment);
     });
 });
 
-// EL BOTÓN QUE ESTABA FALLANDO
-document.querySelector('#btn-validar').addEventListener('click', function() {
-    const monto = calcularPrecio();
-    const contacto = document.querySelector('#contacto-cliente').value;
-    const paypalContainer = document.querySelector('#paypal-button-container');
+// 2. Lógica del Botón CHECKOUT
+document.addEventListener('DOMContentLoaded', () => {
+    const btnValidar = document.getElementById('btn-validar');
+    
+    if(btnValidar) {
+        btnValidar.addEventListener('click', function(e) {
+            e.preventDefault(); // ¡ESTO EVITA QUE LA PÁGINA SUBA!
+            
+            const monto = calcularPrecio();
+            const contacto = document.querySelector('#contacto-cliente').value;
+            const paypalContainer = document.getElementById('paypal-button-container');
 
-    // Validaciones
-    if (monto <= 0) return alert(translations[currentLang].errorDates);
-    if (!contacto || contacto.trim() === "") return alert(translations[currentLang].errorContact);
-    if (!selectedPayment) return alert(translations[currentLang].errorPay);
+            console.log("Validando datos...");
 
-    // PASO CRÍTICO: Ocultamos el botón azul y MOSTRAMOS el contenedor de PayPal
-    this.style.display = 'none';
-    paypalContainer.style.display = 'block';
-    paypalContainer.innerHTML = '<p style="text-align:center; color:#1976d2;">Loading payment methods...</p>';
+            if (monto <= 0) return alert(translations[currentLang].errorDates);
+            if (!contacto || contacto.trim() === "") return alert(translations[currentLang].errorContact);
+            if (!selectedPayment) return alert(translations[currentLang].errorPay);
 
-    // Llamamos a la inicialización
-    initPayPal(monto, contacto);
+            // Ocultar botón y mostrar PayPal
+            this.style.display = 'none';
+            paypalContainer.style.display = 'block';
+            
+            console.log("Todo listo. Cargando botones de PayPal...");
+            initPayPal(monto, contacto);
+        });
+    }
 });
 
 function initPayPal(monto, contacto) {
-    const container = document.querySelector('#paypal-button-container');
-    container.innerHTML = ''; // Limpiamos el mensaje de "Loading"
+    const container = document.getElementById('paypal-button-container');
+    container.innerHTML = ''; 
+
+    if (typeof paypal === 'undefined') {
+        alert("PayPal SDK no cargó. Revisa tu Client ID en el HTML.");
+        document.getElementById('btn-validar').style.display = 'block';
+        return;
+    }
 
     paypal.Buttons({
-        style: { 
-            layout: 'vertical', 
-            color: 'blue', 
-            shape: 'rect', 
-            label: 'pay' 
-        },
+        style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{
                     amount: { value: monto.toString() },
-                    description: `eSIM Costa Rica - Contact: ${contacto}`,
+                    description: `eSIM Costa Rica - Contacto: ${contacto}`,
                     custom_id: contacto
                 }]
             });
@@ -90,8 +98,9 @@ function initPayPal(monto, contacto) {
             });
         },
         onError: function(err) {
-            alert("PayPal Error. Please try again.");
-            document.querySelector('#btn-validar').style.display = 'block';
+            console.error("Error PayPal:", err);
+            alert("Error en el pago. Reintente.");
+            document.getElementById('btn-validar').style.display = 'block';
             container.style.display = 'none';
         }
     }).render('#paypal-button-container');
