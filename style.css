@@ -95,8 +95,8 @@ h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
 .sl-der {
     width: 90px; 
     height: auto;
-    right: 15px;
-    top: 50px; /* Bajado para que entre en el área blanca */
+    right: 10px;
+    top: 100px; /* Bajado para que entre en el área blanca */
 }
 
 /* Perezoso: Esquina inferior izquierda */
