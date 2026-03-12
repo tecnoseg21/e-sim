@@ -1,224 +1,171 @@
+/* =========================================
+   1. VARIABLES Y CONFIGURACIÓN BASE
+   ========================================= */
 :root {
-    --verde-cr: #1b5e20;
-    --cyan-e-sim: #00838f;
-    --oscuro: #000000;
-    --blanco: #ffffff;
-    --vidrio-fondo: rgba(255, 255, 255, 0.8); /* Un poco más sólido para leer mejor en pequeño */
-    --vidrio-blur: blur(10px);
+    --blue-btn: #1976D2; /* El azul exacto del botón Total y Activar */
+    --gray-bg: #F5F5F7; /* Fondo gris claro de la 'app' */
+    --white: #FFFFFF;
+    --dark-text: #333333;
+    --unlimited-color: #A5D6A7; /* El verde suave del texto ilimitado */
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; /* Tipografía limpia tipo App */
 }
 
 body {
-    background-image: url('fondo.webp');
-    background-attachment: fixed;
+    background-color: #E0E0E0; /* Fondo de la página para que resalte la tarjeta móvil */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* =========================================
+   2. CONTENEDOR MÓVIL (LA TARJETA DE GPT)
+   ========================================= */
+.mobile-container {
+    width: 100%;
+    max-width: 380px; /* Ancho típico de un celular */
+    background-color: var(--white);
+    border-radius: 25px; /* Bordes muy redondeados como en la imagen */
+    overflow: hidden; /* Mantiene el header dentro de la curva */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Sombra elegante */
+}
+
+/* =========================================
+   3. HEADER (EL BOSQUE DE MONTEVERDE)
+   ========================================= */
+.card-header {
+    background-image: linear-gradient(to bottom, rgba(25,118,210,0.5), rgba(25,118,210,0.8)), 
+                      url('fondo.jpg'); /* Asegúrate de tener tu imagen 'fondo.jpg' */
     background-size: cover;
     background-position: center;
-    min-height: 100vh;
-}
-
-/* --- BADGE PREMIUM CON DEGRADADO Y PROFUNDIDAD --- */
-.unlimited-badge {
-    /* Degradado de tres puntos para dar efecto de volumen */
-    background: linear-gradient(145deg, #2e7d32, #1b5e20, #0d320f);
-    
-    color: #ffffff;
-    padding: 10px 25px;
-    border-radius: 50px;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.9rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    
-    /* Borde doble: uno oscuro y uno de brillo superior */
-    border-top: 2px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
-    
-    /* Sombra externa para despegarlo del fondo y sombra interna para hundir el texto */
-    box-shadow: 
-        0 10px 20px rgba(0, 0, 0, 0.4),
-        inset 0 -2px 5px rgba(0, 0, 0, 0.3);
-        
-    margin: 15px 0;
+    padding: 25px 20px;
+    color: var(--white);
     position: relative;
-    overflow: hidden; /* Para el efecto de brillo que pasa por encima */
-    animation: pulse-premium 2.5s infinite ease-in-out;
 }
 
-/* Efecto de brillo "Glass" que cruza el texto */
-.unlimited-badge::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -60%;
-    width: 20%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: rotate(30deg);
-    animation: shine-sweep 4s infinite;
+.flag-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 
-.icon-bolt {
-    font-size: 1.2rem;
-    color: #ffd600;
-    filter: drop-shadow(0 0 5px rgba(255, 214, 0, 0.6));
-}
-
-/* Animación de latido más elegante */
-@keyframes pulse-premium {
-    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
-    50% { transform: scale(1.05); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5); }
-    100% { transform: scale(1); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
-}
-
-/* Animación del brillo pasando de izquierda a derecha */
-@keyframes shine-sweep {
-    0% { left: -60%; }
-    20% { left: 120%; }
-    100% { left: 120%; }
-}
-
-.icon-bolt {
-    font-size: 1.1rem;
-    color: #ffd600; /* Amarillo eléctrico */
-}
-
-/* Animación sutil para que el cliente lo vea de primero */
-@keyframes pulse-subtle {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-}
-
-/* Ajuste del Header para que el badge respire */
-header {
-    padding: 20px 10px 10px 10px;
-}
-
-.welcome-text {
-    margin-top: 5px;
-    background: rgba(255, 255, 255, 0.9); /* Más sólido para que el badge resalte arriba */
-}
-
-.logo {
-    width: 60px; /* Tamaño discreto */
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+.flag-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 h1 {
-    font-size: 1.5rem; /* Tamaño estándar de app */
-    color: white;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-    margin: 5px 0;
-}
-
-.welcome-text {
-    background: var(--vidrio-fondo);
-    backdrop-filter: var(--vidrio-blur);
-    border: 1px solid var(--verde-cr);
-    border-radius: 12px;
-    padding: 10px;
-    margin: 0 10px;
-}
-
-.welcome-text p {
-    font-size: 0.9rem; /* Letra pequeña y clara */
-    font-weight: 600;
-}
-
-/* --- CONTENEDOR AJUSTADO --- */
-.container {
-    max-width: 400px; /* Más angosto para móvil */
-    margin: 0 auto;
-    padding: 10px;
-}
-
-.card {
-    background: var(--vidrio-fondo);
-    backdrop-filter: var(--vidrio-blur);
-    padding: 15px;
-    border-radius: 15px;
+    font-size: 1.6rem;
+    font-weight: 800;
     margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-h2 {
-    font-size: 1rem;
-    color: var(--verde-cr);
+.unlimited-badge {
+    color: var(--unlimited-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================================
+   4. FORMULARIO Y BOTONES
+   ========================================= */
+.form-section {
+    padding: 20px;
+}
+
+label {
+    display: block;
+    color: var(--dark-text);
+    font-weight: 700;
     margin-bottom: 10px;
-    border-left: 4px solid var(--cyan-e-sim);
-    padding-left: 8px;
+    font-size: 1.1rem;
 }
 
-/* --- INPUTS Y PRECIO COMPACTOS --- */
-input[type="number"], input[type="text"] {
+.input-wrapper {
+    background-color: #F8F9FA;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+input[type="number"] {
     width: 100%;
-    height: 45px; /* Altura estándar de input */
-    font-size: 18px;
-    text-align: center;
-    border-radius: 8px;
-    border: 1px solid var(--verde-cr);
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    color: #666;
+}
+
+input[type="number"]:focus {
+    outline: none;
 }
 
 .price-display {
-    font-size: 1.8rem; /* Destaca pero no domina */
-    font-weight: 800;
-    color: var(--verde-cr);
+    background-color: var(--blue-btn);
+    color: var(--white);
     text-align: center;
-    margin-top: 5px;
+    padding: 15px;
+    border-radius: 30px; /* Bordes tipo píldora */
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 20px 0 10px 0;
 }
 
-/* --- OPCIONES DE SERVICIO REDUCIDAS --- */
-.option-content {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    background: white;
-}
-
-.option-content strong {
-    font-size: 1rem;
-    display: block;
-}
-
-.option-content p {
-    font-size: 0.85rem;
-}
-
-.icon {
-    font-size: 1.8rem;
-    margin-bottom: 3px;
-}
-
-/* --- BOTÓN DE ACCIÓN --- */
 .main-btn {
     width: 100%;
-    height: 50px; /* Tamaño cómodo pero no exagerado */
-    background: var(--verde-cr);
-    color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 12px;
+    background-color: var(--blue-btn);
+    color: var(--white);
     border: none;
+    padding: 18px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(25,118,210,0.3);
 }
 
-.lang-floating {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    border: 1px solid white;
+/* =========================================
+   5. FOOTER DE SERVICIO
+   ========================================= */
+.service-footer {
+    background-color: var(--white);
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #EEE;
+}
+
+.service-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--dark-text);
+}
+
+.icon-service {
+    font-size: 1.8rem;
+    color: var(--blue-btn);
+}
+
+.service-text strong {
+    font-size: 1.1rem;
+}
+
+.service-text p {
+    font-size: 0.9rem;
+    color: #666;
 }
