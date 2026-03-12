@@ -1,3 +1,4 @@
+// --- CONFIGURACIÓN INICIAL ---
 const preciosPorDia = { 1: 15, 3: 25, 7: 49, 15: 65, 30: 89 };
 let currentLang = 'en';
 let selectedPayment = "";
@@ -7,6 +8,7 @@ const translations = {
     es: { total: "Total: $", errorContact: "Ingresa WhatsApp/Correo", errorPay: "Selecciona método de pago", errorDates: "Por favor selecciona fechas válidas", success: "¡Éxito! Enviando a: " }
 };
 
+// --- LÓGICA DE CÁLCULO ---
 function calcularPrecio() {
     const inicio = document.querySelector('#fecha-inicio').value;
     const fin = document.querySelector('#fecha-fin').value;
@@ -27,10 +29,10 @@ function calcularPrecio() {
     return 0;
 }
 
-// 1. Manejo de Selección de Pago (Cambio visual de color)
+// --- MANEJO DE SELECCIÓN DE PAGO ---
 document.querySelectorAll('.pay-method').forEach(m => {
     m.addEventListener('click', function(e) {
-        e.preventDefault(); // EVITA EL SCROLL HACIA ARRIBA
+        e.preventDefault(); 
         document.querySelectorAll('.pay-method').forEach(x => {
             x.style.border = "1px solid #e9ecef";
             x.style.background = "#f8f9fa";
@@ -42,34 +44,32 @@ document.querySelectorAll('.pay-method').forEach(m => {
     });
 });
 
-// 2. Lógica del Botón CHECKOUT
+// --- LÓGICA DEL BOTÓN CHECKOUT ---
 document.addEventListener('DOMContentLoaded', () => {
     const btnValidar = document.getElementById('btn-validar');
     
     if(btnValidar) {
         btnValidar.addEventListener('click', function(e) {
-            e.preventDefault(); // ¡ESTO EVITA QUE LA PÁGINA SUBA!
+            e.preventDefault(); 
             
             const monto = calcularPrecio();
             const contacto = document.querySelector('#contacto-cliente').value;
             const paypalContainer = document.getElementById('paypal-button-container');
 
-            console.log("Validando datos...");
-
             if (monto <= 0) return alert(translations[currentLang].errorDates);
             if (!contacto || contacto.trim() === "") return alert(translations[currentLang].errorContact);
             if (!selectedPayment) return alert(translations[currentLang].errorPay);
 
-            // Ocultar botón y mostrar PayPal
+            // Ocultar validación y mostrar botones de pago
             this.style.display = 'none';
             paypalContainer.style.display = 'block';
             
-            console.log("Todo listo. Cargando botones de PayPal...");
             initPayPal(monto, contacto);
         });
     }
 });
 
+// --- INTEGRACIÓN DE PAYPAL / APPLE PAY ---
 function initPayPal(monto, contacto) {
     const container = document.getElementById('paypal-button-container');
     container.innerHTML = ''; 
@@ -81,8 +81,7 @@ function initPayPal(monto, contacto) {
     }
 
     paypal.Buttons({
-        // Cambié el color a 'gold' (amarillo) que es el que mejor convierte, 
-        // y mantenemos el layout vertical para que se desplieguen los botones.
+        // 'layout: vertical' despliega PayPal y Tarjeta por separado
         style: { 
             layout: 'vertical', 
             color: 'gold', 
@@ -90,51 +89,23 @@ function initPayPal(monto, contacto) {
             label: 'pay' 
         },
 
-        // Aquí es donde sucede la magia:
-        // PayPal mostrará automáticamente el botón de PayPal y el de "Tarjeta" 
-        // (y Apple Pay si el cliente usa iPhone) sin mostrar el botón negro 'card'.
-        
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{
                     amount: { value: monto.toString() },
-                    description: `eSIM Costa Rica - Contacto: ${contacto}`,
+                    description: `eSIM Monteverde - Contact: ${contacto}`,
                     custom_id: contacto
                 }]
             });
         },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(details => {
-                alert(translations[currentLang].success + contacto);
-                window.location.reload();
-            });
-        },
-        onError: function(err) {
-            console.error("Error PayPal:", err);
-            alert("Error en el pago. Reintente.");
-            document.getElementById('btn-validar').style.display = 'block';
-            container.style.display = 'none';
-        }
-    }).render('#paypal-button-container');
-}
 
-    paypal.Buttons({
-        style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'pay' },
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: { value: monto.toString() },
-                    description: `eSIM Costa Rica - Contacto: ${contacto}`,
-                    custom_id: contacto
-                }]
-            });
-        },
         onApprove: function(data, actions) {
             return actions.order.capture().then(details => {
                 alert(translations[currentLang].success + contacto);
                 window.location.reload();
             });
         },
+
         onError: function(err) {
             console.error("Error PayPal:", err);
             alert("Error en el pago. Reintente.");
