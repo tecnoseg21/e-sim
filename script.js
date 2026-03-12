@@ -12,7 +12,7 @@ const translations = {
     en: {
         title: "eSIM Costa Rica",
         subtitle: "Unlimited internet nationwide",
-        selectDays: "Select your days",
+        selectDays: "Select your travel dates", // Ajustado para el almanaque
         compatibilityTitle: "Is my phone compatible?",
         compatibilityText: "Dial <strong>*#06#</strong> on your phone (as if making a call).",
         compatibilityStep: "If an <strong>EID</strong> code appears, your device supports eSIM.",
@@ -27,12 +27,13 @@ const translations = {
         total: "Total: $",
         activateBtn: "ACTIVATE NOW",
         instantDelivery: "Instant Delivery",
-        securePayment: "Secure Payment"
+        securePayment: "Secure Payment",
+        daysCount: "Total:"
     },
     es: {
         title: "eSIM Costa Rica",
         subtitle: "Internet ilimitado en todo el país",
-        selectDays: "Seleccione sus días",
+        selectDays: "Seleccione sus fechas de viaje",
         compatibilityTitle: "¿Es compatible mi celular?",
         compatibilityText: "Marca <strong>*#06#</strong> en tu teléfono (como si fueras a llamar).",
         compatibilityStep: "Si aparece un código llamado <strong>EID</strong>, tu equipo soporta eSIM.",
@@ -47,27 +48,47 @@ const translations = {
         total: "Total: $",
         activateBtn: "ACTIVAR AHORA",
         instantDelivery: "Entrega Inmediata",
-        securePayment: "Pago Seguro"
+        securePayment: "Pago Seguro",
+        daysCount: "Total:"
     }
 };
 
-// Variable para el idioma actual (por defecto Inglés)
 let currentLang = 'en';
 
-// 3. LÓGICA DE ACTUALIZACIÓN DE PRECIOS
-const inputDias = document.querySelector('input[type="number"]');
-const displayPrecio = document.querySelector('.price-tag');
+// 3. ELEMENTOS DEL DOM
+const fechaInicio = document.querySelector('#fecha-inicio');
+const fechaFin = document.querySelector('#fecha-fin');
+const contadorDiasSpan = document.querySelector('#contador-dias');
+const displayPrecio = document.querySelector('#display-precio');
 
-function actualizarPrecio() {
-    const dias = parseInt(inputDias.value);
-    // Buscamos el precio. Si el día exacto no existe, podrías poner una lógica de cálculo base
-    // Aquí usamos los precios que definiste
-    let precio = preciosPorDia[dias] || (dias * 7); // Fallback: $7 por día si no está en la lista
-    
-    displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
+// Establecer fecha mínima como "hoy" para evitar errores
+const hoy = new Date().toISOString().split('T')[0];
+if(fechaInicio) fechaInicio.min = hoy;
+if(fechaFin) fechaFin.min = hoy;
+
+// 4. LÓGICA DE CÁLCULO
+function calcularPrecioFinal() {
+    const inicio = new Date(fechaInicio.value);
+    const fin = new Date(fechaFin.value);
+
+    if (fechaInicio.value && fechaFin.value && fin >= inicio) {
+        // Cálculo de diferencia de días
+        const diffTime = Math.abs(fin - inicio);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 para incluir ambos días
+        
+        contadorDiasSpan.textContent = diffDays;
+
+        // Buscar precio en la tabla o usar el fallback de $7 por día extra
+        let precio = preciosPorDia[diffDays] || (diffDays * 7);
+        
+        displayPrecio.textContent = `${translations[currentLang].total}${precio.toFixed(2)}`;
+    } else {
+        contadorDiasSpan.textContent = "0";
+        displayPrecio.textContent = `${translations[currentLang].total}0.00`;
+    }
 }
 
-// 4. LÓGICA DE CAMBIO DE IDIOMA
+// 5. CAMBIO DE IDIOMA
 document.querySelectorAll('.lang-opt').forEach(opt => {
     opt.addEventListener('click', () => {
         document.querySelector('.lang-opt.active').classList.remove('active');
@@ -76,7 +97,7 @@ document.querySelectorAll('.lang-opt').forEach(opt => {
         currentLang = opt.textContent.toLowerCase();
         if (translations[currentLang]) {
             updateLanguageUI(currentLang);
-            actualizarPrecio(); // Refresca el texto del precio con el nuevo idioma
+            calcularPrecioFinal();
         }
     });
 });
@@ -103,13 +124,20 @@ function updateLanguageUI(lang) {
     document.querySelector('.section-group:nth-of-type(5) label').textContent = t.contactLabel;
     document.querySelector('.btn-activar').textContent = t.activateBtn;
     
+    // Texto del contador de días
+    document.querySelector('#resumen-dias').firstChild.textContent = `${t.daysCount} `;
+
     const footerItems = document.querySelectorAll('.service-item span');
     footerItems[0].textContent = t.instantDelivery;
     footerItems[1].textContent = t.securePayment;
 }
 
-// Escuchar cambios en el input de días
-inputDias.addEventListener('input', actualizarPrecio);
+// Eventos para detectar cambios en las fechas
+fechaInicio.addEventListener('change', () => {
+    fechaFin.min = fechaInicio.value; // El fin no puede ser antes del inicio
+    calcularPrecioFinal();
+});
+fechaFin.addEventListener('change', calcularPrecioFinal);
 
-// Inicializar al cargar
-actualizarPrecio();
+// Inicializar
+calcularPrecioFinal();
