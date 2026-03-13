@@ -139,8 +139,14 @@ function calcularPrecio() {
 
 // Botón de Checkout
 document.getElementById('btn-validar').addEventListener('click', function() {
+    console.log('CLICK CHECKOUT');
+
     const monto = calcularPrecio();
+    console.log('Monto:', monto);
+
     const contacto = document.getElementById('contacto-cliente').value;
+    console.log('Contacto:', contacto);
+
     const paymentArea = document.getElementById('payment-area');
     const lang = translations[currentLang];
 
@@ -148,20 +154,20 @@ document.getElementById('btn-validar').addEventListener('click', function() {
         alert(lang.errorDates);
         return;
     }
+
     if (!contacto || contacto.trim() === "") {
         alert(lang.errorContact);
         return;
     }
 
-    // Guardamos la posición antes de mostrar PayPal
     const currentPos = window.pageYOffset;
 
     this.style.display = 'none';
     paymentArea.style.display = 'block';
-    
-    // Bloqueamos el scroll automático por un segundo
+
     window.scrollTo(0, currentPos);
-    
+
+    console.log('Antes de initPayPal');
     initPayPal(monto, contacto);
 });
 function initPayPal(monto, contacto) {
