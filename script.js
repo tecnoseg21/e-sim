@@ -1,6 +1,7 @@
 // Definimos los precios base por paquetes
 
-
+console.log('SCRIPT CARGADO OK');
+alert('SCRIPT CARGADO OK');
 console.log('script.js SI cargó');
 alert('script.js SI cargó');
 
