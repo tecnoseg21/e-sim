@@ -156,68 +156,71 @@ document.getElementById('btn-validar').addEventListener('click', function() {
     
     initPayPal(monto, contacto);
 });
-
 function initPayPal(monto, contacto) {
     const container = document.getElementById('paypal-button-container');
-    container.innerHTML = ''; 
-    
-    // Usamos un observer para detectar cuando PayPal intenta mover el scroll
+    container.innerHTML = '';
+
     setTimeout(() => {
         paypal.Buttons({
             style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay' },
+
             createOrder: (data, actions) => {
                 return actions.order.create({
-                    purchase_units: [{ 
-                        amount: { value: monto.toFixed(2) }, 
-                        description: `eSIM Costa Rica - ${contacto}` 
+                    purchase_units: [{
+                        amount: { value: monto.toFixed(2) },
+                        description: `eSIM Costa Rica - ${contacto}`
                     }]
                 });
             },
-           onApprove: async (data, actions) => {
-    try {
-        const details = await actions.order.capture();
 
-        const fechaInicio = document.getElementById('fecha-inicio').value;
-        const fechaFin = document.getElementById('fecha-fin').value;
-        const contacto = document.getElementById('contacto-cliente').value.trim();
+            onApprove: async (data, actions) => {
+                try {
+                    const details = await actions.order.capture();
 
-        const d1 = parseLocalDate(fechaInicio);
-        const d2 = parseLocalDate(fechaFin);
-        const milisegundosPorDia = 1000 * 60 * 60 * 24;
-        const dias = Math.floor((d2 - d1) / milisegundosPorDia) + 1;
+                    const fechaInicio = document.getElementById('fecha-inicio').value;
+                    const fechaFin = document.getElementById('fecha-fin').value;
+                    const contacto = document.getElementById('contacto-cliente').value.trim();
 
-        const monto = calcularPrecio();
+                    const d1 = parseLocalDate(fechaInicio);
+                    const d2 = parseLocalDate(fechaFin);
+                    const milisegundosPorDia = 1000 * 60 * 60 * 24;
+                    const dias = Math.floor((d2 - d1) / milisegundosPorDia) + 1;
 
-        const captureId =
-            details?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
+                    const montoCalculado = calcularPrecio();
 
-        await guardarPedido({
-            contacto,
-            fechaInicio,
-            fechaFin,
-            dias,
-            monto,
-            idioma: currentLang,
-            paypalOrderId: data.orderID,
-            paypalCaptureId: captureId,
-            status: 'paid'
-        });
+                    const captureId =
+                        details?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
 
-        alert('Pago aprobado y pedido guardado correctamente.');
-        window.location.reload();
+                    await guardarPedido({
+                        contacto,
+                        fechaInicio,
+                        fechaFin,
+                        dias,
+                        monto: montoCalculado,
+                        idioma: currentLang,
+                        paypalOrderId: data.orderID,
+                        paypalCaptureId: captureId,
+                        status: 'paid'
+                    });
 
-    } catch (error) {
-        console.error('Error al capturar o guardar el pedido:', error);
-        alert('El pago se aprobó, pero hubo un problema guardando el pedido.');
-    }
-}
+                    alert('Pago aprobado y pedido guardado correctamente.');
+                    window.location.reload();
+
+                } catch (error) {
+                    console.error('Error al capturar o guardar el pedido:', error);
+                    alert('El pago se aprobó, pero hubo un problema guardando el pedido.');
+                }
             }
+
         }).render('#paypal-button-container').then(() => {
-            // Una vez renderizado, deslizamos suavemente pero SOLO al contenedor de PayPal
-            document.getElementById('payment-area').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            document.getElementById('payment-area').scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
         });
     }, 100);
 }
+
 
 // Eventos de escucha
 document.getElementById('fecha-inicio').addEventListener('change', resetCheckout);
