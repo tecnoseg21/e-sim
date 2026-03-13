@@ -220,7 +220,7 @@ function initPayPal(monto, contacto) {
                     });
 
                     alert('Pago aprobado y pedido guardado correctamente.');
-                    window.location.reload();
+                 window.location.href = "gracias.html";
 
                 } catch (error) {
                     console.error('Error al capturar o guardar el pedido:', error);
