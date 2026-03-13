@@ -1,4 +1,11 @@
 // Definimos los precios base por paquetes
+
+const supabaseUrl = "https://czqylvofewjvhqsyjhwl.supabase.co";
+
+const supabaseKey = "AQUI_TU_PUBLISHABLE_KEY";
+
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 const preciosPorDia = { 1: 15, 3: 25, 7: 49, 15: 65, 30: 89 };
 let currentLang = 'EN';
 
