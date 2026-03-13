@@ -37,6 +37,10 @@ async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idi
 
     return data;
 }
+function parseLocalDate(value) {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
+}
 
 const preciosPorDia = { 1: 15, 3: 25, 7: 49, 15: 65, 30: 89 };
 let currentLang = 'EN';
