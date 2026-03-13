@@ -6,6 +6,33 @@ const supabaseKey = "AQUI_TU_PUBLISHABLE_KEY";
 
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idioma, paypalOrderId, paypalCaptureId, status }) {
+    const { data, error } = await supabase
+        .from('orders')
+        .insert([
+            {
+                customer_contact: contacto,
+                start_date: fechaInicio,
+                end_date: fechaFin,
+                days: dias,
+                amount: monto,
+                currency: 'USD',
+                paypal_order_id: paypalOrderId || null,
+                paypal_capture_id: paypalCaptureId || null,
+                status: status || 'pending',
+                language: idioma || 'EN'
+            }
+        ])
+        .select();
+
+    if (error) {
+        console.error('Error guardando pedido:', error);
+        throw error;
+    }
+
+    return data;
+}
+
 const preciosPorDia = { 1: 15, 3: 25, 7: 49, 15: 65, 30: 89 };
 let currentLang = 'EN';
 
