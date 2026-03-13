@@ -6,6 +6,11 @@ const supabaseKey = "sb_publishable_M_pl2tHR3S8zWhN-awxXDQ_LiyDYXWI";
 
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+function parseLocalDate(value) {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
+}
+
 async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idioma, paypalOrderId, paypalCaptureId, status }) {
     const { data, error } = await supabase
         .from('orders')
