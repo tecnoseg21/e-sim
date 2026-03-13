@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <!-- <script src="https://www.paypal.com/sdk/js?client-id=Adk_bp6_mlm6_gz2j1KU6VJMQKTNhJrTsI9DL5fAwAeLDvxM3wD7DdKQHfniB1pKdQhRvUryjwldMyMV&currency=USD&components=buttons,applepay"></script> -->
-<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons"></script>
 </head>
 <body>
 
@@ -58,28 +58,24 @@
                 <p id="comp-p1">Dial <strong>*#06#</strong> on your phone.</p>
                 <p class="comp-step" id="comp-p2">If an <strong>EID</strong> code appears, you're ready.</p>
             </div>
-            
 
             <div class="section-group">
-    <label>Activation method</label>
+                <label>Activation method</label>
+                <div class="activation-options">
+                    <label class="option-box">
+                        <input type="radio" name="instalacion" value="self" checked>
+                        <span>I will install the eSIM myself</span>
+                    </label>
 
-    <div class="activation-options">
-        <label class="option-box">
-            <input type="radio" name="instalacion" value="self" checked>
-            <span>I will install the eSIM myself</span>
-        </label>
-
-        <label class="option-box">
-            <input type="radio" name="instalacion" value="store">
-            <span>Install for me at the store (technical support)</span>
-        </label>
-    </div>
-</div>
+                    <label class="option-box">
+                        <input type="radio" name="instalacion" value="store">
+                        <span>Install for me at the store (technical support)</span>
+                    </label>
+                </div>
+            </div>
 
             <div class="section-group">
                 <label id="label-contacto">WhatsApp or Email (for activation code):</label>
-                <div class="section-group">
-
                 <div class="input-box">
                     <input type="text" id="contacto-cliente" placeholder="+506 ... or email@test.com">
                 </div>
@@ -89,7 +85,7 @@
                 <div class="price-tag" id="display-precio" style="margin-bottom: 12px; padding: 18px; text-align: center; border-radius: 12px;"></div>
                 <div id="paypal-button-container"></div>
             </div>
-            
+
             <div id="action-area">
                 <button class="btn-activar" id="btn-validar">CHECKOUT</button>
             </div>
@@ -107,9 +103,7 @@
         </div>
     </div>
 
-   
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./script.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
