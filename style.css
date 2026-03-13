@@ -1,6 +1,6 @@
 /* =========================================
-    1. BASE Y ESTRUCTURA
-   ========================================= */
+   1. RESET Y BASE
+========================================= */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,130 +9,173 @@
 }
 
 body {
-    background-color: #f0f2f5; 
+    background: linear-gradient(180deg, #f5f7fb 0%, #eef3f8 100%);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
-    padding: 20px 0;
-}
-
-.mobile-app-card {
-    position: relative; /* Crítico para los perezosos/tucán */
-    width: 95%;
-    max-width: 450px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden; 
-    overflow-y: visible; 
-    display: flex;
-    flex-direction: column;
-
-  
+    padding: 24px 12px;
+    color: #1f2937;
 }
 
 /* =========================================
-    2. HEADER (MONTEVERDE)
-   ========================================= */
+   2. CARD PRINCIPAL
+========================================= */
+.mobile-app-card {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================
+   3. HEADER
+========================================= */
 .header-paisa {
-    background-image: url('fondo.webp'); 
+    background-image: url('fondo.webp');
     background-size: cover;
     background-position: center;
-    min-height: 180px;
+    min-height: 210px;
     position: relative;
     display: flex;
     align-items: flex-end;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+}
+
+.header-paisa::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.12) 30%, rgba(0, 0, 0, 0.62) 100%);
+    z-index: 1;
 }
 
 .header-overlay {
     width: 100%;
-    padding: 20px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 22px 22px 18px;
     color: white;
     position: relative;
     z-index: 2;
 }
 
-h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 5px; }
+#main-title {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+}
 
 .badge-unlimited {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    padding: 5px 12px;
-    border-radius: 6px;
-    font-size: 0.8rem;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
-/* Selector de Idiomas */
+/* =========================================
+   4. IDIOMAS
+========================================= */
 .language-switcher {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(0,0,0,0.5);
-    padding: 5px 12px;
-    border-radius: 20px;
+    top: 14px;
+    right: 14px;
+    background: rgba(0, 0, 0, 0.42);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    padding: 6px 10px;
+    border-radius: 999px;
     display: flex;
     gap: 8px;
-    z-index: 20;
+    z-index: 3;
 }
 
-.lang-opt { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: bold; cursor: pointer; }
-.lang-opt.active { color: white; }
+.lang-opt {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.lang-opt:hover {
+    color: #ffffff;
+}
+
+.lang-opt.active {
+    color: #ffffff;
+}
 
 /* =========================================
-    3. DECORACIONES (TUCÁN Y PEREZOSO)
-   ========================================= */
+   5. DECORACIONES
+========================================= */
 .perezoso-interno {
     position: absolute;
-    z-index: 10;
+    z-index: 4;
     pointer-events: none;
-
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
 }
 
-/* Tucán: Bajado a la parte blanca */
 .sl-der {
-    width: 98px; 
-    height: auto;
-    right: 0.5px;
-    top: 170px; /* Bajado para que entre en el área blanca */
+    width: 74px;
+    right: 16px;
+    top: 168px;
 }
 
-/* Perezoso: Esquina inferior izquierda */
 .sl-izq {
-    width: 65px;
-    height: auto;
-    left: -8px;
-    bottom: 32px;
+    width: 58px;
+    left: -6px;
+    bottom: 88px;
+    opacity: 0.95;
 }
 
 /* =========================================
-    4. CUERPO Y FORMULARIO
-   ========================================= */
+   6. FORMULARIO
+========================================= */
 .form-container {
-    padding: 20px;
-    background-color: #ffffff;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    padding: 22px;
+    background: #ffffff;
 }
 
-.section-group { margin-bottom: 20px; }
+.section-group {
+    margin-bottom: 24px;
+}
 
-label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
+label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #172033;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+}
 
 .input-box {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
-    padding: 12px;
+    background: #f8fafc;
+    border: 1px solid #dbe4ee;
+    border-radius: 14px;
+    padding: 12px 14px;
+    transition: 0.2s ease;
+}
+
+.input-box:focus-within {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.10);
+    background: #ffffff;
 }
 
 .input-box input {
@@ -140,113 +183,300 @@ label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
     border: none;
     background: transparent;
     font-size: 1rem;
+    color: #1e293b;
     outline: none;
 }
 
-/* FECHAS */
-.date-range-container .input-box {
-    background: #f0f7ff;
+/* =========================================
+   7. FECHAS
+========================================= */
+.date-range-container {
+    display: flex;
+    gap: 12px;
+}
+
+.date-box {
+    flex: 1;
+    background: #f4f9ff;
     border: 2px solid #1976d2;
-    border-radius: 10px;
-    padding: 8px 12px;
+    border-radius: 14px;
+    padding: 10px 12px;
+}
+
+.date-box small {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.72rem;
+    color: #1976d2;
+    font-weight: 800;
 }
 
 .date-range-container input[type="date"] {
-    border: none;
-    background: transparent;
     color: #1976d2;
     font-weight: 700;
-    width: 100%;
-    outline: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 #resumen-dias {
-    margin-top: 10px;
-    background: #e3f2fd;
-    display: inline-block;
-    padding: 5px 15px;
-    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    background: #eaf4ff;
     border: 1px dashed #1976d2;
     color: #1976d2;
-    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    font-weight: 800;
 }
 
-/* COMPATIBILIDAD */
+/* =========================================
+   8. COMPATIBILIDAD
+========================================= */
 .compatibility-box {
-    background: #fff9c4;
-    border: 1px solid #fbc02d;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 20px;
+    background: linear-gradient(180deg, #fff8d9 0%, #fff2b8 100%);
+    border: 1px solid #f3d566;
+    padding: 16px 16px 14px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 18px rgba(243, 213, 102, 0.12);
 }
 
-/* BOTÓN AZUL DE PRECIO (RESTAURADO) */
-.price-tag {
+.comp-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.comp-header i {
+    color: #111827;
+    font-size: 0.95rem;
+}
+
+.compatibility-box label {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.compatibility-box p {
+    font-size: 0.98rem;
+    color: #2d2d2d;
+    line-height: 1.45;
+}
+
+.comp-step {
+    margin-top: 4px;
+}
+
+/* =========================================
+   9. MÉTODO DE ACTIVACIÓN
+========================================= */
+.activation-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f4f6fa;
+    border: 1px solid #d7dee9;
+    border-radius: 14px;
+    padding: 14px 14px;
+    cursor: pointer;
+    transition: 0.22s ease;
+    position: relative;
+}
+
+.option-card:hover {
+    border-color: #9ebfe7;
+    background: #f8fbff;
+    transform: translateY(-1px);
+}
+
+.option-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.custom-radio {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #aab7c8;
+    border-radius: 50%;
+    background: #ffffff;
+    position: relative;
+    flex-shrink: 0;
+    transition: 0.2s ease;
+}
+
+.option-text {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.35;
+}
+
+.option-card input:checked + .custom-radio {
+    border-color: #1976d2;
+}
+
+.option-card input:checked + .custom-radio::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
     background: #1976d2;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.option-card:has(input:checked) {
+    border-color: #1976d2;
+    background: linear-gradient(180deg, #eef6ff 0%, #e7f1ff 100%);
+    box-shadow: 0 8px 18px rgba(25, 118, 210, 0.10);
+}
+
+/* =========================================
+   10. CONTACTO
+========================================= */
+.contact-box {
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 14px 15px;
+}
+
+.contact-box input {
+    font-size: 1rem;
+}
+
+/* =========================================
+   11. PRECIO Y PAYPAL
+========================================= */
+.price-tag {
+    background: linear-gradient(135deg, #1976d2 0%, #1257a5 100%);
     color: white;
     text-align: center;
-    padding: 18px;
-    border-radius: 12px;
-    font-size: 1.2rem;
+    padding: 20px 18px;
+    border-radius: 18px;
+    font-size: 1.15rem;
     font-weight: 800;
-    margin: 20px 0 15px 0;
-    display: block;
-    contain: layout;
+    margin: 4px 0 16px;
+    box-shadow: 0 14px 28px rgba(25, 118, 210, 0.22);
 }
 
-/* BOTÓN CHECKOUT */
+/* =========================================
+   12. BOTÓN PRINCIPAL
+========================================= */
 .btn-activar {
     width: 100%;
-    background: transparent;
-    color: #1976d2;
-    border: 2px solid #1976d2;
-    padding: 15px;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 700;
+    border: none;
+    background: linear-gradient(135deg, #1b76d1 0%, #0f62be 100%);
+    color: #ffffff;
+    padding: 16px 18px;
+    border-radius: 16px;
+    font-size: 1.08rem;
+    font-weight: 800;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.25s ease;
+    box-shadow: 0 14px 28px rgba(17, 94, 175, 0.22);
+    letter-spacing: 0.01em;
 }
 
 .btn-activar:hover {
-    background: #1976d2;
-    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 18px 34px rgba(17, 94, 175, 0.28);
 }
 
-/* FOOTER */
-.service-footer {
+.btn-activar:active {
+    transform: translateY(0);
+}
+
+/* =========================================
+   13. BENEFICIOS / CONFIANZA
+========================================= */
+.trust-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #edf2f7;
+}
+
+.trust-item {
+    background: #f8fafc;
+    border: 1px solid #e6edf5;
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: #64748b;
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-    position: relative;
-    z-index: 15;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    min-height: 76px;
+    justify-content: center;
 }
 
-.activation-options{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-top:10px;
+.trust-item i {
+    color: #1976d2;
+    font-size: 1rem;
 }
 
-.option-box{
-display:flex;
-align-items:center;
-gap:10px;
-background:#f5f7fb;
-padding:12px;
-border-radius:10px;
-border:1px solid #ddd;
-cursor:pointer;
-font-size:0.9rem;
-}
+/* =========================================
+   14. RESPONSIVE
+========================================= */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
 
-.option-box input{
-cursor:pointer;
-}
+    .mobile-app-card {
+        border-radius: 20px;
+    }
 
-.service-item { font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 5px; }
-.service-item i { color: #4caf50; }
+    .header-paisa {
+        min-height: 200px;
+    }
+
+    #main-title {
+        font-size: 1.8rem;
+    }
+
+    .form-container {
+        padding: 18px;
+    }
+
+    .date-range-container {
+        gap: 10px;
+    }
+
+    .sl-der {
+        width: 64px;
+        top: 175px;
+        right: 10px;
+    }
+
+    .sl-izq {
+        width: 52px;
+        bottom: 96px;
+    }
+
+    .trust-row {
+        gap: 8px;
+    }
+
+    .trust-item {
+        font-size: 0.74rem;
+        padding: 10px 8px;
+    }
+}
