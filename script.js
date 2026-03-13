@@ -1,6 +1,8 @@
 // Definimos los precios base por paquetes
 
-alert('script cargado');
+
+console.log('script.js SI cargó');
+alert('script.js SI cargó');
 
 const supabaseUrl = "https://czqylvofewjvhqsyjhwl.supabase.co";
 
