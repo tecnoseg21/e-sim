@@ -61,6 +61,10 @@ const translations = {
         compTitle: "Is my phone compatible?",
         compP1: "Dial *#06# on your phone.",
         compP2: "If an EID code appears, you're ready."
+        activation: "Activation method",
+selfInstall: "I will install the eSIM myself",
+storeInstall: "Install for me at the store (technical support)",
+        
     },
     ES: {
         total: "Total a pagar: $",
@@ -73,6 +77,10 @@ const translations = {
         compTitle: "¿Es mi teléfono compatible?",
         compP1: "Marca *#06# en tu teléfono.",
         compP2: "Si aparece un código EID, estás listo."
+    activation: "Método de activación",
+selfInstall: "Instalaré la eSIM yo mismo",
+storeInstall: "Instalar en la tienda (soporte técnico)",
+        
     },
     FR: {
         total: "Total à payer: $",
@@ -85,6 +93,9 @@ const translations = {
         compTitle: "Mon téléphone est-il compatible?",
         compP1: "Composez *#06# sur votre téléphone.",
         compP2: "Si un code EID apparaît, vous êtes prêt."
+        activation: "Méthode d'activation",
+selfInstall: "Je vais installer l'eSIM moi-même",
+storeInstall: "Installer en magasin (support technique)",
     },
     DE: {
         total: "Gesamtbetrag: $",
@@ -97,6 +108,9 @@ const translations = {
         compTitle: "Ist mein Handy kompatibel?",
         compP1: "Wählen Sie *#06# auf Ihrem Handy.",
         compP2: "Wenn ein EID-Code erscheint, sind Sie bereit."
+        activation: "Aktivierungsmethode",
+selfInstall: "Ich installiere die eSIM selbst",
+storeInstall: "Installation im Geschäft (technischer Support)",
     },
     NL: {
         total: "Totaal te betalen: $",
@@ -109,6 +123,9 @@ const translations = {
         compTitle: "Is mijn telefoon compatibel?",
         compP1: "Bel *#06# op je telefoon.",
         compP2: "Als er een EID-code verschijnt, ben je er klaar voor."
+        activation: "Activatiemethode",
+selfInstall: "Ik installeer de eSIM zelf",
+storeInstall: "Installatie in de winkel (technische ondersteuning)",
     }
 };
 
@@ -149,6 +166,9 @@ function updateUI() {
     document.getElementById('label-comp').textContent = lang.compTitle;
     document.getElementById('comp-p1').innerHTML = lang.compP1.replace('*#06#', '<strong>*#06#</strong>');
     document.getElementById('comp-p2').innerHTML = lang.compP2.replace('EID', '<strong>EID</strong>');
+    document.getElementById('label-activation').textContent = lang.activation;
+document.getElementById('opt-self').textContent = lang.selfInstall;
+document.getElementById('opt-store').textContent = lang.storeInstall;
 
     calcularPrecio();
 }
