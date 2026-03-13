@@ -171,8 +171,8 @@ document.getElementById('btn-validar').addEventListener('click', function() {
     initPayPal(monto, contacto);
 });
 function initPayPal(monto, contacto) {
+    console.log('Entró a initPayPal', monto, contacto);
     const container = document.getElementById('paypal-button-container');
-    container.innerHTML = '';
 
     setTimeout(() => {
         paypal.Buttons({
