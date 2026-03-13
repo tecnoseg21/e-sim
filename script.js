@@ -1,5 +1,7 @@
 // Definimos los precios base por paquetes
 
+alert('script cargado');
+
 const supabaseUrl = "https://czqylvofewjvhqsyjhwl.supabase.co";
 
 const supabaseKey = "sb_publishable_M_pl2tHR3S8zWhN-awxXDQ_LiyDYXWI";
