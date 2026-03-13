@@ -46,7 +46,6 @@ async function guardarPedido({
     return data;
 }
 
-const preciosPorDia = { 1: 15, 3: 25, 7: 49, 15: 65, 30: 89 };
 let currentLang = 'EN';
 
 const translations = {
@@ -60,11 +59,10 @@ const translations = {
         errorContact: "Enter WhatsApp/Email",
         compTitle: "Is my phone compatible?",
         compP1: "Dial *#06# on your phone.",
-        compP2: "If an EID code appears, you're ready."
+        compP2: "If an EID code appears, you're ready.",
         activation: "Activation method",
-selfInstall: "I will install the eSIM myself",
-storeInstall: "Install for me at the store (technical support)",
-        
+        selfInstall: "I will install the eSIM myself",
+        storeInstall: "Install for me at the store (technical support)"
     },
     ES: {
         total: "Total a pagar: $",
@@ -76,11 +74,10 @@ storeInstall: "Install for me at the store (technical support)",
         errorContact: "Ingresa WhatsApp/Correo",
         compTitle: "¿Es mi teléfono compatible?",
         compP1: "Marca *#06# en tu teléfono.",
-        compP2: "Si aparece un código EID, estás listo."
-    activation: "Método de activación",
-selfInstall: "Instalaré la eSIM yo mismo",
-storeInstall: "Instalar en la tienda (soporte técnico)",
-        
+        compP2: "Si aparece un código EID, estás listo.",
+        activation: "Método de activación",
+        selfInstall: "Instalaré la eSIM yo mismo",
+        storeInstall: "Instalar en la tienda (soporte técnico)"
     },
     FR: {
         total: "Total à payer: $",
@@ -92,10 +89,10 @@ storeInstall: "Instalar en la tienda (soporte técnico)",
         errorContact: "Entrez WhatsApp/Email",
         compTitle: "Mon téléphone est-il compatible?",
         compP1: "Composez *#06# sur votre téléphone.",
-        compP2: "Si un code EID apparaît, vous êtes prêt."
+        compP2: "Si un code EID apparaît, vous êtes prêt.",
         activation: "Méthode d'activation",
-selfInstall: "Je vais installer l'eSIM moi-même",
-storeInstall: "Installer en magasin (support technique)",
+        selfInstall: "Je vais installer l'eSIM moi-même",
+        storeInstall: "Installer en magasin (support technique)"
     },
     DE: {
         total: "Gesamtbetrag: $",
@@ -107,10 +104,10 @@ storeInstall: "Installer en magasin (support technique)",
         errorContact: "WhatsApp/E-Mail eingeben",
         compTitle: "Ist mein Handy kompatibel?",
         compP1: "Wählen Sie *#06# auf Ihrem Handy.",
-        compP2: "Wenn ein EID-Code erscheint, sind Sie bereit."
+        compP2: "Wenn ein EID-Code erscheint, sind Sie bereit.",
         activation: "Aktivierungsmethode",
-selfInstall: "Ich installiere die eSIM selbst",
-storeInstall: "Installation im Geschäft (technischer Support)",
+        selfInstall: "Ich installiere die eSIM selbst",
+        storeInstall: "Installation im Geschäft (technischer Support)"
     },
     NL: {
         total: "Totaal te betalen: $",
@@ -122,10 +119,10 @@ storeInstall: "Installation im Geschäft (technischer Support)",
         errorContact: "Voer WhatsApp/E-mail in",
         compTitle: "Is mijn telefoon compatibel?",
         compP1: "Bel *#06# op je telefoon.",
-        compP2: "Als er een EID-code verschijnt, ben je er klaar voor."
+        compP2: "Als er een EID-code verschijnt, ben je er klaar voor.",
         activation: "Activatiemethode",
-selfInstall: "Ik installeer de eSIM zelf",
-storeInstall: "Installatie in de winkel (technische ondersteuning)",
+        selfInstall: "Ik installeer de eSIM zelf",
+        storeInstall: "Installatie in de winkel (technische ondersteuning)"
     }
 };
 
@@ -166,9 +163,14 @@ function updateUI() {
     document.getElementById('label-comp').textContent = lang.compTitle;
     document.getElementById('comp-p1').innerHTML = lang.compP1.replace('*#06#', '<strong>*#06#</strong>');
     document.getElementById('comp-p2').innerHTML = lang.compP2.replace('EID', '<strong>EID</strong>');
-    document.getElementById('label-activation').textContent = lang.activation;
-document.getElementById('opt-self').textContent = lang.selfInstall;
-document.getElementById('opt-store').textContent = lang.storeInstall;
+
+    const labelActivation = document.getElementById('label-activation');
+    const optSelf = document.getElementById('opt-self');
+    const optStore = document.getElementById('opt-store');
+
+    if (labelActivation) labelActivation.textContent = lang.activation;
+    if (optSelf) optSelf.textContent = lang.selfInstall;
+    if (optStore) optStore.textContent = lang.storeInstall;
 
     calcularPrecio();
 }
@@ -232,7 +234,6 @@ document.getElementById('btn-validar').addEventListener('click', function () {
     }
 
     const currentPos = window.pageYOffset;
-
     this.style.display = 'none';
     paymentArea.style.display = 'block';
     window.scrollTo(0, currentPos);
@@ -311,3 +312,5 @@ function initPayPal(monto, contacto) {
 document.getElementById('fecha-inicio').addEventListener('change', resetCheckout);
 document.getElementById('fecha-fin').addEventListener('change', resetCheckout);
 document.getElementById('contacto-cliente').addEventListener('change', resetCheckout);
+
+updateUI();
