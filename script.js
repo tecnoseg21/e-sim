@@ -12,7 +12,7 @@ function parseLocalDate(value) {
     return new Date(year, month - 1, day);
 }
 
-async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idioma, paypalOrderId, paypalCaptureId, status }) {
+async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idioma, paypalOrderId, paypalCaptureId, status, installationMethod }) {
     const { data, error } = await supabaseClient
         .from('orders')
         .insert([
@@ -26,7 +26,8 @@ async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idi
                 paypal_order_id: paypalOrderId || null,
                 paypal_capture_id: paypalCaptureId || null,
                 status: status || 'pending',
-                language: idioma || 'EN'
+                language: idioma || 'EN',
+                installation_method: installationMethod || 'self'
             }
         ])
         .select();
@@ -37,6 +38,7 @@ async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idi
     }
 
     return data;
+}
 }
 function parseLocalDate(value) {
     const [year, month, day] = value.split('-').map(Number);
