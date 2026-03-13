@@ -225,5 +225,28 @@ label { display: block; font-weight: 700; color: #333; margin-bottom: 10px; }
     z-index: 15;
 }
 
+.activation-options{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-top:10px;
+}
+
+.option-box{
+display:flex;
+align-items:center;
+gap:10px;
+background:#f5f7fb;
+padding:12px;
+border-radius:10px;
+border:1px solid #ddd;
+cursor:pointer;
+font-size:0.9rem;
+}
+
+.option-box input{
+cursor:pointer;
+}
+
 .service-item { font-size: 0.8rem; color: #888; display: flex; align-items: center; gap: 5px; }
 .service-item i { color: #4caf50; }
