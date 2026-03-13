@@ -1,21 +1,24 @@
-// Definimos los precios base por paquetes
-
-console.log('SCRIPT CARGADO OK');
-alert('SCRIPT CARGADO OK');
-console.log('script.js SI cargó');
-alert('script.js SI cargó');
-
 const supabaseUrl = "https://czqylvofewjvhqsyjhwl.supabase.co";
-
 const supabaseKey = "sb_publishable_M_pl2tHR3S8zWhN-awxXDQ_LiyDYXWI";
-
 const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
 function parseLocalDate(value) {
     const [year, month, day] = value.split('-').map(Number);
     return new Date(year, month - 1, day);
 }
 
-async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idioma, paypalOrderId, paypalCaptureId, status, installationMethod }) {
+async function guardarPedido({
+    contacto,
+    fechaInicio,
+    fechaFin,
+    dias,
+    monto,
+    idioma,
+    paypalOrderId,
+    paypalCaptureId,
+    status,
+    installationMethod
+}) {
     const { data, error } = await supabaseClient
         .from('orders')
         .insert([
@@ -42,46 +45,91 @@ async function guardarPedido({ contacto, fechaInicio, fechaFin, dias, monto, idi
 
     return data;
 }
-}
-function parseLocalDate(value) {
-    const [year, month, day] = value.split('-').map(Number);
-    return new Date(year, month - 1, day);
-}
 
 const preciosPorDia = { 1: 15, 3: 25, 7: 49, 15: 65, 30: 89 };
 let currentLang = 'EN';
 
 const translations = {
-    EN: { total: "Total to pay: $", perDay: "per day", duration: "Duration: ", days: " days", checkout: "CHECKOUT", errorDates: "Please select valid dates", errorContact: "Enter WhatsApp/Email", compTitle: "Is my phone compatible?", compP1: "Dial *#06# on your phone.", compP2: "If an EID code appears, you're ready." },
-    ES: { total: "Total a pagar: $", perDay: "por día", duration: "Duración: ", days: " días", checkout: "FINALIZAR COMPRA", errorDates: "Por favor selecciona fechas válidas", errorContact: "Ingresa WhatsApp/Correo", compTitle: "¿Es mi teléfono compatible?", compP1: "Marca *#06# en tu teléfono.", compP2: "Si aparece un código EID, estás listo." },
-    FR: { total: "Total à payer: $", perDay: "par jour", duration: "Durée: ", days: " jours", checkout: "PAYER", errorDates: "Veuillez choisir des dates valides", errorContact: "Entrez WhatsApp/Email", compTitle: "Mon téléphone est-il compatible?", compP1: "Composez *#06# sur votre téléphone.", compP2: "Si un code EID apparaît, vous êtes prêt." },
-    DE: { total: "Gesamtbetrag: $", perDay: "pro Tag", duration: "Dauer: ", days: " Tage", checkout: "KASSE", errorDates: "Bitte gültige Daten wählen", errorContact: "WhatsApp/E-Mail eingeben", compTitle: "Ist mein Handy kompatibel?", compP1: "Wählen Sie *#06# auf Ihrem Handy.", compP2: "Wenn ein EID-Code erscheint, sind Sie bereit." },
-    NL: { total: "Totaal te betalen: $", perDay: "per dag", duration: "Duur: ", days: " dagen", checkout: "AFREKENEN", errorDates: "Selecteer geldige datums", errorContact: "Voer WhatsApp/E-mail in", compTitle: "Is mijn telefoon compatibel?", compP1: "Bel *#06# op je telefoon.", compP2: "Als er een EID-code verschijnt, ben je er klaar voor." }
+    EN: {
+        total: "Total to pay: $",
+        perDay: "per day",
+        duration: "Duration: ",
+        days: " days",
+        checkout: "CHECKOUT",
+        errorDates: "Please select valid dates",
+        errorContact: "Enter WhatsApp/Email",
+        compTitle: "Is my phone compatible?",
+        compP1: "Dial *#06# on your phone.",
+        compP2: "If an EID code appears, you're ready."
+    },
+    ES: {
+        total: "Total a pagar: $",
+        perDay: "por día",
+        duration: "Duración: ",
+        days: " días",
+        checkout: "FINALIZAR COMPRA",
+        errorDates: "Por favor selecciona fechas válidas",
+        errorContact: "Ingresa WhatsApp/Correo",
+        compTitle: "¿Es mi teléfono compatible?",
+        compP1: "Marca *#06# en tu teléfono.",
+        compP2: "Si aparece un código EID, estás listo."
+    },
+    FR: {
+        total: "Total à payer: $",
+        perDay: "par jour",
+        duration: "Durée: ",
+        days: " jours",
+        checkout: "PAYER",
+        errorDates: "Veuillez choisir des dates valides",
+        errorContact: "Entrez WhatsApp/Email",
+        compTitle: "Mon téléphone est-il compatible?",
+        compP1: "Composez *#06# sur votre téléphone.",
+        compP2: "Si un code EID apparaît, vous êtes prêt."
+    },
+    DE: {
+        total: "Gesamtbetrag: $",
+        perDay: "pro Tag",
+        duration: "Dauer: ",
+        days: " Tage",
+        checkout: "KASSE",
+        errorDates: "Bitte gültige Daten wählen",
+        errorContact: "WhatsApp/E-Mail eingeben",
+        compTitle: "Ist mein Handy kompatibel?",
+        compP1: "Wählen Sie *#06# auf Ihrem Handy.",
+        compP2: "Wenn ein EID-Code erscheint, sind Sie bereit."
+    },
+    NL: {
+        total: "Totaal te betalen: $",
+        perDay: "per dag",
+        duration: "Duur: ",
+        days: " dagen",
+        checkout: "AFREKENEN",
+        errorDates: "Selecteer geldige datums",
+        errorContact: "Voer WhatsApp/E-mail in",
+        compTitle: "Is mijn telefoon compatibel?",
+        compP1: "Bel *#06# op je telefoon.",
+        compP2: "Als er een EID-code verschijnt, ben je er klaar voor."
+    }
 };
 
-// Función corregida para evitar el "latigazo" hacia arriba
 function resetCheckout() {
     const btnValidar = document.getElementById('btn-validar');
     const paymentArea = document.getElementById('payment-area');
     const paypalContainer = document.getElementById('paypal-button-container');
 
     if (paymentArea && paymentArea.style.display === 'block') {
-        // Guardamos la posición actual del scroll
         const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
-        
         paymentArea.style.display = 'none';
-        if (paypalContainer) paypalContainer.innerHTML = ''; 
+        if (paypalContainer) paypalContainer.innerHTML = '';
         btnValidar.style.display = 'block';
-        
-        // Forzamos al navegador a quedarse donde estaba
         window.scrollTo(0, scrollPos);
     }
+
     calcularPrecio();
 }
 
-// Cambio de idioma
 document.querySelectorAll('.lang-opt').forEach(opt => {
-    opt.addEventListener('click', function() {
+    opt.addEventListener('click', function () {
         document.querySelectorAll('.lang-opt').forEach(el => el.classList.remove('active'));
         this.classList.add('active');
         currentLang = this.getAttribute('data-lang');
@@ -92,14 +140,16 @@ document.querySelectorAll('.lang-opt').forEach(opt => {
 function updateUI() {
     const lang = translations[currentLang];
     document.getElementById('btn-validar').textContent = lang.checkout;
+
     const labelDates = document.getElementById('label-dates');
-    if(labelDates) labelDates.textContent = lang.labelDates || "Travel Dates";
-    
+    if (labelDates) labelDates.textContent = "Travel Dates";
+
     document.getElementById('txt-days-unit').textContent = lang.days.trim();
     document.getElementById('contacto-cliente').placeholder = lang.errorContact;
     document.getElementById('label-comp').textContent = lang.compTitle;
     document.getElementById('comp-p1').innerHTML = lang.compP1.replace('*#06#', '<strong>*#06#</strong>');
     document.getElementById('comp-p2').innerHTML = lang.compP2.replace('EID', '<strong>EID</strong>');
+
     calcularPrecio();
 }
 
@@ -112,13 +162,13 @@ function calcularPrecio() {
     if (inputInicio.value && inputFin.value) {
         const d1 = new Date(inputInicio.value);
         const d2 = new Date(inputFin.value);
-        
+
         if (d2 >= d1) {
             const milisegundosPorDia = 1000 * 60 * 60 * 24;
             const dias = Math.ceil(Math.abs(d2 - d1) / milisegundosPorDia) + 1;
-            
+
             if (contadorDiasSpan) contadorDiasSpan.textContent = dias;
-            
+
             let costoDiario;
             if (dias >= 30) costoDiario = 89 / 30;
             else if (dias >= 15) costoDiario = 65 / 15;
@@ -128,7 +178,7 @@ function calcularPrecio() {
 
             const precioTotal = dias * costoDiario;
             const lang = translations[currentLang];
-            
+
             displayPrecio.innerHTML = `
                 <div style="font-size: 0.9rem; opacity: 0.95; margin-bottom: 5px; color: white;">
                     ${lang.duration} <strong>${dias} ${lang.days}</strong>
@@ -141,19 +191,13 @@ function calcularPrecio() {
             return precioTotal;
         }
     }
+
     return 0;
 }
 
-// Botón de Checkout
-document.getElementById('btn-validar').addEventListener('click', function() {
-    console.log('CLICK CHECKOUT');
-
+document.getElementById('btn-validar').addEventListener('click', function () {
     const monto = calcularPrecio();
-    console.log('Monto:', monto);
-
     const contacto = document.getElementById('contacto-cliente').value;
-    console.log('Contacto:', contacto);
-
     const paymentArea = document.getElementById('payment-area');
     const lang = translations[currentLang];
 
@@ -171,15 +215,14 @@ document.getElementById('btn-validar').addEventListener('click', function() {
 
     this.style.display = 'none';
     paymentArea.style.display = 'block';
-
     window.scrollTo(0, currentPos);
 
-    console.log('Antes de initPayPal');
     initPayPal(monto, contacto);
 });
+
 function initPayPal(monto, contacto) {
-    console.log('Entró a initPayPal', monto, contacto);
     const container = document.getElementById('paypal-button-container');
+    container.innerHTML = '';
 
     setTimeout(() => {
         paypal.Buttons({
@@ -194,50 +237,57 @@ function initPayPal(monto, contacto) {
                 });
             },
 
-    onApprove: async (data, actions) => {
-    try {
-        const details = await actions.order.capture();
+            onApprove: async (data, actions) => {
+                try {
+                    const details = await actions.order.capture();
 
-        const fechaInicio = document.getElementById('fecha-inicio').value;
-        const fechaFin = document.getElementById('fecha-fin').value;
-        const contacto = document.getElementById('contacto-cliente').value.trim();
+                    const fechaInicio = document.getElementById('fecha-inicio').value;
+                    const fechaFin = document.getElementById('fecha-fin').value;
+                    const contactoActual = document.getElementById('contacto-cliente').value.trim();
 
-        const opcionSeleccionada = document.querySelector('input[name="instalacion"]:checked');
-        const metodoInstalacion = opcionSeleccionada ? opcionSeleccionada.value : 'self';
+                    const opcionSeleccionada = document.querySelector('input[name="instalacion"]:checked');
+                    const metodoInstalacion = opcionSeleccionada ? opcionSeleccionada.value : 'self';
 
-        const d1 = parseLocalDate(fechaInicio);
-        const d2 = parseLocalDate(fechaFin);
-        const milisegundosPorDia = 1000 * 60 * 60 * 24;
-        const dias = Math.floor((d2 - d1) / milisegundosPorDia) + 1;
+                    const d1 = parseLocalDate(fechaInicio);
+                    const d2 = parseLocalDate(fechaFin);
+                    const milisegundosPorDia = 1000 * 60 * 60 * 24;
+                    const dias = Math.floor((d2 - d1) / milisegundosPorDia) + 1;
 
-        const montoCalculado = calcularPrecio();
+                    const montoCalculado = calcularPrecio();
 
-        const captureId =
-            details?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
+                    const captureId =
+                        details?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
 
-        await guardarPedido({
-            contacto,
-            fechaInicio,
-            fechaFin,
-            dias,
-            monto: montoCalculado,
-            idioma: currentLang,
-            paypalOrderId: data.orderID,
-            paypalCaptureId: captureId,
-            status: 'paid',
-            installationMethod: metodoInstalacion
+                    await guardarPedido({
+                        contacto: contactoActual,
+                        fechaInicio,
+                        fechaFin,
+                        dias,
+                        monto: montoCalculado,
+                        idioma: currentLang,
+                        paypalOrderId: data.orderID,
+                        paypalCaptureId: captureId,
+                        status: 'paid',
+                        installationMethod: metodoInstalacion
+                    });
+
+                    alert('Pago aprobado y pedido guardado correctamente.');
+                    window.location.href = "gracias.html";
+
+                } catch (error) {
+                    console.error('Error al capturar o guardar el pedido:', error);
+                    alert('El pago se aprobó, pero hubo un problema guardando el pedido.');
+                }
+            }
+        }).render('#paypal-button-container').then(() => {
+            document.getElementById('payment-area').scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
         });
-
-        alert('Pago aprobado y pedido guardado correctamente.');
-        window.location.href = "gracias.html";
-
-    } catch (error) {
-        console.error('Error al capturar o guardar el pedido:', error);
-        alert('El pago se aprobó, pero hubo un problema guardando el pedido.');
-    }
+    }, 100);
 }
 
-// Eventos de escucha
 document.getElementById('fecha-inicio').addEventListener('change', resetCheckout);
 document.getElementById('fecha-fin').addEventListener('change', resetCheckout);
 document.getElementById('contacto-cliente').addEventListener('change', resetCheckout);
