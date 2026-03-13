@@ -173,8 +173,44 @@ function initPayPal(monto, contacto) {
                     }]
                 });
             },
-            onApprove: (data, actions) => {
-                return actions.order.capture().then(() => { window.location.reload(); });
+           onApprove: async (data, actions) => {
+    try {
+        const details = await actions.order.capture();
+
+        const fechaInicio = document.getElementById('fecha-inicio').value;
+        const fechaFin = document.getElementById('fecha-fin').value;
+        const contacto = document.getElementById('contacto-cliente').value.trim();
+
+        const d1 = parseLocalDate(fechaInicio);
+        const d2 = parseLocalDate(fechaFin);
+        const milisegundosPorDia = 1000 * 60 * 60 * 24;
+        const dias = Math.floor((d2 - d1) / milisegundosPorDia) + 1;
+
+        const monto = calcularPrecio();
+
+        const captureId =
+            details?.purchase_units?.[0]?.payments?.captures?.[0]?.id || null;
+
+        await guardarPedido({
+            contacto,
+            fechaInicio,
+            fechaFin,
+            dias,
+            monto,
+            idioma: currentLang,
+            paypalOrderId: data.orderID,
+            paypalCaptureId: captureId,
+            status: 'paid'
+        });
+
+        alert('Pago aprobado y pedido guardado correctamente.');
+        window.location.reload();
+
+    } catch (error) {
+        console.error('Error al capturar o guardar el pedido:', error);
+        alert('El pago se aprobó, pero hubo un problema guardando el pedido.');
+    }
+}
             }
         }).render('#paypal-button-container').then(() => {
             // Una vez renderizado, deslizamos suavemente pero SOLO al contenedor de PayPal
