@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eSIM Costa Rica - Checkout</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="https://www.paypal.com/sdk/js?client-id=Adk_bp6_mlm6_gz2j1KU6VJMQKTNhJrTsI9DL5fAwAeLDvxM3wD7DdKQHfniB1pKdQhRvUryjwldMyMV&currency=USD&components=buttons,applepay"></script> -->
+
+    <!-- Sandbox para pruebas -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons"></script>
 </head>
 <body>
 
     <div class="mobile-app-card">
         <img src="perezoso-izq.png" class="perezoso-interno sl-izq" alt="perezoso">
-        <img src="perezoso-der.png" class="perezoso-interno sl-der" alt="perezoso">
+        <img src="perezoso-der.png" class="perezoso-interno sl-der" alt="tucán">
 
         <header class="header-paisa">
             <div class="language-switcher">
@@ -23,8 +25,10 @@
                 <span class="lang-opt" data-lang="DE">DE</span>
                 <span class="lang-opt" data-lang="NL">NL</span>
             </div>
+
             <div class="header-overlay">
                 <h1 id="main-title">eSIM Costa Rica</h1>
+
                 <div class="badge-unlimited">
                     <i class="fas fa-bolt"></i>
                     <span id="badge-text">Unlimited internet nationwide</span>
@@ -34,25 +38,30 @@
 
         <div class="form-container">
             <div class="section-group">
-                <label id="label-dates">Select your travel dates</label>
-                <div class="date-range-container" style="display: flex; gap: 10px;">
-                    <div class="input-box" style="flex: 1;">
-                        <small id="label-start" style="display:block; font-size: 0.7rem; color: #1976d2; font-weight: bold;">Start Date</small>
+                <label id="label-dates">Travel Dates</label>
+
+                <div class="date-range-container">
+                    <div class="input-box date-box">
+                        <small id="label-start">Start Date</small>
                         <input type="date" id="fecha-inicio">
                     </div>
-                    <div class="input-box" style="flex: 1;">
-                        <small id="label-end" style="display:block; font-size: 0.7rem; color: #1976d2; font-weight: bold;">End Date</small>
+
+                    <div class="input-box date-box">
+                        <small id="label-end">End Date</small>
                         <input type="date" id="fecha-fin">
                     </div>
                 </div>
-                <div id="resumen-dias" style="margin-top: 10px; font-size: 0.9rem; font-weight: bold; color: #1976d2;">
-                    <span id="txt-total-days">Total:</span> <span id="contador-dias">0</span> <span id="txt-days-unit">days</span>
+
+                <div id="resumen-dias">
+                    <span id="txt-total-days">Total:</span>
+                    <span id="contador-dias">0</span>
+                    <span id="txt-days-unit">days</span>
                 </div>
             </div>
 
             <div class="compatibility-box">
                 <div class="comp-header">
-                    <i class="fas fa-info-circle"></i>
+                    <i class="fas fa-circle-info"></i>
                     <label id="label-comp">Is my phone compatible?</label>
                 </div>
                 <p id="comp-p1">Dial <strong>*#06#</strong> on your phone.</p>
@@ -60,30 +69,32 @@
             </div>
 
             <div class="section-group">
-               <label id="label-activation">Activation method</label>
-                
+                <label id="label-activation">Activation method</label>
+
                 <div class="activation-options">
-                    <label class="option-box">
+                    <label class="option-card">
                         <input type="radio" name="instalacion" value="self" checked>
-                       <span id="opt-self">I will install the eSIM myself</span>
+                        <span class="custom-radio"></span>
+                        <span class="option-text" id="opt-self">I will install the eSIM myself</span>
                     </label>
 
-                    <label class="option-box">
+                    <label class="option-card">
                         <input type="radio" name="instalacion" value="store">
-                        <span id="opt-store">Install for me at the store (technical support)</span>
+                        <span class="custom-radio"></span>
+                        <span class="option-text" id="opt-store">Install for me at the store (technical support)</span>
                     </label>
                 </div>
             </div>
 
             <div class="section-group">
                 <label id="label-contacto">WhatsApp or Email (for activation code):</label>
-                <div class="input-box">
+                <div class="input-box contact-box">
                     <input type="text" id="contacto-cliente" placeholder="+506 ... or email@test.com">
                 </div>
             </div>
 
             <div id="payment-area" style="display: none;">
-                <div class="price-tag" id="display-precio" style="margin-bottom: 12px; padding: 18px; text-align: center; border-radius: 12px;"></div>
+                <div class="price-tag" id="display-precio"></div>
                 <div id="paypal-button-container"></div>
             </div>
 
@@ -91,14 +102,20 @@
                 <button class="btn-activar" id="btn-validar">CHECKOUT</button>
             </div>
 
-            <div class="service-footer">
-                <div class="service-item">
-                    <i class="fas fa-check-circle"></i>
+            <div class="trust-row">
+                <div class="trust-item">
+                    <i class="fas fa-bolt"></i>
                     <span id="footer-1">Instant Delivery</span>
                 </div>
-                <div class="service-item">
+
+                <div class="trust-item">
                     <i class="fas fa-shield-alt"></i>
                     <span id="footer-2">Secure Payment</span>
+                </div>
+
+                <div class="trust-item">
+                    <i class="fas fa-mobile-screen-button"></i>
+                    <span>eSIM Ready</span>
                 </div>
             </div>
         </div>
