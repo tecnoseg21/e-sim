@@ -841,3 +841,70 @@ label {
         display: block;
     }
 }
+
+/* =========================================================
+   PAYMENT METHODS PREMIUM CARD
+========================================================= */
+.payment-methods-card {
+    background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+    border: 1px solid #d6e5fb;
+    border-radius: 18px;
+    padding: 16px 16px 14px;
+    margin: 0 0 16px;
+    box-shadow: 0 10px 22px rgba(20, 95, 180, 0.06);
+}
+
+.payment-methods-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #23496f;
+    margin-bottom: 10px;
+    letter-spacing: 0.01em;
+}
+
+.payment-methods-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.payment-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 1px solid #d9e7f7;
+    color: #1f4f86;
+    border-radius: 999px;
+    padding: 7px 11px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 3px 8px rgba(20, 95, 180, 0.04);
+}
+
+.payment-methods-note {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: #6a7f99;
+}
+
+@media (max-width: 480px) {
+    .payment-methods-card {
+        padding: 14px;
+    }
+
+    .payment-methods-title {
+        font-size: 0.84rem;
+    }
+
+    .payment-chip {
+        font-size: 0.74rem;
+        padding: 6px 10px;
+    }
+
+    .payment-methods-note {
+        font-size: 0.75rem;
+    }
+}
