@@ -22,11 +22,16 @@
 
     <!-- =========================================
          SDK DE PAYPAL
-         Mantengo la versión sandbox que usted ya tenía
+         Se carga en el head para que esté disponible
+         cuando el JS principal lo necesite
          ========================================= -->
     <script src="https://www.paypal.com/sdk/js?client-id=AVAAEEyvIoS5UBOWifhpSa_TtA06O21P5eKW0Ej87wuf19cA11nK6okzvMNCU8apfQ_RxvzUedhVWyZJ&currency=USD&components=buttons,googlepay"></script>
-<script async src="https://pay.google.com/gp/p/js/pay.js"></script>
-<script src="./script.js"></script>
+
+    <!-- =========================================
+         SDK DE GOOGLE PAY
+         Necesario para intentar renderizar Google Pay
+         ========================================= -->
+    <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 </head>
 <body>
 
@@ -51,7 +56,7 @@
 
             <!-- =========================================
                  SELECTOR DE IDIOMA
-                 data-lang lo usa normalmente el JS para cambiar idioma
+                 data-lang lo usa el JS para cambiar idioma
                  ========================================= -->
             <div class="language-switcher">
                 <span class="lang-opt active" data-lang="EN">EN</span>
@@ -89,7 +94,6 @@
                 <label id="label-dates">Travel Dates</label>
 
                 <div class="date-range-container">
-
                     <!-- FECHA DE INICIO -->
                     <div class="input-box date-box">
                         <small id="label-start">Start Date</small>
@@ -105,7 +109,6 @@
 
                 <!-- =========================================
                      RESUMEN DE DÍAS
-                     Su JS probablemente actualiza #contador-dias
                      ========================================= -->
                 <div id="resumen-dias">
                     <span id="txt-total-days">Total:</span>
@@ -116,7 +119,6 @@
 
             <!-- =========================================
                  CAJA DE COMPATIBILIDAD
-                 Explica cómo saber si el teléfono es compatible con eSIM
                  ========================================= -->
             <div class="compatibility-box">
                 <div class="comp-header">
@@ -130,33 +132,24 @@
 
             <!-- =========================================
                  SECCIÓN: MÉTODO DE ACTIVACIÓN
-                 Aquí mejoramos visualmente las opciones
                  ========================================= -->
             <div class="section-group">
                 <label id="label-activation">Activation method</label>
 
-                <!-- =========================================
-                     CONTENEDOR DE LAS TARJETAS DE ACTIVACIÓN
-                     Puede dejar esta clase y estilizarla en CSS
-                     ========================================= -->
                 <div class="activation-options premium-activation-options">
 
                     <!-- =========================================
                          OPCIÓN 1: AUTO INSTALACIÓN
-                         El cliente instala la eSIM por su cuenta
                          ========================================= -->
                     <label class="option-card premium-option-card">
                         <input type="radio" name="instalacion" value="self" checked>
 
-                        <!-- Radio visual -->
                         <span class="custom-radio"></span>
 
-                        <!-- Icono principal -->
                         <span class="option-icon premium-option-icon">
                             <i class="fas fa-mobile-screen-button"></i>
                         </span>
 
-                        <!-- Texto principal de la opción -->
                         <span class="option-copy premium-option-copy">
                             <span class="option-title" id="opt-self">
                                 I will install the eSIM myself
@@ -166,12 +159,10 @@
                                 Fast setup with simple instructions
                             </span>
 
-                            <!-- Texto extra tipo premium -->
                             <span class="option-extra" id="opt-self-extra">
                                 Ideal for travelers who want a quick and simple setup.
                             </span>
 
-                            <!-- Badges pequeños informativos -->
                             <span class="option-badges">
                                 <span class="option-badge" id="self-badge-1">⚡ Fast</span>
                                 <span class="option-badge" id="self-badge-2">📱 Easy</span>
@@ -182,20 +173,16 @@
 
                     <!-- =========================================
                          OPCIÓN 2: INSTALACIÓN EN TIENDA
-                         Esta es la opción mejorada con pagos y Google Maps
                          ========================================= -->
                     <label class="option-card premium-option-card store-option-card">
                         <input type="radio" name="instalacion" value="store">
 
-                        <!-- Radio visual -->
                         <span class="custom-radio"></span>
 
-                        <!-- Icono principal -->
                         <span class="option-icon premium-option-icon">
                             <i class="fas fa-store"></i>
                         </span>
 
-                        <!-- Texto principal -->
                         <span class="option-copy premium-option-copy">
                             <span class="option-title" id="opt-store">
                                 Install for me at the store (technical support)
@@ -205,12 +192,10 @@
                                 Personal assistance at our physical store
                             </span>
 
-                            <!-- Texto extra nuevo -->
                             <span class="option-extra" id="opt-store-extra">
                                 You can pay by card or cash at the store with no additional cost.
                             </span>
 
-                            <!-- Badges para transmitir confianza -->
                             <span class="option-badges">
                                 <span class="option-badge" id="store-badge-1">💳 Card</span>
                                 <span class="option-badge" id="store-badge-2">💵 Cash</span>
@@ -219,7 +204,6 @@
 
                             <!-- =========================================
                                  BOTÓN DE UBICACIÓN
-                                 Cambie el href por SU enlace real de Google Maps
                                  ========================================= -->
                             <a
                                 id="store-location-btn"
@@ -238,40 +222,34 @@
 
             <!-- =========================================
                  SECCIÓN: CONTACTO DEL CLIENTE
-                 Aquí el usuario deja WhatsApp o correo
+                 Solo correo
                  ========================================= -->
             <div class="section-group">
-               <label id="label-contacto">Email (for activation code):</label>
+                <label id="label-contacto">Email (for activation code):</label>
 
-<div class="input-box contact-box">
-    <input
-        type="email"
-        id="contacto-cliente"
-        placeholder="email@test.com"
-        autocomplete="email"
-    >
-</div>
+                <div class="input-box contact-box">
+                    <input
+                        type="email"
+                        id="contacto-cliente"
+                        placeholder="email@test.com"
+                        autocomplete="email"
+                    >
+                </div>
             </div>
 
             <!-- =========================================
                  MINI TARJETA DE PRECIO PREMIUM
-                 Mejor visualmente que el precio simple anterior
                  ========================================= -->
             <div class="mini-price-card">
-                <!-- Texto pequeño arriba -->
                 <div class="mini-price-label" id="mini-price-label">
                     Estimated total
                 </div>
 
-                <!-- Monto principal
-                     RECOMENDACIÓN:
-                     deje el span interno para que JS actualice solo el valor -->
                 <div class="mini-price-amount">
                     <span class="currency-symbol">$</span>
                     <span id="totalPrice">0.00</span>
                 </div>
 
-                <!-- Texto secundario debajo -->
                 <div class="mini-price-note" id="mini-price-note">
                     Secure payment and fast activation
                 </div>
@@ -282,14 +260,17 @@
                  Inicialmente oculta hasta que el usuario valide datos
                  ========================================= -->
             <div id="payment-area" style="display: none;">
-    <div class="price-tag" id="display-precio"></div>
-    <div id="paypal-button-container"></div>
-    <div id="google-pay-container"></div>
-</div>
+                <div class="price-tag" id="display-precio"></div>
+
+                <!-- Botón normal de PayPal -->
+                <div id="paypal-button-container"></div>
+
+                <!-- Contenedor para intentar Google Pay -->
+                <div id="google-pay-container"></div>
+            </div>
 
             <!-- =========================================
                  ÁREA DE ACCIÓN PRINCIPAL
-                 Botón que valida antes de mostrar el pago
                  ========================================= -->
             <div id="action-area">
                 <button class="btn-activar" id="btn-validar" type="button">
@@ -298,14 +279,10 @@
                 </button>
             </div>
 
-            
-
             <!-- =========================================
                  FILA DE CONFIANZA / BENEFICIOS
-                 Da más seguridad visual al checkout
                  ========================================= -->
             <div class="trust-row">
-
                 <div class="trust-item">
                     <i class="fas fa-bolt"></i>
                     <span id="footer-1">Instant Delivery</span>
@@ -325,6 +302,29 @@
     </div>
 
     <!-- =========================================
+         MODAL DE ALERTA PERSONALIZADA
+         Reemplaza los alert() del navegador
+         ========================================= -->
+    <div id="custom-alert" class="custom-alert-overlay hidden">
+        <div class="custom-alert-box">
+            <div class="custom-alert-header">
+                <i class="fas fa-circle-exclamation"></i>
+                <span id="custom-alert-title">Notice</span>
+            </div>
+
+            <div class="custom-alert-body" id="custom-alert-message">
+                Message here
+            </div>
+
+            <div class="custom-alert-actions">
+                <button type="button" id="custom-alert-btn" class="custom-alert-btn">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
          SUPABASE
          Librería para guardar pedidos en la tabla orders
          ========================================= -->
@@ -332,36 +332,8 @@
 
     <!-- =========================================
          SU JS PRINCIPAL
-         Aquí vive toda la lógica:
-         - cálculo de días
-         - traducciones
-         - validación
-         - paypal
-         - guardado en Supabase
+         Debe ir al final, después del HTML y después de Supabase
          ========================================= -->
-
-    <!-- =========================================
-     MODAL DE ALERTA PERSONALIZADA
-     Reemplaza los alert() del navegador
-========================================= -->
-<div id="custom-alert" class="custom-alert-overlay hidden">
-    <div class="custom-alert-box">
-        <div class="custom-alert-header">
-            <i class="fas fa-circle-exclamation"></i>
-            <span id="custom-alert-title">Notice</span>
-        </div>
-
-        <div class="custom-alert-body" id="custom-alert-message">
-            Message here
-        </div>
-
-        <div class="custom-alert-actions">
-            <button type="button" id="custom-alert-btn" class="custom-alert-btn">
-                OK
-            </button>
-        </div>
-    </div>
-</div>
     <script src="./script.js"></script>
 </body>
 </html>
