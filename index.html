@@ -1,22 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- =========================================
+         CONFIGURACIÓN BÁSICA DEL DOCUMENTO
+         ========================================= -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eSIM Costa Rica - Checkout</title>
 
+    <!-- =========================================
+         ICONOS (FONT AWESOME)
+         Se usa para íconos como escudo, tienda, rayo, etc.
+         ========================================= -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- =========================================
+         SU HOJA DE ESTILOS PRINCIPAL
+         Aquí va todo el diseño visual
+         ========================================= -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- =========================================
+         SDK DE PAYPAL
+         Mantengo la versión sandbox que usted ya tenía
+         ========================================= -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons"></script>
 </head>
 <body>
 
+    <!-- =========================================
+         TARJETA PRINCIPAL DEL CHECKOUT
+         Todo el contenido visual vive dentro de este contenedor
+         ========================================= -->
     <div class="mobile-app-card">
-        <img src="perezoso-izq.png" class="perezoso-interno sl-izq" alt="perezoso">
-        <img src="perezoso-der.png" class="perezoso-interno sl-der" alt="tucán">
 
+        <!-- =========================================
+             IMÁGENES DECORATIVAS INTERNAS
+             Mantienen el estilo visual de la tarjeta
+             ========================================= -->
+        <img src="perezoso-izq.png" class="perezoso-interno sl-izq" alt="Pérezoso decorativo izquierdo">
+        <img src="perezoso-der.png" class="perezoso-interno sl-der" alt="Tucán decorativo derecho">
+
+        <!-- =========================================
+             HEADER / ENCABEZADO SUPERIOR
+             Contiene idioma, título y badge promocional
+             ========================================= -->
         <header class="header-paisa">
+
+            <!-- =========================================
+                 SELECTOR DE IDIOMA
+                 data-lang lo usa normalmente el JS para cambiar idioma
+                 ========================================= -->
             <div class="language-switcher">
                 <span class="lang-opt active" data-lang="EN">EN</span>
                 <span class="lang-opt" data-lang="ES">ES</span>
@@ -25,6 +59,10 @@
                 <span class="lang-opt" data-lang="NL">NL</span>
             </div>
 
+            <!-- =========================================
+                 CAPA VISUAL DEL HEADER
+                 Contiene título y badge principal
+                 ========================================= -->
             <div class="header-overlay">
                 <h1 id="main-title">eSIM Costa Rica</h1>
 
@@ -35,22 +73,38 @@
             </div>
         </header>
 
+        <!-- =========================================
+             CONTENEDOR DEL FORMULARIO
+             Aquí van fechas, método de activación, contacto, precio y pago
+             ========================================= -->
         <div class="form-container">
+
+            <!-- =========================================
+                 SECCIÓN: FECHAS DEL VIAJE
+                 El usuario elige fecha de inicio y fin
+                 ========================================= -->
             <div class="section-group">
                 <label id="label-dates">Travel Dates</label>
 
                 <div class="date-range-container">
+
+                    <!-- FECHA DE INICIO -->
                     <div class="input-box date-box">
                         <small id="label-start">Start Date</small>
                         <input type="date" id="fecha-inicio">
                     </div>
 
+                    <!-- FECHA DE FIN -->
                     <div class="input-box date-box">
                         <small id="label-end">End Date</small>
                         <input type="date" id="fecha-fin">
                     </div>
                 </div>
 
+                <!-- =========================================
+                     RESUMEN DE DÍAS
+                     Su JS probablemente actualiza #contador-dias
+                     ========================================= -->
                 <div id="resumen-dias">
                     <span id="txt-total-days">Total:</span>
                     <span id="contador-dias">0</span>
@@ -58,70 +112,198 @@
                 </div>
             </div>
 
+            <!-- =========================================
+                 CAJA DE COMPATIBILIDAD
+                 Explica cómo saber si el teléfono es compatible con eSIM
+                 ========================================= -->
             <div class="compatibility-box">
                 <div class="comp-header">
                     <i class="fas fa-circle-info"></i>
                     <label id="label-comp">Is my phone compatible?</label>
                 </div>
+
                 <p id="comp-p1">Dial <strong>*#06#</strong> on your phone.</p>
                 <p class="comp-step" id="comp-p2">If an <strong>EID</strong> code appears, you're ready.</p>
             </div>
 
+            <!-- =========================================
+                 SECCIÓN: MÉTODO DE ACTIVACIÓN
+                 Aquí mejoramos visualmente las opciones
+                 ========================================= -->
             <div class="section-group">
                 <label id="label-activation">Activation method</label>
 
-                <div class="activation-options">
-                    <label class="option-card">
+                <!-- =========================================
+                     CONTENEDOR DE LAS TARJETAS DE ACTIVACIÓN
+                     Puede dejar esta clase y estilizarla en CSS
+                     ========================================= -->
+                <div class="activation-options premium-activation-options">
+
+                    <!-- =========================================
+                         OPCIÓN 1: AUTO INSTALACIÓN
+                         El cliente instala la eSIM por su cuenta
+                         ========================================= -->
+                    <label class="option-card premium-option-card">
                         <input type="radio" name="instalacion" value="self" checked>
+
+                        <!-- Radio visual -->
                         <span class="custom-radio"></span>
-                        <span class="option-icon">
+
+                        <!-- Icono principal -->
+                        <span class="option-icon premium-option-icon">
                             <i class="fas fa-mobile-screen-button"></i>
                         </span>
-                        <span class="option-copy">
-                            <span class="option-title" id="opt-self">I will install the eSIM myself</span>
-                            <span class="option-subtitle" id="opt-self-sub">Fast setup with simple instructions</span>
+
+                        <!-- Texto principal de la opción -->
+                        <span class="option-copy premium-option-copy">
+                            <span class="option-title" id="opt-self">
+                                I will install the eSIM myself
+                            </span>
+
+                            <span class="option-subtitle" id="opt-self-sub">
+                                Fast setup with simple instructions
+                            </span>
+
+                            <!-- Texto extra tipo premium -->
+                            <span class="option-extra" id="opt-self-extra">
+                                Ideal for travelers who want a quick and simple setup.
+                            </span>
+
+                            <!-- Badges pequeños informativos -->
+                            <span class="option-badges">
+                                <span class="option-badge" id="self-badge-1">⚡ Fast</span>
+                                <span class="option-badge" id="self-badge-2">📱 Easy</span>
+                                <span class="option-badge" id="self-badge-3">🌐 Online</span>
+                            </span>
                         </span>
                     </label>
 
-                    <label class="option-card">
+                    <!-- =========================================
+                         OPCIÓN 2: INSTALACIÓN EN TIENDA
+                         Esta es la opción mejorada con pagos y Google Maps
+                         ========================================= -->
+                    <label class="option-card premium-option-card store-option-card">
                         <input type="radio" name="instalacion" value="store">
+
+                        <!-- Radio visual -->
                         <span class="custom-radio"></span>
-                        <span class="option-icon">
+
+                        <!-- Icono principal -->
+                        <span class="option-icon premium-option-icon">
                             <i class="fas fa-store"></i>
                         </span>
-                        <span class="option-copy">
-                            <span class="option-title" id="opt-store">Install for me at the store (technical support)</span>
-                            <span class="option-subtitle" id="opt-store-sub">Personal assistance at our physical store</span>
+
+                        <!-- Texto principal -->
+                        <span class="option-copy premium-option-copy">
+                            <span class="option-title" id="opt-store">
+                                Install for me at the store (technical support)
+                            </span>
+
+                            <span class="option-subtitle" id="opt-store-sub">
+                                Personal assistance at our physical store
+                            </span>
+
+                            <!-- Texto extra nuevo -->
+                            <span class="option-extra" id="opt-store-extra">
+                                You can pay by card or cash at the store with no additional cost.
+                            </span>
+
+                            <!-- Badges para transmitir confianza -->
+                            <span class="option-badges">
+                                <span class="option-badge" id="store-badge-1">💳 Card</span>
+                                <span class="option-badge" id="store-badge-2">💵 Cash</span>
+                                <span class="option-badge success" id="store-badge-3">✔ No extra cost</span>
+                            </span>
+
+                            <!-- =========================================
+                                 BOTÓN DE UBICACIÓN
+                                 Cambie el href por SU enlace real de Google Maps
+                                 ========================================= -->
+                            <a
+                                id="store-location-btn"
+                                class="store-location-btn"
+                                href="https://maps.google.com/?q=Tecnoseg+Atenas+Costa+Rica"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <i class="fas fa-location-dot"></i>
+                                <span id="store-location-text">View store location</span>
+                            </a>
                         </span>
                     </label>
                 </div>
             </div>
 
+            <!-- =========================================
+                 SECCIÓN: CONTACTO DEL CLIENTE
+                 Aquí el usuario deja WhatsApp o correo
+                 ========================================= -->
             <div class="section-group">
                 <label id="label-contacto">WhatsApp or Email (for activation code):</label>
+
                 <div class="input-box contact-box">
-                    <input type="text" id="contacto-cliente" placeholder="+506 ... or email@test.com">
+                    <input
+                        type="text"
+                        id="contacto-cliente"
+                        placeholder="+506 ... or email@test.com"
+                        autocomplete="off"
+                    >
                 </div>
             </div>
 
+            <!-- =========================================
+                 MINI TARJETA DE PRECIO PREMIUM
+                 Mejor visualmente que el precio simple anterior
+                 ========================================= -->
             <div class="mini-price-card">
-                <div class="mini-price-label" id="mini-price-label">Estimated total</div>
-                <div class="mini-price-value" id="mini-price-value">$0.00</div>
+                <!-- Texto pequeño arriba -->
+                <div class="mini-price-label" id="mini-price-label">
+                    Estimated total
+                </div>
+
+                <!-- Monto principal
+                     RECOMENDACIÓN:
+                     deje el span interno para que JS actualice solo el valor -->
+                <div class="mini-price-amount">
+                    <span class="currency-symbol">$</span>
+                    <span id="totalPrice">0.00</span>
+                </div>
+
+                <!-- Texto secundario debajo -->
+                <div class="mini-price-note" id="mini-price-note">
+                    Secure payment and fast activation
+                </div>
             </div>
 
+            <!-- =========================================
+                 ÁREA DE PAGO
+                 Inicialmente oculta hasta que el usuario valide datos
+                 ========================================= -->
             <div id="payment-area" style="display: none;">
+                <!-- Precio visible antes del botón PayPal -->
                 <div class="price-tag" id="display-precio"></div>
+
+                <!-- Contenedor donde PayPal dibuja el botón -->
                 <div id="paypal-button-container"></div>
             </div>
 
+            <!-- =========================================
+                 ÁREA DE ACCIÓN PRINCIPAL
+                 Botón que valida antes de mostrar el pago
+                 ========================================= -->
             <div id="action-area">
-                <button class="btn-activar" id="btn-validar">
+                <button class="btn-activar" id="btn-validar" type="button">
                     <i class="fas fa-lock"></i>
-                    <span>CHECKOUT</span>
+                    <span id="btn-checkout-text">CHECKOUT</span>
                 </button>
             </div>
 
+            <!-- =========================================
+                 FILA DE CONFIANZA / BENEFICIOS
+                 Da más seguridad visual al checkout
+                 ========================================= -->
             <div class="trust-row">
+
                 <div class="trust-item">
                     <i class="fas fa-bolt"></i>
                     <span id="footer-1">Instant Delivery</span>
@@ -134,13 +316,27 @@
 
                 <div class="trust-item">
                     <i class="fas fa-mobile-screen-button"></i>
-                    <span>eSIM Ready</span>
+                    <span id="footer-3">eSIM Ready</span>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- =========================================
+         SUPABASE
+         Librería para guardar pedidos en la tabla orders
+         ========================================= -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- =========================================
+         SU JS PRINCIPAL
+         Aquí vive toda la lógica:
+         - cálculo de días
+         - traducciones
+         - validación
+         - paypal
+         - guardado en Supabase
+         ========================================= -->
     <script src="./script.js"></script>
 </body>
 </html>
