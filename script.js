@@ -423,37 +423,20 @@ function showCustomAlert(message, title) {
    GOOGLE PAY
    - Intenta mostrar el botón si el entorno es elegible
 ========================================================= */
-let googlePayClient = null;
-let googlePayConfig = null;
-
-function getGooglePayClient() {
-    if (googlePayClient) return googlePayClient;
-
-    if (!window.google || !window.google.payments || !window.google.payments.api) {
-        return null;
-    }
-
-    googlePayClient = new google.payments.api.PaymentsClient({
-        environment: "TEST"
-    });
-
-    return googlePayClient;
-}
-
-function limpiarGooglePay() {
-    const container = document.getElementById("google-pay-container");
-    if (container) {
-        container.innerHTML = "";
-        container.style.display = "none";
-    }
-}
-
 async function initGooglePayButton() {
     const container = document.getElementById("google-pay-container");
-    if (!container) return;
+    if (!container) {
+        console.log("No existe #google-pay-container");
+        return;
+    }
 
     container.innerHTML = "";
     container.style.display = "none";
+
+    console.log("window.paypal:", !!window.paypal);
+    console.log("paypal.Googlepay:", !!(window.paypal && paypal.Googlepay));
+    console.log("window.google:", !!window.google);
+    console.log("google.payments:", !!(window.google && window.google.payments));
 
     if (!window.paypal || !paypal.Googlepay || !window.google || !window.google.payments) {
         console.warn("Google Pay o PayPal Googlepay no están disponibles todavía.");
@@ -462,6 +445,7 @@ async function initGooglePayButton() {
 
     try {
         googlePayConfig = await paypal.Googlepay().config();
+        console.log("googlePayConfig:", googlePayConfig);
 
         if (!googlePayConfig || !googlePayConfig.allowedPaymentMethods) {
             console.warn("No se recibió configuración válida de Google Pay desde PayPal.");
@@ -480,7 +464,10 @@ async function initGooglePayButton() {
             allowedPaymentMethods: googlePayConfig.allowedPaymentMethods
         };
 
+        console.log("isReadyToPayRequest:", isReadyToPayRequest);
+
         const isReadyToPayResponse = await paymentsClient.isReadyToPay(isReadyToPayRequest);
+        console.log("isReadyToPayResponse:", isReadyToPayResponse);
 
         if (!isReadyToPayResponse.result) {
             console.warn("Google Pay no está listo en este navegador/dispositivo/cuenta.");
@@ -501,14 +488,6 @@ async function initGooglePayButton() {
         console.error("Error inicializando Google Pay:", error);
     }
 }
-
-function onGooglePayButtonClicked() {
-    showCustomAlert(
-        "Google Pay ya se está detectando. El siguiente paso es conectar el pago real con PayPal Orders.",
-        "Google Pay"
-    );
-}
-
 /* =========================================================
    CALCULAR DÍAS ENTRE FECHAS
 ========================================================= */
