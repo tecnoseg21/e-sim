@@ -25,6 +25,9 @@ const translations = {
         totalDays: "Total:",
         daysUnit: "days",
 
+       paymentMethodsTitle: "Accepted payment methods",
+paymentMethodsNote: "Availability may vary depending on your device and payment setup.",
+
         contactLabel: "Email (for activation code):",
         contactPlaceholder: "email@test.com",
         errorContact: "Enter your email",
@@ -99,6 +102,9 @@ const translations = {
         compatibleP1: "Marca *#06# en tu teléfono.",
         compatibleP2: "Si aparece un código EID, estás listo.",
 
+       paymentMethodsTitle: "Métodos de pago aceptados",
+paymentMethodsNote: "La disponibilidad puede variar según su dispositivo y configuración de pago.",
+
         activation: "Método de activación",
 
         selfInstall: "Instalaré la eSIM yo mismo",
@@ -154,6 +160,9 @@ const translations = {
         endDate: "Date de fin",
         totalDays: "Total :",
         daysUnit: "jours",
+
+       paymentMethodsTitle: "Méthodes de paiement acceptées",
+paymentMethodsNote: "La disponibilité peut varier selon votre appareil et votre configuration de paiement.",
 
         contactLabel: "Email (pour le code d'activation) :",
         contactPlaceholder: "email@test.com",
@@ -220,6 +229,10 @@ const translations = {
         totalDays: "Gesamt:",
         daysUnit: "Tage",
 
+
+       paymentMethodsTitle: "Akzeptierte Zahlungsmethoden",
+paymentMethodsNote: "Die Verfügbarkeit kann je nach Gerät und Zahlungskonfiguration variieren.",
+
         contactLabel: "E-Mail (für den Aktivierungscode):",
         contactPlaceholder: "email@test.com",
         errorContact: "Geben Sie Ihre E-Mail ein",
@@ -285,6 +298,9 @@ const translations = {
         totalDays: "Totaal:",
         daysUnit: "dagen",
 
+       paymentMethodsTitle: "Geaccepteerde betaalmethoden",
+paymentMethodsNote: "Beschikbaarheid kan variëren afhankelijk van uw apparaat en betaalinstellingen.",
+
         contactLabel: "E-mail (voor activatiecode):",
         contactPlaceholder: "email@test.com",
         errorContact: "Voer je e-mailadres in",
@@ -313,6 +329,12 @@ const translations = {
 
         miniPriceLabel: "Geschatte totaalprijs",
         miniPriceNote: "Veilige betaling en snelle activatie",
+
+           const paymentMethodsTitle = document.getElementById("payment-methods-title");
+    const paymentMethodsNote = document.getElementById("payment-methods-note");
+
+    if (paymentMethodsTitle) paymentMethodsTitle.textContent = lang.paymentMethodsTitle;
+    if (paymentMethodsNote) paymentMethodsNote.textContent = lang.paymentMethodsNote;
 
         total: "Totaal te betalen: $",
         perDay: "per dag",
