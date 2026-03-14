@@ -256,13 +256,32 @@
                  ÁREA DE PAGO
                  Inicialmente oculta hasta que el usuario valide datos
                  ========================================= -->
-            <div id="payment-area" style="display: none;">
-                <div class="price-tag" id="display-precio"></div>
+         <div id="payment-area" style="display: none;">
+    <div class="price-tag" id="display-precio"></div>
 
-                <div id="paypal-button-container"></div>
+    <div class="payment-methods-card">
+        <div class="payment-methods-title" id="payment-methods-title">
+            Accepted payment methods
+        </div>
 
-                <div id="google-pay-container"></div>
-            </div>
+        <div class="payment-methods-list">
+            <span class="payment-chip">PayPal</span>
+            <span class="payment-chip">Visa</span>
+            <span class="payment-chip">Mastercard</span>
+            <span class="payment-chip">Amex</span>
+            <span class="payment-chip">Google Pay</span>
+            <span class="payment-chip">Apple Pay</span>
+        </div>
+
+        <div class="payment-methods-note" id="payment-methods-note">
+            Availability may vary depending on your device and payment setup.
+        </div>
+    </div>
+
+    <div id="paypal-button-container"></div>
+
+    <div id="google-pay-container"></div>
+</div>
 
             <!-- =========================================
                  ÁREA DE ACCIÓN PRINCIPAL
