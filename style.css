@@ -727,3 +727,117 @@ label {
         padding: 10px 8px;
     }
 }
+/* =========================================================
+   ALERTA PERSONALIZADA / MODAL
+========================================================= */
+.custom-alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.custom-alert-overlay.hidden {
+    display: none;
+}
+
+.custom-alert-box {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    animation: alertPop 0.22s ease;
+}
+
+.custom-alert-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 20px 12px;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #172033;
+}
+
+.custom-alert-header i {
+    color: #d97706;
+    font-size: 1.1rem;
+}
+
+.custom-alert-body {
+    padding: 0 20px 18px;
+    font-size: 0.96rem;
+    line-height: 1.5;
+    color: #475569;
+}
+
+.custom-alert-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px 20px;
+}
+
+.custom-alert-btn {
+    border: none;
+    background: linear-gradient(135deg, #1b76d1 0%, #0f62be 100%);
+    color: #ffffff;
+    padding: 12px 18px;
+    border-radius: 14px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s ease;
+    box-shadow: 0 10px 22px rgba(17, 94, 175, 0.20);
+}
+
+.custom-alert-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(17, 94, 175, 0.24);
+}
+
+.custom-alert-btn:active {
+    transform: translateY(0);
+}
+
+@keyframes alertPop {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-alert-box {
+        max-width: 100%;
+        border-radius: 18px;
+    }
+
+    .custom-alert-header {
+        font-size: 0.96rem;
+    }
+
+    .custom-alert-body {
+        font-size: 0.92rem;
+    }
+
+    .custom-alert-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .custom-alert-actions {
+        display: block;
+    }
+}
