@@ -64,12 +64,20 @@ const translations = {
 
         paymentApproved: "Payment approved and order saved successfully.",
         paymentSaveError: "The payment was approved, but there was a problem saving the order.",
+        paymentError: "There was a problem with PayPal. Please try again.",
 
         footer1: "Instant Delivery",
         footer2: "Secure Payment",
         footer3: "eSIM Ready",
 
-        badgeText: "Unlimited internet nationwide"
+        badgeText: "Unlimited internet nationwide",
+
+        alertInvalidDatesTitle: "Invalid dates",
+        alertMissingContactTitle: "Missing contact",
+        alertSuccessTitle: "Success",
+        alertWarningTitle: "Warning",
+        alertPaymentErrorTitle: "Payment error",
+        alertButton: "OK"
     },
 
     ES: {
@@ -117,12 +125,20 @@ const translations = {
 
         paymentApproved: "Pago aprobado y pedido guardado correctamente.",
         paymentSaveError: "El pago se aprobó, pero hubo un problema guardando el pedido.",
+        paymentError: "Hubo un problema con PayPal. Inténtalo de nuevo.",
 
         footer1: "Entrega inmediata",
         footer2: "Pago seguro",
         footer3: "Listo para eSIM",
 
-        badgeText: "Internet ilimitado en todo el país"
+        badgeText: "Internet ilimitado en todo el país",
+
+        alertInvalidDatesTitle: "Fechas inválidas",
+        alertMissingContactTitle: "Falta contacto",
+        alertSuccessTitle: "Éxito",
+        alertWarningTitle: "Advertencia",
+        alertPaymentErrorTitle: "Error de pago",
+        alertButton: "Aceptar"
     },
 
     FR: {
@@ -170,12 +186,20 @@ const translations = {
 
         paymentApproved: "Paiement approuvé et commande enregistrée avec succès.",
         paymentSaveError: "Le paiement a été approuvé, mais un problème est survenu lors de l'enregistrement de la commande.",
+        paymentError: "Un problème est survenu avec PayPal. Veuillez réessayer.",
 
         footer1: "Livraison instantanée",
         footer2: "Paiement sécurisé",
         footer3: "Prêt pour eSIM",
 
-        badgeText: "Internet illimité dans tout le pays"
+        badgeText: "Internet illimité dans tout le pays",
+
+        alertInvalidDatesTitle: "Dates invalides",
+        alertMissingContactTitle: "Contact manquant",
+        alertSuccessTitle: "Succès",
+        alertWarningTitle: "Avertissement",
+        alertPaymentErrorTitle: "Erreur de paiement",
+        alertButton: "OK"
     },
 
     DE: {
@@ -223,12 +247,20 @@ const translations = {
 
         paymentApproved: "Zahlung genehmigt und Bestellung erfolgreich gespeichert.",
         paymentSaveError: "Die Zahlung wurde genehmigt, aber beim Speichern der Bestellung ist ein Problem aufgetreten.",
+        paymentError: "Es gab ein Problem mit PayPal. Bitte versuchen Sie es erneut.",
 
         footer1: "Sofortige Lieferung",
         footer2: "Sichere Zahlung",
         footer3: "eSIM bereit",
 
-        badgeText: "Unbegrenztes Internet im ganzen Land"
+        badgeText: "Unbegrenztes Internet im ganzen Land",
+
+        alertInvalidDatesTitle: "Ungültige Daten",
+        alertMissingContactTitle: "Kontakt fehlt",
+        alertSuccessTitle: "Erfolg",
+        alertWarningTitle: "Warnung",
+        alertPaymentErrorTitle: "Zahlungsfehler",
+        alertButton: "OK"
     },
 
     NL: {
@@ -276,12 +308,20 @@ const translations = {
 
         paymentApproved: "Betaling goedgekeurd en bestelling succesvol opgeslagen.",
         paymentSaveError: "De betaling is goedgekeurd, maar er was een probleem bij het opslaan van de bestelling.",
+        paymentError: "Er was een probleem met PayPal. Probeer het opnieuw.",
 
         footer1: "Directe levering",
         footer2: "Veilige betaling",
         footer3: "eSIM gereed",
 
-        badgeText: "Onbeperkt internet in het hele land"
+        badgeText: "Onbeperkt internet in het hele land",
+
+        alertInvalidDatesTitle: "Ongeldige datums",
+        alertMissingContactTitle: "Contact ontbreekt",
+        alertSuccessTitle: "Succes",
+        alertWarningTitle: "Waarschuwing",
+        alertPaymentErrorTitle: "Betalingsfout",
+        alertButton: "OK"
     }
 };
 
@@ -343,6 +383,40 @@ async function guardarPedido({
 ========================================================= */
 function getLang() {
     return translations[currentLang] || translations.EN;
+}
+
+/* =========================================================
+   ALERTA PERSONALIZADA
+   - Reemplaza alert() del navegador
+   - Requiere el modal en el HTML
+========================================================= */
+function showCustomAlert(message, title) {
+    const overlay = document.getElementById("custom-alert");
+    const titleEl = document.getElementById("custom-alert-title");
+    const messageEl = document.getElementById("custom-alert-message");
+    const btn = document.getElementById("custom-alert-btn");
+    const lang = getLang();
+
+    if (!overlay || !titleEl || !messageEl || !btn) {
+        window.alert(message);
+        return;
+    }
+
+    titleEl.textContent = title || "Notice";
+    messageEl.textContent = message;
+    btn.textContent = lang.alertButton || "OK";
+
+    overlay.classList.remove("hidden");
+
+    btn.onclick = () => {
+        overlay.classList.add("hidden");
+    };
+
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.classList.add("hidden");
+        }
+    };
 }
 
 /* =========================================================
@@ -512,6 +586,10 @@ function updateUI() {
     if (footer2) footer2.textContent = lang.footer2;
     if (footer3) footer3.textContent = lang.footer3;
 
+    /* ---------- Texto del botón del modal si existe ---------- */
+    const customAlertBtn = document.getElementById("custom-alert-btn");
+    if (customAlertBtn) customAlertBtn.textContent = lang.alertButton;
+
     /* Recalcular precio para que el texto grande también cambie de idioma */
     calcularPrecio();
 }
@@ -650,17 +728,31 @@ function initPayPal(monto, contacto) {
                         installationMethod: metodoInstalacion
                     });
 
-                    alert(getLang().paymentApproved);
-                    window.location.href = "gracias.html";
+                    showCustomAlert(
+                        getLang().paymentApproved,
+                        getLang().alertSuccessTitle
+                    );
+
+                    setTimeout(() => {
+                        window.location.href = "gracias.html";
+                    }, 1200);
+
                 } catch (error) {
                     console.error("Error al capturar o guardar el pedido:", error);
-                    alert(getLang().paymentSaveError);
+                    showCustomAlert(
+                        getLang().paymentSaveError,
+                        getLang().alertWarningTitle
+                    );
                 }
             },
 
             /* Si PayPal lanza error */
             onError: (err) => {
                 console.error("Error en PayPal:", err);
+                showCustomAlert(
+                    getLang().paymentError,
+                    getLang().alertPaymentErrorTitle
+                );
             }
         })
             .render("#paypal-button-container")
@@ -701,12 +793,12 @@ document.getElementById("btn-validar").addEventListener("click", function () {
     const lang = getLang();
 
     if (monto <= 0) {
-        alert(lang.errorDates);
+        showCustomAlert(lang.errorDates, lang.alertInvalidDatesTitle);
         return;
     }
 
     if (!contacto) {
-        alert(lang.errorContact);
+        showCustomAlert(lang.errorContact, lang.alertMissingContactTitle);
         return;
     }
 
