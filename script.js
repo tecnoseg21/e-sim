@@ -15,8 +15,7 @@ let currentLang = "EN";
 
 /* =========================================================
    TRADUCCIONES
-   - Aquí están todos los textos del checkout
-   - Si luego quiere cambiar un texto, lo edita aquí
+   - Todos los textos del checkout
 ========================================================= */
 const translations = {
     EN: {
@@ -26,10 +25,10 @@ const translations = {
         totalDays: "Total:",
         daysUnit: "days",
 
-       contactLabel: "Email (for activation code):",
-contactPlaceholder: "email@test.com",
-errorContact: "Enter your email",
-errorInvalidEmail: "Enter a valid email address",
+        contactLabel: "Email (for activation code):",
+        contactPlaceholder: "email@test.com",
+        errorContact: "Enter your email",
+        errorInvalidEmail: "Enter a valid email address",
 
         compatibleTitle: "Is my phone compatible?",
         compatibleP1: "Dial *#06# on your phone.",
@@ -52,9 +51,6 @@ errorInvalidEmail: "Enter a valid email address",
         storeBadge3: "✔ No extra cost",
         storeLocation: "View store location",
 
-        contactLabel: "Email (for activation code):",
-        contactPlaceholder: " email@test.com",
-
         miniPriceLabel: "Estimated total",
         miniPriceNote: "Secure payment and fast activation",
 
@@ -65,7 +61,6 @@ errorInvalidEmail: "Enter a valid email address",
 
         checkout: "CHECKOUT",
         errorDates: "Please select valid dates",
-        errorContact: " Email",
 
         paymentApproved: "Payment approved and order saved successfully.",
         paymentSaveError: "The payment was approved, but there was a problem saving the order.",
@@ -92,10 +87,10 @@ errorInvalidEmail: "Enter a valid email address",
         totalDays: "Total:",
         daysUnit: "días",
 
-       contactLabel: "Correo electrónico (para código de activación):",
-contactPlaceholder: "correo@test.com",
-errorContact: "Ingresa tu correo electrónico",
-errorInvalidEmail: "Ingresa un correo electrónico válido",
+        contactLabel: "Correo electrónico (para código de activación):",
+        contactPlaceholder: "correo@test.com",
+        errorContact: "Ingresa tu correo electrónico",
+        errorInvalidEmail: "Ingresa un correo electrónico válido",
 
         compatibleTitle: "¿Es mi teléfono compatible?",
         compatibleP1: "Marca *#06# en tu teléfono.",
@@ -118,9 +113,6 @@ errorInvalidEmail: "Ingresa un correo electrónico válido",
         storeBadge3: "✔ Sin costo adicional",
         storeLocation: "Ver ubicación de la tienda",
 
-        contactLabel: "WhatsApp o Correo (para código de activación):",
-        contactPlaceholder: "+506 ... o correo@test.com",
-
         miniPriceLabel: "Total estimado",
         miniPriceNote: "Pago seguro y activación rápida",
 
@@ -131,7 +123,6 @@ errorInvalidEmail: "Ingresa un correo electrónico válido",
 
         checkout: "FINALIZAR COMPRA",
         errorDates: "Por favor selecciona fechas válidas",
-        errorContact: "Ingresa WhatsApp o correo",
 
         paymentApproved: "Pago aprobado y pedido guardado correctamente.",
         paymentSaveError: "El pago se aprobó, pero hubo un problema guardando el pedido.",
@@ -158,10 +149,10 @@ errorInvalidEmail: "Ingresa un correo electrónico válido",
         totalDays: "Total :",
         daysUnit: "jours",
 
-       contactLabel: "Email (pour le code d'activation) :",
-contactPlaceholder: "email@test.com",
-errorContact: "Entrez votre email",
-errorInvalidEmail: "Entrez une adresse email valide",
+        contactLabel: "Email (pour le code d'activation) :",
+        contactPlaceholder: "email@test.com",
+        errorContact: "Entrez votre email",
+        errorInvalidEmail: "Entrez une adresse email valide",
 
         compatibleTitle: "Mon téléphone est-il compatible ?",
         compatibleP1: "Composez *#06# sur votre téléphone.",
@@ -184,9 +175,6 @@ errorInvalidEmail: "Entrez une adresse email valide",
         storeBadge3: "✔ Sans frais supplémentaires",
         storeLocation: "Voir l'emplacement du magasin",
 
-        contactLabel: "WhatsApp ou Email (pour le code d'activation) :",
-        contactPlaceholder: "+506 ... ou email@test.com",
-
         miniPriceLabel: "Total estimé",
         miniPriceNote: "Paiement sécurisé et activation rapide",
 
@@ -197,7 +185,6 @@ errorInvalidEmail: "Entrez une adresse email valide",
 
         checkout: "PAYER",
         errorDates: "Veuillez choisir des dates valides",
-        errorContact: "Entrez WhatsApp ou Email",
 
         paymentApproved: "Paiement approuvé et commande enregistrée avec succès.",
         paymentSaveError: "Le paiement a été approuvé, mais un problème est survenu lors de l'enregistrement de la commande.",
@@ -224,10 +211,10 @@ errorInvalidEmail: "Entrez une adresse email valide",
         totalDays: "Gesamt:",
         daysUnit: "Tage",
 
-       contactLabel: "E-Mail (für den Aktivierungscode):",
-contactPlaceholder: "email@test.com",
-errorContact: "Geben Sie Ihre E-Mail ein",
-errorInvalidEmail: "Geben Sie eine gültige E-Mail-Adresse ein",
+        contactLabel: "E-Mail (für den Aktivierungscode):",
+        contactPlaceholder: "email@test.com",
+        errorContact: "Geben Sie Ihre E-Mail ein",
+        errorInvalidEmail: "Geben Sie eine gültige E-Mail-Adresse ein",
 
         compatibleTitle: "Ist mein Handy kompatibel?",
         compatibleP1: "Wählen Sie *#06# auf Ihrem Handy.",
@@ -250,9 +237,6 @@ errorInvalidEmail: "Geben Sie eine gültige E-Mail-Adresse ein",
         storeBadge3: "✔ Keine Zusatzkosten",
         storeLocation: "Standort des Geschäfts ansehen",
 
-        contactLabel: "WhatsApp oder E-Mail (für Aktivierungscode):",
-        contactPlaceholder: "+506 ... oder email@test.com",
-
         miniPriceLabel: "Geschätzter Gesamtbetrag",
         miniPriceNote: "Sichere Zahlung und schnelle Aktivierung",
 
@@ -263,7 +247,6 @@ errorInvalidEmail: "Geben Sie eine gültige E-Mail-Adresse ein",
 
         checkout: "KASSE",
         errorDates: "Bitte gültige Daten wählen",
-        errorContact: "WhatsApp oder E-Mail eingeben",
 
         paymentApproved: "Zahlung genehmigt und Bestellung erfolgreich gespeichert.",
         paymentSaveError: "Die Zahlung wurde genehmigt, aber beim Speichern der Bestellung ist ein Problem aufgetreten.",
@@ -290,10 +273,10 @@ errorInvalidEmail: "Geben Sie eine gültige E-Mail-Adresse ein",
         totalDays: "Totaal:",
         daysUnit: "dagen",
 
-       contactLabel: "E-mail (voor activatiecode):",
-contactPlaceholder: "email@test.com",
-errorContact: "Voer je e-mailadres in",
-errorInvalidEmail: "Voer een geldig e-mailadres in",
+        contactLabel: "E-mail (voor activatiecode):",
+        contactPlaceholder: "email@test.com",
+        errorContact: "Voer je e-mailadres in",
+        errorInvalidEmail: "Voer een geldig e-mailadres in",
 
         compatibleTitle: "Is mijn telefoon compatibel?",
         compatibleP1: "Toets *#06# op je telefoon.",
@@ -316,9 +299,6 @@ errorInvalidEmail: "Voer een geldig e-mailadres in",
         storeBadge3: "✔ Geen extra kosten",
         storeLocation: "Bekijk winkellocatie",
 
-        contactLabel: "WhatsApp of E-mail (voor activatiecode):",
-        contactPlaceholder: "+506 ... of email@test.com",
-
         miniPriceLabel: "Geschatte totaalprijs",
         miniPriceNote: "Veilige betaling en snelle activatie",
 
@@ -329,7 +309,6 @@ errorInvalidEmail: "Voer een geldig e-mailadres in",
 
         checkout: "AFREKENEN",
         errorDates: "Selecteer geldige datums",
-        errorContact: "Voer WhatsApp of e-mail in",
 
         paymentApproved: "Betaling goedgekeurd en bestelling succesvol opgeslagen.",
         paymentSaveError: "De betaling is goedgekeurd, maar er was een probleem bij het opslaan van de bestelling.",
@@ -353,7 +332,6 @@ errorInvalidEmail: "Voer een geldig e-mailadres in",
 /* =========================================================
    FUNCIÓN AUXILIAR
    - Convierte fecha tipo YYYY-MM-DD a objeto Date local
-   - Evita algunos problemas de zona horaria
 ========================================================= */
 function parseLocalDate(value) {
     const [year, month, day] = value.split("-").map(Number);
@@ -362,7 +340,6 @@ function parseLocalDate(value) {
 
 /* =========================================================
    GUARDAR PEDIDO EN SUPABASE
-   - Inserta el pedido en la tabla "orders"
 ========================================================= */
 async function guardarPedido({
     contacto,
@@ -412,8 +389,6 @@ function getLang() {
 
 /* =========================================================
    ALERTA PERSONALIZADA
-   - Reemplaza alert() del navegador
-   - Requiere el modal en el HTML
 ========================================================= */
 function showCustomAlert(message, title) {
     const overlay = document.getElementById("custom-alert");
@@ -444,17 +419,13 @@ function showCustomAlert(message, title) {
     };
 }
 
-
 /* =========================================================
    GOOGLE PAY
-   - Paso 1: comprobar elegibilidad y dibujar el botón
-   - Este paso intenta mostrar el botón, pero el flujo completo
-     de cobro se termina en el siguiente paso con confirmOrder.
+   - Intenta mostrar el botón si el entorno es elegible
 ========================================================= */
 let googlePayClient = null;
 let googlePayConfig = null;
 
-/* Crear o devolver el cliente de Google Pay */
 function getGooglePayClient() {
     if (googlePayClient) return googlePayClient;
 
@@ -469,7 +440,6 @@ function getGooglePayClient() {
     return googlePayClient;
 }
 
-/* Limpiar contenedor de Google Pay */
 function limpiarGooglePay() {
     const container = document.getElementById("google-pay-container");
     if (container) {
@@ -478,24 +448,19 @@ function limpiarGooglePay() {
     }
 }
 
-/* Inicializar Google Pay y tratar de mostrar el botón */
 async function initGooglePayButton() {
     const container = document.getElementById("google-pay-container");
-
     if (!container) return;
 
-    /* Limpiar antes de volver a pintar */
     container.innerHTML = "";
     container.style.display = "none";
 
-    /* Verificar que existan los SDKs */
     if (!window.paypal || !paypal.Googlepay || !window.google || !window.google.payments) {
         console.warn("Google Pay o PayPal Googlepay no están disponibles todavía.");
         return;
     }
 
     try {
-        /* PayPal devuelve la configuración necesaria para Google Pay */
         googlePayConfig = await paypal.Googlepay().config();
 
         if (!googlePayConfig || !googlePayConfig.allowedPaymentMethods) {
@@ -509,7 +474,6 @@ async function initGooglePayButton() {
             return;
         }
 
-        /* Solicitud básica para saber si el dispositivo/cuenta pueden pagar */
         const isReadyToPayRequest = {
             apiVersion: 2,
             apiVersionMinor: 0,
@@ -523,7 +487,6 @@ async function initGooglePayButton() {
             return;
         }
 
-        /* Crear botón visual de Google Pay */
         const googlePayButton = paymentsClient.createButton({
             onClick: onGooglePayButtonClicked,
             buttonType: "plain",
@@ -539,10 +502,6 @@ async function initGooglePayButton() {
     }
 }
 
-/* Click del botón de Google Pay
-   - En este paso solo mostramos aviso
-   - En el siguiente paso conectamos createOrder + confirmOrder
-*/
 function onGooglePayButtonClicked() {
     showCustomAlert(
         "Google Pay ya se está detectando. El siguiente paso es conectar el pago real con PayPal Orders.",
@@ -550,12 +509,8 @@ function onGooglePayButtonClicked() {
     );
 }
 
-
-
 /* =========================================================
    CALCULAR DÍAS ENTRE FECHAS
-   - Incluye ambos días
-   - Ejemplo: del 1 al 1 = 1 día
 ========================================================= */
 function calcularDias(fechaInicio, fechaFin) {
     const d1 = parseLocalDate(fechaInicio);
@@ -585,8 +540,15 @@ function obtenerMetodoInstalacion() {
 }
 
 /* =========================================================
+   VALIDAR EMAIL
+========================================================= */
+function esEmailValido(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+/* =========================================================
    ACTUALIZAR MINI TARJETA DE PRECIO
-   - Solo actualiza el precio pequeño superior
 ========================================================= */
 function actualizarMiniPrecio(precio) {
     const totalPrice = document.getElementById("totalPrice");
@@ -597,8 +559,6 @@ function actualizarMiniPrecio(precio) {
 
 /* =========================================================
    LIMPIAR / RESETEAR CHECKOUT
-   - Oculta PayPal si el usuario cambia datos
-   - Muestra nuevamente el botón principal
 ========================================================= */
 function resetCheckout() {
     const btnValidar = document.getElementById("btn-validar");
@@ -613,6 +573,8 @@ function resetCheckout() {
         if (paypalContainer) {
             paypalContainer.innerHTML = "";
         }
+
+        limpiarGooglePay();
 
         if (btnValidar) {
             btnValidar.style.display = "inline-flex";
@@ -630,11 +592,9 @@ function resetCheckout() {
 function updateUI() {
     const lang = getLang();
 
-    /* ---------- Header ---------- */
     const badgeText = document.getElementById("badge-text");
     if (badgeText) badgeText.textContent = lang.badgeText;
 
-    /* ---------- Fechas ---------- */
     const labelDates = document.getElementById("label-dates");
     const labelStart = document.getElementById("label-start");
     const labelEnd = document.getElementById("label-end");
@@ -647,7 +607,6 @@ function updateUI() {
     if (txtTotalDays) txtTotalDays.textContent = lang.totalDays;
     if (txtDaysUnit) txtDaysUnit.textContent = lang.daysUnit;
 
-    /* ---------- Compatibilidad ---------- */
     const labelComp = document.getElementById("label-comp");
     const compP1 = document.getElementById("comp-p1");
     const compP2 = document.getElementById("comp-p2");
@@ -656,7 +615,6 @@ function updateUI() {
     if (compP1) compP1.innerHTML = lang.compatibleP1.replace("*#06#", "<strong>*#06#</strong>");
     if (compP2) compP2.innerHTML = lang.compatibleP2.replace("EID", "<strong>EID</strong>");
 
-    /* ---------- Activación ---------- */
     const labelActivation = document.getElementById("label-activation");
     const optSelf = document.getElementById("opt-self");
     const optSelfSub = document.getElementById("opt-self-sub");
@@ -690,27 +648,21 @@ function updateUI() {
     if (storeBadge3) storeBadge3.textContent = lang.storeBadge3;
     if (storeLocationText) storeLocationText.textContent = lang.storeLocation;
 
-    /* ---------- Contacto ---------- */
     const labelContacto = document.getElementById("label-contacto");
     const inputContacto = document.getElementById("contacto-cliente");
 
     if (labelContacto) labelContacto.textContent = lang.contactLabel;
     if (inputContacto) inputContacto.placeholder = lang.contactPlaceholder;
 
-    /* ---------- Mini precio ---------- */
     const miniPriceLabel = document.getElementById("mini-price-label");
     const miniPriceNote = document.getElementById("mini-price-note");
 
     if (miniPriceLabel) miniPriceLabel.textContent = lang.miniPriceLabel;
     if (miniPriceNote) miniPriceNote.textContent = lang.miniPriceNote;
 
-    /* ---------- Botón checkout ---------- */
     const btnCheckoutText = document.getElementById("btn-checkout-text");
-    if (btnCheckoutText) {
-        btnCheckoutText.textContent = lang.checkout;
-    }
+    if (btnCheckoutText) btnCheckoutText.textContent = lang.checkout;
 
-    /* ---------- Footer confianza ---------- */
     const footer1 = document.getElementById("footer-1");
     const footer2 = document.getElementById("footer-2");
     const footer3 = document.getElementById("footer-3");
@@ -719,20 +671,14 @@ function updateUI() {
     if (footer2) footer2.textContent = lang.footer2;
     if (footer3) footer3.textContent = lang.footer3;
 
-    /* ---------- Texto del botón del modal si existe ---------- */
     const customAlertBtn = document.getElementById("custom-alert-btn");
     if (customAlertBtn) customAlertBtn.textContent = lang.alertButton;
 
-    /* Recalcular precio para que el texto grande también cambie de idioma */
     calcularPrecio();
 }
 
 /* =========================================================
    CALCULAR PRECIO
-   - Actualiza:
-   - contador de días
-   - tarjeta mini de precio
-   - precio grande de checkout
 ========================================================= */
 function calcularPrecio() {
     const inputInicio = document.getElementById("fecha-inicio");
@@ -741,7 +687,6 @@ function calcularPrecio() {
     const contadorDiasSpan = document.getElementById("contador-dias");
     const lang = getLang();
 
-    /* Si faltan fechas, dejar todo en cero */
     if (!inputInicio.value || !inputFin.value) {
         if (contadorDiasSpan) contadorDiasSpan.textContent = "0";
         actualizarMiniPrecio(0);
@@ -756,7 +701,6 @@ function calcularPrecio() {
     const fechaInicio = inputInicio.value;
     const fechaFin = inputFin.value;
 
-    /* Validar que la fecha final no sea menor */
     if (parseLocalDate(fechaFin) < parseLocalDate(fechaInicio)) {
         if (contadorDiasSpan) contadorDiasSpan.textContent = "0";
         actualizarMiniPrecio(0);
@@ -772,15 +716,12 @@ function calcularPrecio() {
     const costoDiario = obtenerCostoDiario(dias);
     const precioTotal = dias * costoDiario;
 
-    /* Actualiza contador de días */
     if (contadorDiasSpan) {
         contadorDiasSpan.textContent = dias;
     }
 
-    /* Actualiza mini tarjeta de precio */
     actualizarMiniPrecio(precioTotal);
 
-    /* Actualiza caja grande del precio antes de PayPal */
     if (displayPrecio) {
         displayPrecio.innerHTML = `
             <div style="font-size: 0.9rem; opacity: 0.95; margin-bottom: 5px; color: white;">
@@ -798,16 +739,13 @@ function calcularPrecio() {
 
 /* =========================================================
    INICIALIZAR PAYPAL
-   - Borra botones previos
-   - Crea la orden
-   - Captura el pago
-   - Guarda el pedido en Supabase
 ========================================================= */
 function initPayPal(monto, contacto) {
     const container = document.getElementById("paypal-button-container");
     if (!container) return;
 
     container.innerHTML = "";
+    limpiarGooglePay();
 
     setTimeout(() => {
         paypal.Buttons({
@@ -818,7 +756,6 @@ function initPayPal(monto, contacto) {
                 label: "pay"
             },
 
-            /* Crear orden de PayPal */
             createOrder: (data, actions) => {
                 return actions.order.create({
                     purchase_units: [
@@ -832,7 +769,6 @@ function initPayPal(monto, contacto) {
                 });
             },
 
-            /* Cuando el pago es aprobado */
             onApprove: async (data, actions) => {
                 try {
                     const details = await actions.order.capture();
@@ -869,7 +805,6 @@ function initPayPal(monto, contacto) {
                     setTimeout(() => {
                         window.location.href = "gracias.html";
                     }, 1200);
-
                 } catch (error) {
                     console.error("Error al capturar o guardar el pedido:", error);
                     showCustomAlert(
@@ -879,7 +814,6 @@ function initPayPal(monto, contacto) {
                 }
             },
 
-            /* Si PayPal lanza error */
             onError: (err) => {
                 console.error("Error en PayPal:", err);
                 showCustomAlert(
@@ -889,7 +823,9 @@ function initPayPal(monto, contacto) {
             }
         })
             .render("#paypal-button-container")
-            .then(() => {
+            .then(async () => {
+                await initGooglePayButton();
+
                 const paymentArea = document.getElementById("payment-area");
                 if (paymentArea) {
                     paymentArea.scrollIntoView({
@@ -916,8 +852,6 @@ document.querySelectorAll(".lang-opt").forEach((opt) => {
 
 /* =========================================================
    EVENTO: BOTÓN PRINCIPAL CHECKOUT
-   - Valida datos
-   - Muestra PayPal
 ========================================================= */
 document.getElementById("btn-validar").addEventListener("click", function () {
     const monto = calcularPrecio();
@@ -929,15 +863,16 @@ document.getElementById("btn-validar").addEventListener("click", function () {
         showCustomAlert(lang.errorDates, lang.alertInvalidDatesTitle);
         return;
     }
-if (!contacto) {
-    showCustomAlert(lang.errorContact, lang.alertMissingContactTitle);
-    return;
-}
 
-if (!esEmailValido(contacto)) {
-    showCustomAlert(lang.errorInvalidEmail, lang.alertMissingContactTitle);
-    return;
-}
+    if (!contacto) {
+        showCustomAlert(lang.errorContact, lang.alertMissingContactTitle);
+        return;
+    }
+
+    if (!esEmailValido(contacto)) {
+        showCustomAlert(lang.errorInvalidEmail, lang.alertMissingContactTitle);
+        return;
+    }
 
     const currentPos = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -951,9 +886,6 @@ if (!esEmailValido(contacto)) {
 
 /* =========================================================
    EVENTOS: SI CAMBIA ALGO, SE RESETEA EL CHECKOUT
-   - fechas
-   - contacto
-   - método de activación
 ========================================================= */
 document.getElementById("fecha-inicio").addEventListener("change", resetCheckout);
 document.getElementById("fecha-fin").addEventListener("change", resetCheckout);
@@ -964,16 +896,7 @@ document.querySelectorAll('input[name="instalacion"]').forEach((radio) => {
 });
 
 /* =========================================================
-   VALIDAR EMAIL
-========================================================= */
-function esEmailValido(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
-/* =========================================================
    INICIO
-   - Carga textos y calcula precio inicial
 ========================================================= */
 updateUI();
 calcularPrecio();
