@@ -77,7 +77,10 @@ const translations = {
         alertSuccessTitle: "Success",
         alertWarningTitle: "Warning",
         alertPaymentErrorTitle: "Payment error",
-        alertButton: "OK"
+        alertButton: "OK",
+
+        googlePayInfoTitle: "Google Pay",
+        googlePayInfoMessage: "Google Pay was detected. The next step is connecting the real payment flow with PayPal Orders."
     },
 
     ES: {
@@ -139,7 +142,10 @@ const translations = {
         alertSuccessTitle: "Éxito",
         alertWarningTitle: "Advertencia",
         alertPaymentErrorTitle: "Error de pago",
-        alertButton: "Aceptar"
+        alertButton: "Aceptar",
+
+        googlePayInfoTitle: "Google Pay",
+        googlePayInfoMessage: "Google Pay ya se está detectando. El siguiente paso es conectar el pago real con PayPal Orders."
     },
 
     FR: {
@@ -201,7 +207,10 @@ const translations = {
         alertSuccessTitle: "Succès",
         alertWarningTitle: "Avertissement",
         alertPaymentErrorTitle: "Erreur de paiement",
-        alertButton: "OK"
+        alertButton: "OK",
+
+        googlePayInfoTitle: "Google Pay",
+        googlePayInfoMessage: "Google Pay a été détecté. La prochaine étape est de connecter le flux de paiement réel avec PayPal Orders."
     },
 
     DE: {
@@ -263,7 +272,10 @@ const translations = {
         alertSuccessTitle: "Erfolg",
         alertWarningTitle: "Warnung",
         alertPaymentErrorTitle: "Zahlungsfehler",
-        alertButton: "OK"
+        alertButton: "OK",
+
+        googlePayInfoTitle: "Google Pay",
+        googlePayInfoMessage: "Google Pay wurde erkannt. Der nächste Schritt ist, den echten Zahlungsfluss mit PayPal Orders zu verbinden."
     },
 
     NL: {
@@ -325,9 +337,19 @@ const translations = {
         alertSuccessTitle: "Succes",
         alertWarningTitle: "Waarschuwing",
         alertPaymentErrorTitle: "Betalingsfout",
-        alertButton: "OK"
+        alertButton: "OK",
+
+        googlePayInfoTitle: "Google Pay",
+        googlePayInfoMessage: "Google Pay is gedetecteerd. De volgende stap is het koppelen van de echte betalingsflow met PayPal Orders."
     }
 };
+
+/* =========================================================
+   GOOGLE PAY
+   - Variables globales de soporte
+========================================================= */
+let googlePayClient = null;
+let googlePayConfig = null;
 
 /* =========================================================
    FUNCIÓN AUXILIAR
@@ -421,6 +443,45 @@ function showCustomAlert(message, title) {
 
 /* =========================================================
    GOOGLE PAY
+   - Crea o devuelve el cliente Google Pay
+========================================================= */
+function getGooglePayClient() {
+    if (googlePayClient) return googlePayClient;
+
+    if (!window.google || !window.google.payments || !window.google.payments.api) {
+        return null;
+    }
+
+    googlePayClient = new google.payments.api.PaymentsClient({
+        environment: "TEST"
+    });
+
+    return googlePayClient;
+}
+
+/* =========================================================
+   GOOGLE PAY
+   - Limpia el contenedor
+========================================================= */
+function limpiarGooglePay() {
+    const container = document.getElementById("google-pay-container");
+    if (container) {
+        container.innerHTML = "";
+        container.style.display = "none";
+    }
+}
+
+/* =========================================================
+   GOOGLE PAY
+   - Click temporal del botón
+========================================================= */
+function onGooglePayButtonClicked() {
+    const lang = getLang();
+    showCustomAlert(lang.googlePayInfoMessage, lang.googlePayInfoTitle);
+}
+
+/* =========================================================
+   GOOGLE PAY
    - Intenta mostrar el botón si el entorno es elegible
 ========================================================= */
 async function initGooglePayButton() {
@@ -488,6 +549,7 @@ async function initGooglePayButton() {
         console.error("Error inicializando Google Pay:", error);
     }
 }
+
 /* =========================================================
    CALCULAR DÍAS ENTRE FECHAS
 ========================================================= */
@@ -718,16 +780,20 @@ function calcularPrecio() {
 
 /* =========================================================
    INICIALIZAR PAYPAL
+   - Protegido para que Google Pay no rompa PayPal
 ========================================================= */
 function initPayPal(monto, contacto) {
     const container = document.getElementById("paypal-button-container");
-    if (!container) return;
+    if (!container || !window.paypal || !paypal.Buttons) {
+        console.error("PayPal SDK no está disponible.");
+        return;
+    }
 
     container.innerHTML = "";
     limpiarGooglePay();
 
     setTimeout(() => {
-        paypal.Buttons({
+        const buttons = paypal.Buttons({
             style: {
                 layout: "vertical",
                 color: "gold",
@@ -800,10 +866,21 @@ function initPayPal(monto, contacto) {
                     getLang().alertPaymentErrorTitle
                 );
             }
-        })
+        });
+
+        if (!buttons || !buttons.isEligible || !buttons.isEligible()) {
+            console.error("paypal.Buttons() no es elegible en este entorno.");
+            return;
+        }
+
+        buttons
             .render("#paypal-button-container")
-            .then(async () => {
-                await initGooglePayButton();
+            .then(() => {
+                console.log("Botones de PayPal renderizados correctamente.");
+
+                initGooglePayButton().catch((error) => {
+                    console.error("Falló initGooglePayButton:", error);
+                });
 
                 const paymentArea = document.getElementById("payment-area");
                 if (paymentArea) {
@@ -812,6 +889,9 @@ function initPayPal(monto, contacto) {
                         block: "nearest"
                     });
                 }
+            })
+            .catch((error) => {
+                console.error("Error renderizando paypal.Buttons():", error);
             });
     }, 100);
 }
