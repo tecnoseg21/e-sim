@@ -53,7 +53,7 @@ errorInvalidEmail: "Enter a valid email address",
         storeLocation: "View store location",
 
         contactLabel: "WhatsApp or Email (for activation code):",
-        contactPlaceholder: "+506 ... or email@test.com",
+        contactPlaceholder: " email@test.com",
 
         miniPriceLabel: "Estimated total",
         miniPriceNote: "Secure payment and fast activation",
