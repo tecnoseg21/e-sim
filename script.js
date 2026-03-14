@@ -418,6 +418,55 @@ async function guardarPedido({
 }
 
 /* =========================================================
+   NOTIFICACIÓN DE COMPRA - FORMSPREE
+   Envía un correo automático cuando hay una compra
+========================================================= */
+async function notificarCompraFormspree({
+    contacto,
+    fechaInicio,
+    fechaFin,
+    dias,
+    monto,
+    idioma,
+    installationMethod,
+    paypalOrderId,
+    paypalCaptureId
+}) {
+    const endpoint = "https://formspree.io/f/mkoqrjvd";
+
+    const payload = {
+        subject: `Nueva compra eSIM - $${Number(monto).toFixed(2)}`,
+        cliente_email: contacto,
+        fecha_inicio: fechaInicio,
+        fecha_fin: fechaFin,
+        dias: dias,
+        monto_usd: Number(monto).toFixed(2),
+        idioma: idioma,
+        metodo_instalacion: installationMethod,
+        paypal_order_id: paypalOrderId || "",
+        paypal_capture_id: paypalCaptureId || ""
+    };
+
+    try {
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            console.error("Error enviando notificación a Formspree");
+        }
+
+    } catch (error) {
+        console.error("Error Formspree:", error);
+    }
+}
+
+/* =========================================================
    OBTENER TEXTO SEGÚN IDIOMA ACTUAL
 ========================================================= */
 function getLang() {
@@ -861,6 +910,19 @@ function initPayPal(monto, contacto) {
                         paypalCaptureId: captureId,
                         status: "paid",
                         installationMethod: metodoInstalacion
+
+                       /* Enviar notificación de compra */
+notificarCompraFormspree({
+    contacto: contactoActual,
+    fechaInicio,
+    fechaFin,
+    dias,
+    monto: montoCalculado,
+    idioma: currentLang,
+    installationMethod: metodoInstalacion,
+    paypalOrderId: data.orderID,
+    paypalCaptureId: captureId
+});
                     });
 
                     showCustomAlert(
@@ -916,6 +978,9 @@ function initPayPal(monto, contacto) {
             });
     }, 100);
 }
+
+
+
 
 /* =========================================================
    EVENTO: CAMBIO DE IDIOMA
