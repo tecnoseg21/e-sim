@@ -337,6 +337,29 @@
          - paypal
          - guardado en Supabase
          ========================================= -->
+
+    <!-- =========================================
+     MODAL DE ALERTA PERSONALIZADA
+     Reemplaza los alert() del navegador
+========================================= -->
+<div id="custom-alert" class="custom-alert-overlay hidden">
+    <div class="custom-alert-box">
+        <div class="custom-alert-header">
+            <i class="fas fa-circle-exclamation"></i>
+            <span id="custom-alert-title">Notice</span>
+        </div>
+
+        <div class="custom-alert-body" id="custom-alert-message">
+            Message here
+        </div>
+
+        <div class="custom-alert-actions">
+            <button type="button" id="custom-alert-btn" class="custom-alert-btn">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
     <script src="./script.js"></script>
 </body>
 </html>
