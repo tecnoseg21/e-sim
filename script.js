@@ -52,7 +52,7 @@ errorInvalidEmail: "Enter a valid email address",
         storeBadge3: "✔ No extra cost",
         storeLocation: "View store location",
 
-        contactLabel: "WhatsApp or Email (for activation code):",
+        contactLabel: "Email (for activation code):",
         contactPlaceholder: " email@test.com",
 
         miniPriceLabel: "Estimated total",
@@ -65,7 +65,7 @@ errorInvalidEmail: "Enter a valid email address",
 
         checkout: "CHECKOUT",
         errorDates: "Please select valid dates",
-        errorContact: "Enter WhatsApp or Email",
+        errorContact: " Email",
 
         paymentApproved: "Payment approved and order saved successfully.",
         paymentSaveError: "The payment was approved, but there was a problem saving the order.",
