@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 
-    <!-- Sandbox para pruebas -->
     <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD&components=buttons"></script>
 </head>
 <body>
@@ -75,13 +74,25 @@
                     <label class="option-card">
                         <input type="radio" name="instalacion" value="self" checked>
                         <span class="custom-radio"></span>
-                        <span class="option-text" id="opt-self">I will install the eSIM myself</span>
+                        <span class="option-icon">
+                            <i class="fas fa-mobile-screen-button"></i>
+                        </span>
+                        <span class="option-copy">
+                            <span class="option-title" id="opt-self">I will install the eSIM myself</span>
+                            <span class="option-subtitle" id="opt-self-sub">Fast setup with simple instructions</span>
+                        </span>
                     </label>
 
                     <label class="option-card">
                         <input type="radio" name="instalacion" value="store">
                         <span class="custom-radio"></span>
-                        <span class="option-text" id="opt-store">Install for me at the store (technical support)</span>
+                        <span class="option-icon">
+                            <i class="fas fa-store"></i>
+                        </span>
+                        <span class="option-copy">
+                            <span class="option-title" id="opt-store">Install for me at the store (technical support)</span>
+                            <span class="option-subtitle" id="opt-store-sub">Personal assistance at our physical store</span>
+                        </span>
                     </label>
                 </div>
             </div>
@@ -93,13 +104,21 @@
                 </div>
             </div>
 
+            <div class="mini-price-card">
+                <div class="mini-price-label" id="mini-price-label">Estimated total</div>
+                <div class="mini-price-value" id="mini-price-value">$0.00</div>
+            </div>
+
             <div id="payment-area" style="display: none;">
                 <div class="price-tag" id="display-precio"></div>
                 <div id="paypal-button-container"></div>
             </div>
 
             <div id="action-area">
-                <button class="btn-activar" id="btn-validar">CHECKOUT</button>
+                <button class="btn-activar" id="btn-validar">
+                    <i class="fas fa-lock"></i>
+                    <span>CHECKOUT</span>
+                </button>
             </div>
 
             <div class="trust-row">
