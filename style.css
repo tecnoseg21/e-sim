@@ -103,35 +103,69 @@ body {
 /* =========================================================
    SELECTOR DE IDIOMA
 ========================================================= */
+/* =========================================================
+   SELECTOR DE IDIOMA PREMIUM
+========================================================= */
 .language-switcher {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    background: rgba(0,0,0,0.42);
-    border: 1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(8px);
-    padding: 6px 10px;
-    border-radius: 999px;
+    top: 16px;
+    right: 16px;
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    background: rgba(10, 18, 32, 0.48);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 999px;
     z-index: 3;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* Cada idioma */
 .lang-opt {
-    color: rgba(255,255,255,0.65);
-    font-size: 0.75rem;
-    font-weight: 700;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: all 0.22s ease;
+    user-select: none;
 }
 
-/* Hover y activo */
-.lang-opt:hover,
-.lang-opt.active {
+.lang-opt:hover {
     color: #ffffff;
+    background: rgba(255, 255, 255, 0.10);
 }
 
+.lang-opt.active {
+    color: #0f172a;
+    background: #ffffff;
+    box-shadow: 0 6px 14px rgba(255, 255, 255, 0.20);
+}
+
+@media (max-width: 480px) {
+    .language-switcher {
+        top: 12px;
+        right: 12px;
+        padding: 5px;
+        gap: 4px;
+    }
+
+    .lang-opt {
+        min-width: 28px;
+        height: 28px;
+        padding: 0 8px;
+        font-size: 0.72rem;
+    }
+}
 /* =========================================================
    IMÁGENES DECORATIVAS INTERNAS
 ========================================================= */
