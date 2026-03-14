@@ -26,6 +26,11 @@ const translations = {
         totalDays: "Total:",
         daysUnit: "days",
 
+       contactLabel: "Email (for activation code):",
+contactPlaceholder: "email@test.com",
+errorContact: "Enter your email",
+errorInvalidEmail: "Enter a valid email address",
+
         compatibleTitle: "Is my phone compatible?",
         compatibleP1: "Dial *#06# on your phone.",
         compatibleP2: "If an EID code appears, you're ready.",
@@ -86,6 +91,11 @@ const translations = {
         endDate: "Fecha de fin",
         totalDays: "Total:",
         daysUnit: "días",
+
+       contactLabel: "Correo electrónico (para código de activación):",
+contactPlaceholder: "correo@test.com",
+errorContact: "Ingresa tu correo electrónico",
+errorInvalidEmail: "Ingresa un correo electrónico válido",
 
         compatibleTitle: "¿Es mi teléfono compatible?",
         compatibleP1: "Marca *#06# en tu teléfono.",
@@ -148,6 +158,11 @@ const translations = {
         totalDays: "Total :",
         daysUnit: "jours",
 
+       contactLabel: "Email (pour le code d'activation) :",
+contactPlaceholder: "email@test.com",
+errorContact: "Entrez votre email",
+errorInvalidEmail: "Entrez une adresse email valide",
+
         compatibleTitle: "Mon téléphone est-il compatible ?",
         compatibleP1: "Composez *#06# sur votre téléphone.",
         compatibleP2: "Si un code EID apparaît, vous êtes prêt.",
@@ -209,6 +224,11 @@ const translations = {
         totalDays: "Gesamt:",
         daysUnit: "Tage",
 
+       contactLabel: "E-Mail (für den Aktivierungscode):",
+contactPlaceholder: "email@test.com",
+errorContact: "Geben Sie Ihre E-Mail ein",
+errorInvalidEmail: "Geben Sie eine gültige E-Mail-Adresse ein",
+
         compatibleTitle: "Ist mein Handy kompatibel?",
         compatibleP1: "Wählen Sie *#06# auf Ihrem Handy.",
         compatibleP2: "Wenn ein EID-Code erscheint, sind Sie bereit.",
@@ -269,6 +289,11 @@ const translations = {
         endDate: "Einddatum",
         totalDays: "Totaal:",
         daysUnit: "dagen",
+
+       contactLabel: "E-mail (voor activatiecode):",
+contactPlaceholder: "email@test.com",
+errorContact: "Voer je e-mailadres in",
+errorInvalidEmail: "Voer een geldig e-mailadres in",
 
         compatibleTitle: "Is mijn telefoon compatibel?",
         compatibleP1: "Toets *#06# op je telefoon.",
@@ -796,11 +821,15 @@ document.getElementById("btn-validar").addEventListener("click", function () {
         showCustomAlert(lang.errorDates, lang.alertInvalidDatesTitle);
         return;
     }
+if (!contacto) {
+    showCustomAlert(lang.errorContact, lang.alertMissingContactTitle);
+    return;
+}
 
-    if (!contacto) {
-        showCustomAlert(lang.errorContact, lang.alertMissingContactTitle);
-        return;
-    }
+if (!esEmailValido(contacto)) {
+    showCustomAlert(lang.errorInvalidEmail, lang.alertMissingContactTitle);
+    return;
+}
 
     const currentPos = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -825,6 +854,14 @@ document.getElementById("contacto-cliente").addEventListener("input", resetCheck
 document.querySelectorAll('input[name="instalacion"]').forEach((radio) => {
     radio.addEventListener("change", resetCheckout);
 });
+
+/* =========================================================
+   VALIDAR EMAIL
+========================================================= */
+function esEmailValido(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
 
 /* =========================================================
    INICIO
