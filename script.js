@@ -172,7 +172,34 @@ function updateUI() {
     if (optSelf) optSelf.textContent = lang.selfInstall;
     if (optStore) optStore.textContent = lang.storeInstall;
 
+    const optSelfSub = document.getElementById('opt-self-sub');
+const optStoreSub = document.getElementById('opt-store-sub');
+
+if (optSelfSub) optSelfSub.textContent = currentLang === 'ES'
+    ? 'Configuración rápida con instrucciones simples'
+    : currentLang === 'FR'
+    ? "Configuration rapide avec instructions simples"
+    : currentLang === 'DE'
+    ? 'Schnelle Einrichtung mit einfachen Anweisungen'
+    : currentLang === 'NL'
+    ? 'Snelle installatie met eenvoudige instructies'
+    : 'Fast setup with simple instructions';
+
+if (optStoreSub) optStoreSub.textContent = currentLang === 'ES'
+    ? 'Asistencia personal en nuestra tienda física'
+    : currentLang === 'FR'
+    ? 'Assistance personnelle dans notre magasin'
+    : currentLang === 'DE'
+    ? 'Persönliche Unterstützung in unserem Geschäft'
+    : currentLang === 'NL'
+    ? 'Persoonlijke hulp in onze winkel'
+    : 'Personal assistance at our physical store';
+
     calcularPrecio();
+    const miniPrice = document.getElementById('mini-price-value');
+if (miniPrice) {
+    miniPrice.textContent = `$${precioTotal.toFixed(2)}`;
+}
 }
 
 function calcularPrecio() {
@@ -213,7 +240,10 @@ function calcularPrecio() {
             return precioTotal;
         }
     }
-
+const miniPrice = document.getElementById('mini-price-value');
+if (miniPrice) {
+    miniPrice.textContent = '$0.00';
+}
     return 0;
 }
 
