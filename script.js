@@ -25,8 +25,8 @@ const translations = {
         totalDays: "Total:",
         daysUnit: "days",
 
-       paymentMethodsTitle: "Accepted payment methods",
-paymentMethodsNote: "Availability may vary depending on your device and payment setup.",
+        paymentMethodsTitle: "Accepted payment methods",
+        paymentMethodsNote: "Availability may vary depending on your device and payment setup.",
 
         contactLabel: "Email (for activation code):",
         contactPlaceholder: "email@test.com",
@@ -93,6 +93,9 @@ paymentMethodsNote: "Availability may vary depending on your device and payment 
         totalDays: "Total:",
         daysUnit: "días",
 
+        paymentMethodsTitle: "Métodos de pago aceptados",
+        paymentMethodsNote: "La disponibilidad puede variar según su dispositivo y configuración de pago.",
+
         contactLabel: "Correo electrónico (para código de activación):",
         contactPlaceholder: "correo@test.com",
         errorContact: "Ingresa tu correo electrónico",
@@ -101,9 +104,6 @@ paymentMethodsNote: "Availability may vary depending on your device and payment 
         compatibleTitle: "¿Es mi teléfono compatible?",
         compatibleP1: "Marca *#06# en tu teléfono.",
         compatibleP2: "Si aparece un código EID, estás listo.",
-
-       paymentMethodsTitle: "Métodos de pago aceptados",
-paymentMethodsNote: "La disponibilidad puede variar según su dispositivo y configuración de pago.",
 
         activation: "Método de activación",
 
@@ -161,8 +161,8 @@ paymentMethodsNote: "La disponibilidad puede variar según su dispositivo y conf
         totalDays: "Total :",
         daysUnit: "jours",
 
-       paymentMethodsTitle: "Méthodes de paiement acceptées",
-paymentMethodsNote: "La disponibilité peut varier selon votre appareil et votre configuration de paiement.",
+        paymentMethodsTitle: "Méthodes de paiement acceptées",
+        paymentMethodsNote: "La disponibilité peut varier selon votre appareil et votre configuration de paiement.",
 
         contactLabel: "Email (pour le code d'activation) :",
         contactPlaceholder: "email@test.com",
@@ -229,9 +229,8 @@ paymentMethodsNote: "La disponibilité peut varier selon votre appareil et votre
         totalDays: "Gesamt:",
         daysUnit: "Tage",
 
-
-       paymentMethodsTitle: "Akzeptierte Zahlungsmethoden",
-paymentMethodsNote: "Die Verfügbarkeit kann je nach Gerät und Zahlungskonfiguration variieren.",
+        paymentMethodsTitle: "Akzeptierte Zahlungsmethoden",
+        paymentMethodsNote: "Die Verfügbarkeit kann je nach Gerät und Zahlungskonfiguration variieren.",
 
         contactLabel: "E-Mail (für den Aktivierungscode):",
         contactPlaceholder: "email@test.com",
@@ -298,8 +297,8 @@ paymentMethodsNote: "Die Verfügbarkeit kann je nach Gerät und Zahlungskonfigur
         totalDays: "Totaal:",
         daysUnit: "dagen",
 
-       paymentMethodsTitle: "Geaccepteerde betaalmethoden",
-paymentMethodsNote: "Beschikbaarheid kan variëren afhankelijk van uw apparaat en betaalinstellingen.",
+        paymentMethodsTitle: "Geaccepteerde betaalmethoden",
+        paymentMethodsNote: "Beschikbaarheid kan variëren afhankelijk van uw apparaat en betaalinstellingen.",
 
         contactLabel: "E-mail (voor activatiecode):",
         contactPlaceholder: "email@test.com",
@@ -329,12 +328,6 @@ paymentMethodsNote: "Beschikbaarheid kan variëren afhankelijk van uw apparaat e
 
         miniPriceLabel: "Geschatte totaalprijs",
         miniPriceNote: "Veilige betaling en snelle activatie",
-
-           const paymentMethodsTitle = document.getElementById("payment-methods-title");
-    const paymentMethodsNote = document.getElementById("payment-methods-note");
-
-    if (paymentMethodsTitle) paymentMethodsTitle.textContent = lang.paymentMethodsTitle;
-    if (paymentMethodsNote) paymentMethodsNote.textContent = lang.paymentMethodsNote;
 
         total: "Totaal te betalen: $",
         perDay: "per dag",
@@ -722,6 +715,12 @@ function updateUI() {
 
     if (miniPriceLabel) miniPriceLabel.textContent = lang.miniPriceLabel;
     if (miniPriceNote) miniPriceNote.textContent = lang.miniPriceNote;
+
+    const paymentMethodsTitle = document.getElementById("payment-methods-title");
+    const paymentMethodsNote = document.getElementById("payment-methods-note");
+
+    if (paymentMethodsTitle) paymentMethodsTitle.textContent = lang.paymentMethodsTitle;
+    if (paymentMethodsNote) paymentMethodsNote.textContent = lang.paymentMethodsNote;
 
     const btnCheckoutText = document.getElementById("btn-checkout-text");
     if (btnCheckoutText) btnCheckoutText.textContent = lang.checkout;
