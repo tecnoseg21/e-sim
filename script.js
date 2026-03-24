@@ -624,14 +624,28 @@ function calcularDias(fechaInicio, fechaFin) {
 }
 
 /* =========================================================
-   CALCULAR COSTO DIARIO SEGÚN CANTIDAD DE DÍAS
+   CALCULAR PRECIO TOTAL SEGÚN CANTIDAD DE DÍAS
+   REGLAS:
+   - 1 día  = $15
+   - 2 días = $30
+   - 3 días = $25
+   - 4 a 7 días = $49
+   - 8 a 15 días = $65
+   - 16+ días = $65 + $1 por cada día adicional
+   EJEMPLOS:
+   - 15 días = 65
+   - 20 días = 70
+   - 30 días = 80
 ========================================================= */
-function obtenerCostoDiario(dias) {
-    if (dias >= 30) return 89 / 30;
-    if (dias >= 15) return 65 / 15;
-    if (dias >= 7) return 49 / 7;
-    if (dias >= 3) return 25 / 3;
-    return 15;
+function obtenerPrecioTotal(dias) {
+    if (dias <= 0) return 0;
+    if (dias === 1) return 15;
+    if (dias === 2) return 30;
+    if (dias <= 3) return 25;
+    if (dias <= 7) return 49;
+    if (dias <= 15) return 65;
+
+    return 65 + (dias - 15);
 }
 
 /* =========================================================
@@ -822,8 +836,8 @@ function calcularPrecio() {
     }
 
     const dias = calcularDias(fechaInicio, fechaFin);
-    const costoDiario = obtenerCostoDiario(dias);
-    const precioTotal = dias * costoDiario;
+    const precioTotal = obtenerPrecioTotal(dias);
+    const costoPromedioPorDia = dias > 0 ? precioTotal / dias : 0;
 
     if (contadorDiasSpan) {
         contadorDiasSpan.textContent = dias;
@@ -835,7 +849,7 @@ function calcularPrecio() {
         displayPrecio.innerHTML = `
             <div style="font-size: 0.9rem; opacity: 0.95; margin-bottom: 5px; color: white;">
                 ${lang.duration} <strong>${dias} ${lang.daysText}</strong>
-                <span style="margin-left:10px; font-weight:normal;">($${costoDiario.toFixed(2)} ${lang.perDay})</span>
+                <span style="margin-left:10px; font-weight:normal;">($${costoPromedioPorDia.toFixed(2)} ${lang.perDay})</span>
             </div>
             <div style="font-size: 1.5rem; font-weight: 800; color: white;">
                 ${lang.total}${precioTotal.toFixed(2)}
