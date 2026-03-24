@@ -361,14 +361,12 @@ const translations = {
 
 /* =========================================================
    GOOGLE PAY
-   - Variables globales de soporte
 ========================================================= */
 let googlePayClient = null;
 let googlePayConfig = null;
 
 /* =========================================================
    FUNCIÓN AUXILIAR
-   - Convierte fecha tipo YYYY-MM-DD a objeto Date local
 ========================================================= */
 function parseLocalDate(value) {
     const [year, month, day] = value.split("-").map(Number);
@@ -505,7 +503,6 @@ function showCustomAlert(message, title) {
 
 /* =========================================================
    GOOGLE PAY
-   - Crea o devuelve el cliente Google Pay
 ========================================================= */
 function getGooglePayClient() {
     if (googlePayClient) return googlePayClient;
@@ -521,10 +518,6 @@ function getGooglePayClient() {
     return googlePayClient;
 }
 
-/* =========================================================
-   GOOGLE PAY
-   - Limpia el contenedor
-========================================================= */
 function limpiarGooglePay() {
     const container = document.getElementById("google-pay-container");
     if (container) {
@@ -533,19 +526,11 @@ function limpiarGooglePay() {
     }
 }
 
-/* =========================================================
-   GOOGLE PAY
-   - Click temporal del botón
-========================================================= */
 function onGooglePayButtonClicked() {
     const lang = getLang();
     showCustomAlert(lang.googlePayInfoMessage, lang.googlePayInfoTitle);
 }
 
-/* =========================================================
-   GOOGLE PAY
-   - Intenta mostrar el botón si el entorno es elegible
-========================================================= */
 async function initGooglePayButton() {
     const container = document.getElementById("google-pay-container");
     if (!container) {
@@ -556,11 +541,6 @@ async function initGooglePayButton() {
     container.innerHTML = "";
     container.style.display = "none";
 
-    console.log("window.paypal:", !!window.paypal);
-    console.log("paypal.Googlepay:", !!(window.paypal && paypal.Googlepay));
-    console.log("window.google:", !!window.google);
-    console.log("google.payments:", !!(window.google && window.google.payments));
-
     if (!window.paypal || !paypal.Googlepay || !window.google || !window.google.payments) {
         console.warn("Google Pay o PayPal Googlepay no están disponibles todavía.");
         return;
@@ -568,7 +548,6 @@ async function initGooglePayButton() {
 
     try {
         googlePayConfig = await paypal.Googlepay().config();
-        console.log("googlePayConfig:", googlePayConfig);
 
         if (!googlePayConfig || !googlePayConfig.allowedPaymentMethods) {
             console.warn("No se recibió configuración válida de Google Pay desde PayPal.");
@@ -587,10 +566,7 @@ async function initGooglePayButton() {
             allowedPaymentMethods: googlePayConfig.allowedPaymentMethods
         };
 
-        console.log("isReadyToPayRequest:", isReadyToPayRequest);
-
         const isReadyToPayResponse = await paymentsClient.isReadyToPay(isReadyToPayRequest);
-        console.log("isReadyToPayResponse:", isReadyToPayResponse);
 
         if (!isReadyToPayResponse.result) {
             console.warn("Google Pay no está listo en este navegador/dispositivo/cuenta.");
@@ -605,8 +581,6 @@ async function initGooglePayButton() {
 
         container.appendChild(googlePayButton);
         container.style.display = "block";
-
-        console.log("Botón de Google Pay renderizado correctamente.");
     } catch (error) {
         console.error("Error inicializando Google Pay:", error);
     }
@@ -624,28 +598,87 @@ function calcularDias(fechaInicio, fechaFin) {
 }
 
 /* =========================================================
-   CALCULAR PRECIO TOTAL SEGÚN CANTIDAD DE DÍAS
-   REGLAS:
-   - 1 día  = $15
-   - 2 días = $30
-   - 3 días = $25
-   - 4 a 7 días = $49
-   - 8 a 15 días = $65
-   - 16+ días = $65 + $1 por cada día adicional
-   EJEMPLOS:
-   - 15 días = 65
-   - 20 días = 70
-   - 30 días = 80
+   TABLA BASE ESTILO HOLAFLY
+   - Puedes cambiar estos valores cuando quieras
+========================================================= */
+const tablaBasePrecios = {
+    1: 10,
+    2: 18,
+    3: 25,
+    4: 30,
+    5: 35,
+    6: 39,
+    7: 45,
+    8: 49,
+    9: 52,
+    10: 55,
+    11: 58,
+    12: 60,
+    13: 62,
+    14: 64,
+    15: 65,
+    16: 67,
+    17: 69,
+    18: 71,
+    19: 73,
+    20: 75,
+    21: 77,
+    22: 79,
+    23: 81,
+    24: 83,
+    25: 85,
+    26: 87,
+    27: 89,
+    28: 91,
+    29: 93,
+    30: 95
+};
+
+/* =========================================================
+   RECARGOS SEGÚN TU REGLA
+   - Días 1 al 5: +$5 por día
+   - Día 6: +$0
+   - Día 7 en adelante: +$10 por día
+========================================================= */
+function calcularRecargoPorDias(dias) {
+    let recargo = 0;
+
+    for (let dia = 1; dia <= dias; dia++) {
+        if (dia >= 1 && dia <= 5) {
+            recargo += 5;
+        } else if (dia >= 7) {
+            recargo += 10;
+        }
+    }
+
+    return recargo;
+}
+
+/* =========================================================
+   OBTENER PRECIO BASE DESDE LA TABLA
+   - Si no existe el día exacto, prolonga desde 30
+========================================================= */
+function obtenerPrecioBasePorDias(dias) {
+    if (dias <= 0) return 0;
+
+    if (tablaBasePrecios[dias]) {
+        return tablaBasePrecios[dias];
+    }
+
+    const precioDia30 = tablaBasePrecios[30];
+    const diasExtra = dias - 30;
+
+    return precioDia30 + (diasExtra * 2);
+}
+
+/* =========================================================
+   PRECIO TOTAL FINAL
+   - Base tipo Holafly + recargo solicitado por ti
 ========================================================= */
 function obtenerPrecioTotal(dias) {
-    if (dias <= 0) return 0;
-    if (dias === 1) return 15;
-    if (dias === 2) return 30;
-    if (dias <= 3) return 25;
-    if (dias <= 7) return 49;
-    if (dias <= 15) return 65;
-
-    return 65 + (dias - 15);
+    const base = obtenerPrecioBasePorDias(dias);
+    const recargo = calcularRecargoPorDias(dias);
+    return base + recargo;
 }
 
 /* =========================================================
@@ -862,7 +895,6 @@ function calcularPrecio() {
 
 /* =========================================================
    INICIALIZAR PAYPAL
-   - Protegido para que Google Pay no rompa PayPal
 ========================================================= */
 function initPayPal(monto, contacto) {
     const container = document.getElementById("paypal-button-container");
@@ -970,8 +1002,6 @@ function initPayPal(monto, contacto) {
         buttons
             .render("#paypal-button-container")
             .then(() => {
-                console.log("Botones de PayPal renderizados correctamente.");
-
                 initGooglePayButton().catch((error) => {
                     console.error("Falló initGooglePayButton:", error);
                 });
