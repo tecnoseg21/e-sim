@@ -601,38 +601,27 @@ function calcularDias(fechaInicio, fechaFin) {
    TABLA BASE ESTILO HOLAFLY
    - Puedes cambiar estos valores cuando quieras
 ========================================================= */
-const tablaBasePrecios = {
-    1: 10,
-    2: 18,
-    3: 25,
-    4: 30,
-    5: 35,
-    6: 39,
-    7: 45,
-    8: 49,
-    9: 52,
-    10: 55,
-    11: 58,
-    12: 60,
-    13: 62,
-    14: 64,
-    15: 65,
-    16: 67,
-    17: 69,
-    18: 71,
-    19: 73,
-    20: 75,
-    21: 77,
-    22: 79,
-    23: 81,
-    24: 83,
-    25: 85,
-    26: 87,
-    27: 89,
-    28: 91,
-    29: 93,
-    30: 95
-};
+function obtenerPrecioTotal(dias) {
+
+    const tabla = {
+        1: 15, 2: 23, 3: 30, 4: 35, 5: 40, 6: 44,
+        7: 47, 8: 49, 9: 50, 10: 51, 11: 53, 12: 55,
+        13: 57, 14: 59, 15: 61, 16: 63, 17: 64,
+        18: 67, 19: 69, 20: 72, 21: 75, 22: 78,
+        23: 82, 24: 85, 25: 88, 26: 91, 27: 95,
+        28: 98, 29: 101, 30: 104
+    };
+
+    if (dias <= 30) {
+        return tabla[dias] || 0;
+    }
+
+    // desde 31 en adelante → +3 por día
+    const base30 = tabla[30];
+    const extraDias = dias - 30;
+
+    return base30 + (extraDias * 3);
+}
 
 /* =========================================================
    RECARGOS SEGÚN TU REGLA
