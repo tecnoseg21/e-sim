@@ -403,18 +403,14 @@ function obtenerPrecioTotal(dias) {
         28: 98, 29: 101, 30: 104
     };
 
-/*     if (dias <= 0) return 0;
-    if (dias <= 30) return tabla[dias] || 0;
+    /*     if (dias <= 0) return 0;
+        if (dias <= 30) return tabla[dias] || 0;
 
-     const base30 = tabla[30];
-    const extraDias = dias - 30;
-    return base30 + (extraDias * 3);  */
+         const base30 = tabla[30];
+        const extraDias = dias - 30;
+        return base30 + (extraDias * 3);  */
 
-   function obtenerPrecioTotal(dias) {
-  return 1; // SOLO PARA PRUEBA
-}
-
-   return 1; // 👈 SOLO PARA PRUEBA
+    return 1; // 👈 SOLO PARA PRUEBA
 }
 
 /* =========================================================
@@ -432,7 +428,7 @@ async function guardarPedido({
     status,
     installationMethod
 }) {
-    const { data, error } = await supabaseClient
+    const { error } = await supabaseClient
         .from("orders")
         .insert([
             {
@@ -448,15 +444,14 @@ async function guardarPedido({
                 language: idioma || "EN",
                 installation_method: installationMethod || "self"
             }
-        ])
-        .select();
+        ]);
 
     if (error) {
         console.error("Error guardando pedido:", error);
         throw error;
     }
 
-    return data;
+    return true;
 }
 
 async function notificarCompraFormspree({
