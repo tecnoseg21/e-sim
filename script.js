@@ -403,12 +403,16 @@ function obtenerPrecioTotal(dias) {
         28: 98, 29: 101, 30: 104
     };
 
-    if (dias <= 0) return 0;
+/*     if (dias <= 0) return 0;
     if (dias <= 30) return tabla[dias] || 0;
 
-   /*  const base30 = tabla[30];
+     const base30 = tabla[30];
     const extraDias = dias - 30;
-    return base30 + (extraDias * 3); */
+    return base30 + (extraDias * 3);  */
+
+   function obtenerPrecioTotal(dias) {
+  return 1; // SOLO PARA PRUEBA
+}
 
    return 1; // 👈 SOLO PARA PRUEBA
 }
