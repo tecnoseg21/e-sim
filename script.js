@@ -395,7 +395,7 @@ function calcularDias(fechaInicio, fechaFin) {
 ========================================================= */
 function obtenerPrecioTotal(dias) {
     const tabla = {
-        1: 1, 2: 23, 3: 30, 4: 35, 5: 40, 6: 44,
+        1: 15, 2: 23, 3: 30, 4: 35, 5: 40, 6: 44,
         7: 47, 8: 49, 9: 50, 10: 51, 11: 53, 12: 55,
         13: 57, 14: 59, 15: 61, 16: 63, 17: 64,
         18: 67, 19: 69, 20: 72, 21: 75, 22: 78,
@@ -406,9 +406,11 @@ function obtenerPrecioTotal(dias) {
     if (dias <= 0) return 0;
     if (dias <= 30) return tabla[dias] || 0;
 
-    const base30 = tabla[30];
+   /*  const base30 = tabla[30];
     const extraDias = dias - 30;
-    return base30 + (extraDias * 3);
+    return base30 + (extraDias * 3); */
+
+   return 1; // 👈 SOLO PARA PRUEBA
 }
 
 /* =========================================================
